@@ -11,5 +11,9 @@ namespace CarRendalAPI.Models
         public string State { get; set; } // State or region
         public string PostalCode { get; set; } // Postal or ZIP code
         public string Country { get; set; } // Country
+
+        // Navigation property: An Address belongs to a User.
+        public int UserId { get; set; }
+        public User User { get; set; }
     }
 }

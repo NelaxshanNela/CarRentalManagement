@@ -1,4 +1,8 @@
 
+using CarRendalAPI.Database;
+using Microsoft.EntityFrameworkCore;
+using System;
+
 namespace CarRendalAPI
 {
     public class Program
@@ -13,6 +17,8 @@ namespace CarRendalAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("appDbConnection")));
 
             var app = builder.Build();
 

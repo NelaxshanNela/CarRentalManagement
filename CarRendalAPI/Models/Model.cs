@@ -18,8 +18,11 @@ namespace CarRendalAPI.Models
         public int Seats { get; set; }
         public bool IsElectric { get; set; }
         public double FuelEfficiency { get; set; }
+        public string Category { get; set; } // e.g., SUV, Sedan, Hatchback
+
         public int BrandId { get; set; } // Foreign key for Brand
         public Brand Brand { get; set; } // Navigation property to Brand
-        public string Category { get; set; } // e.g., SUV, Sedan, Hatchback
+        // Navigation property: A Model can have multiple Cars.
+        public ICollection<Car> Cars { get; set; }
     }
 }

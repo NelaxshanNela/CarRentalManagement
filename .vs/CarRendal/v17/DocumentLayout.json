@@ -1,37 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "E:\\Milestone_3\\CarRendal\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{A28BB576-77AA-4526-8165-3EEC35CE2F05}|CarRendalAPI\\CarRendalAPI.csproj|e:\\milestone_3\\carrendal\\carrendalapi\\models\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A28BB576-77AA-4526-8165-3EEC35CE2F05}|CarRendalAPI\\CarRendalAPI.csproj|solutionrelative:carrendalapi\\models\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "EmailService.cs",
-              "DocumentMoniker": "E:\\Milestone_3\\CarRendal\\CarRendalAPI\\Models\\EmailService.cs",
-              "RelativeDocumentMoniker": "CarRendalAPI\\Models\\EmailService.cs",
-              "ToolTip": "E:\\Milestone_3\\CarRendal\\CarRendalAPI\\Models\\EmailService.cs",
-              "RelativeToolTip": "CarRendalAPI\\Models\\EmailService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T20:53:02.285Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
+      "DocumentGroups": []
     }
   ]
 }
