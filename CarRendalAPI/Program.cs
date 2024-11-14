@@ -26,9 +26,9 @@ namespace CarRendalAPI
 
             builder.Services.AddScoped<ICarRepository, CarRepository>();
             builder.Services.AddScoped<ICarService, CarService>();
-            
-            //builder.Services.AddScoped<ICarRepository, CarRepository>();
-            //builder.Services.AddScoped<ICarService, CarService>();
+
+            builder.Services.AddScoped<IBrandRepository, BrandRepository>();
+            builder.Services.AddScoped<IBrandService, BrandService>();
 
             //builder.Services.AddScoped<IUserRepository, UserRepository>();
             //builder.Services.AddScoped<IUserService, UserService>();

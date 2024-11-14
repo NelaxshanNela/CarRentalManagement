@@ -1,5 +1,84 @@
 [
   {
+    "ContainingType": "CarRendalAPI.Controllers.BrandController",
+    "Method": "CreateBrand",
+    "RelativePath": "api/Brand/brand",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "brandReqDTO",
+        "Type": "CarRendalAPI.DTOs.RequestDTOs.BrandReqDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CarRendalAPI.Controllers.BrandController",
+    "Method": "DeleteBrand",
+    "RelativePath": "api/Brand/Delete-brand-{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CarRendalAPI.Controllers.BrandController",
+    "Method": "UpdateBrand",
+    "RelativePath": "api/Brand/Edit-Brand-{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "brandReqDTO",
+        "Type": "CarRendalAPI.DTOs.RequestDTOs.BrandReqDTO",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CarRendalAPI.Controllers.BrandController",
+    "Method": "GetAllBrands",
+    "RelativePath": "api/Brand/Get-All-Brands",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CarRendalAPI.Controllers.BrandController",
+    "Method": "GetBrandById",
+    "RelativePath": "api/Brand/Get-Brand-by-Id-{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "CarRendalAPI.Controllers.CarsController",
     "Method": "GetCarsByBrand",
     "RelativePath": "api/Cars/Brand/{brand}",
@@ -105,6 +184,85 @@
       {
         "Name": "model",
         "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CarRendalAPI.Controllers.ModelController",
+    "Method": "CreateModel",
+    "RelativePath": "api/Model/brand",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "modelReqDTO",
+        "Type": "CarRendalAPI.DTOs.RequestDTOs.ModelReqDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CarRendalAPI.Controllers.ModelController",
+    "Method": "DeleteModel",
+    "RelativePath": "api/Model/Delete-model-{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CarRendalAPI.Controllers.ModelController",
+    "Method": "UpdateModel",
+    "RelativePath": "api/Model/Edit-Model-{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "modelReqDTO",
+        "Type": "CarRendalAPI.DTOs.RequestDTOs.ModelReqDTO",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CarRendalAPI.Controllers.ModelController",
+    "Method": "GetAllModels",
+    "RelativePath": "api/Model/Get-All-Models",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CarRendalAPI.Controllers.ModelController",
+    "Method": "GetModelById",
+    "RelativePath": "api/Model/Get-model-by-Id-{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

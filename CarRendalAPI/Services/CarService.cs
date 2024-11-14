@@ -73,6 +73,7 @@ namespace CarRendalAPI.Services
         {
             var car = new Car
             {
+                CarId = id,
                 LicensePlate = carReqDTO.LicensePlate,
                 Color = carReqDTO.Color,
                 Status = carReqDTO.Status,
