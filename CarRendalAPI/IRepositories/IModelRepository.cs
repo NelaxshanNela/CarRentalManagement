@@ -7,7 +7,8 @@ namespace CarRendalAPI.IRepositories
         Task<IEnumerable<Model>> GetAllModels();
         Task<Model> GetModelById(int id);
         Task<Model> CreateModel(Model model);
-        Task<Model> UpdateModel(int id, Model model);
-        Task DeleteModel(int id);
+        Task<Model> UpdateModel(Model model);
+        Task<bool> DeleteModel(int id);
+        Task<bool> BrandExistsAsync(int brandId);
     }
 }

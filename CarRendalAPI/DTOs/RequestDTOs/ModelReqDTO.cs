@@ -2,6 +2,7 @@
 {
     public class ModelReqDTO
     {
+        public int ModelId { get; set; } // Unique identifier for the model
         public string Name { get; set; } // Name of the model (e.g., Corolla, Mustang)
         public int Year { get; set; } // Model year
         public string Color { get; set; }

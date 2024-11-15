@@ -4,6 +4,7 @@ namespace CarRendalAPI.DTOs.RequestDTOs
 {
     public class CarReqDTO
     {
+        public int CarId { get; set; } // Unique identifier for the car
         public string LicensePlate { get; set; } // License plate number
         public string Color { get; set; } // Car color
         public CarStatus Status { get; set; } // Enum: Available, Reserved, Rented, etc.
@@ -13,5 +14,6 @@ namespace CarRendalAPI.DTOs.RequestDTOs
         public int YearOfManufacture { get; set; }
         public int ViewCount { get; set; }
         public int ModelId { get; set; } // Foreign key for Model
+        //public int BrandId { get; set; } // Foreign key for Model
     }
 }

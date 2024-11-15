@@ -20,7 +20,7 @@ namespace CarRendalAPI.Repositories
 
         public async Task<Model> GetModelById(int id)
         {
-            return await _context.Models.FirstOrDefaultAsync(b => b.ModelId == id);
+            return await _context.Models.FirstOrDefaultAsync(cm => cm.ModelId == id);
         }
 
         public async Task<Model> CreateModel(Model model)
@@ -30,28 +30,26 @@ namespace CarRendalAPI.Repositories
             return model;
         }
 
-        public async Task<Model> UpdateModel(int id, Model model)
+        public async Task<Model> UpdateModel(Model model)
         {
-            var data = await _context.Models.FindAsync(id);
-            if (data == null)
-            {
-                return null;
-            }
-
             _context.Models.Update(model);
             await _context.SaveChangesAsync();
-
             return model;
         }
 
-        public async Task DeleteModel(int id)
+        public async Task<bool> DeleteModel(int id)
         {
-            var model = await _context.Models.FindAsync(id);
-            if (model != null)
-            {
-                _context.Models.Remove(model);
-                await _context.SaveChangesAsync();
-            }
+            var carModel = await _context.Models.FindAsync(id);
+            if (carModel == null) return false;
+
+            _context.Models.Remove(carModel);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> BrandExistsAsync(int brandId)
+        {
+            return await _context.Brands.AnyAsync(b => b.BrandId == brandId);
         }
     }
 }

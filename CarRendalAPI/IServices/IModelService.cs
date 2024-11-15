@@ -10,6 +10,6 @@ namespace CarRendalAPI.IServices
         Task<IEnumerable<Model>> GetAllModels();
         Task<Model> GetModelById(int id);
         Task<ModelResDTO> UpdateModel(int id, ModelReqDTO modelReqDTO);
-        Task DeleteModel(int id);
+        Task<bool> DeleteModel(int id);
     }
 }

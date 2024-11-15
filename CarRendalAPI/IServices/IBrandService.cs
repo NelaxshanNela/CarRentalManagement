@@ -10,6 +10,6 @@ namespace CarRendalAPI.IServices
         Task<Brand> GetBrandById(int id);
         Task<BrandResDTO> CreateBrand(BrandReqDTO brandReqDTO);
         Task<BrandResDTO> UpdateBrand(int id, BrandReqDTO brandReqDTO);
-        Task DeleteBrand(int id);
+        Task<bool> DeleteBrand(int id);
     }
 }

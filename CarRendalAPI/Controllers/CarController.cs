@@ -1,6 +1,8 @@
 ﻿using CarRendalAPI.DTOs.RequestDTOs;
+using CarRendalAPI.DTOs.ResponceDTOs;
 using CarRendalAPI.IServices;
 using CarRendalAPI.Models;
+using CarRendalAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +20,7 @@ namespace CarRendalAPI.Controllers
         }
 
         // GET: api/Cars
-        [HttpGet("Get-All-Cars")]
+        [HttpGet]
         public async Task<IActionResult> GetAllCars()
         {
             try
@@ -33,17 +35,13 @@ namespace CarRendalAPI.Controllers
         }
 
         // GET: api/Cars/5
-        [HttpGet("Get-Car-by-Id-{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetCarById(int id)
         {
             try
             {
                 var car = await _carService.GetCarById(id);
-
-                if (car == null)
-                {
-                    return NotFound("Car Not found.");
-                }
+                return Ok(car);
 
                 // Increment view count when the car details are viewed
                 //await _carService.IncrementCarViewCountAsync(id);
@@ -51,11 +49,15 @@ namespace CarRendalAPI.Controllers
                 // Optionally, get the current view count to return with the car details
                 //var viewCount = await _carService.GetCarViewCountAsync(id);
 
-                return Ok(new
-                {
-                    Car = car,
-                    //ViewCount = viewCount
-                });
+                //    return Ok(new
+                //    {
+                //        Car = car,
+                //        //ViewCount = viewCount
+                //    });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
@@ -70,11 +72,11 @@ namespace CarRendalAPI.Controllers
             try
             {
                 var cars = await _carService.GetCarsByBrand(brand);
-                if (cars == null)
-                {
-                    return NotFound("Car Not Found");
-                }
                 return Ok(cars);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
@@ -89,11 +91,11 @@ namespace CarRendalAPI.Controllers
             try
             {
                 var cars = await _carService.GetCarsByBrand(model);
-                if (cars == null)
-                {
-                    return NotFound("Not Found");
-                }
                 return Ok(cars);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
@@ -102,13 +104,17 @@ namespace CarRendalAPI.Controllers
         }
 
         // POST: api/Cars
-        [HttpPost("car")]
+        [HttpPost]
         public async Task<IActionResult> CreateCar(CarReqDTO carReqDTO)
         {
             try
             {
-                var car = await _carService.CreateCar(carReqDTO);
-                return Ok(car);
+                var createdCar = await _carService.CreateCar(carReqDTO);
+                return CreatedAtAction(nameof(GetCarById), new { id = createdCar.CarId }, createdCar);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
@@ -117,29 +123,40 @@ namespace CarRendalAPI.Controllers
         }
 
         // PUT: api/Cars/Update
-        [HttpPut("Edit-Car-{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCar(int id, CarReqDTO carReqDTO)
         {
             try
             {
-                var data = await _carService.UpdateCar(id, carReqDTO);
-                return Ok(data);
+                var updatedCarBrand = await _carService.UpdateCar(id, carReqDTO);
+                return Ok(updatedCarBrand);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-
         }
 
         // DELETE: api/Cars/Delete
-        [HttpDelete("Delete-Car-{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCar(int id)
         {
             try
             {
                 await _carService.DeleteCar(id);
-                return NoContent();
+                return Ok("Car Deleted Successfully.");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception ex)
             {

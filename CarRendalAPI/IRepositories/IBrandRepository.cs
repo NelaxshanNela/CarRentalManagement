@@ -7,7 +7,7 @@ namespace CarRendalAPI.IRepositories
         Task<IEnumerable<Brand>> GetAllBrands();
         Task<Brand> GetBrandById(int id);
         Task<Brand> CreateBrand(Brand brand);
-        Task<Brand> UpdateBrand(int id, Brand brand);
-        Task DeleteBrand(int id);
+        Task<Brand> UpdateBrand(Brand brand);
+        Task<bool> DeleteBrand(int id);
     }
 }

@@ -13,7 +13,6 @@ namespace CarRendalAPI.Models
         public string Website { get; set; }
         public string Description { get; set; }
 
-        // Navigation property: A Brand can have multiple Models.
         public ICollection<Model> Models { get; set; }
     }
 }

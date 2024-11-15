@@ -3,6 +3,7 @@ using CarRendalAPI.DTOs.ResponceDTOs;
 using CarRendalAPI.IRepositories;
 using CarRendalAPI.IServices;
 using CarRendalAPI.Models;
+using CarRendalAPI.Repositories;
 
 namespace CarRendalAPI.Services
 {
@@ -17,7 +18,9 @@ namespace CarRendalAPI.Services
 
         public async Task<Car> GetCarById(int id)
         {
-            return await _carRepository.GetCarById(id);
+            var car = await _carRepository.GetCarById(id);
+            if (car == null) throw new KeyNotFoundException("Car not found.");
+            return car;
         }
 
         public async Task<IEnumerable<Car>> GetAllCars()
@@ -27,16 +30,26 @@ namespace CarRendalAPI.Services
 
         public async Task<IEnumerable<Car>> GetCarsByBrand(string brand)
         {
-            return await _carRepository.GetCarsByBrand(brand);
+            var cars = await _carRepository.GetCarsByBrand(brand);
+            if (cars == null) throw new KeyNotFoundException("Cars not available.");
+            return cars;
         }
 
         public async Task<IEnumerable<Car>> GetCarsByModel(string model)
         {
-            return await _carRepository.GetCarsByModel(model);
+            var cars = await _carRepository.GetCarsByModel(model);
+            if (cars == null) throw new KeyNotFoundException("Cars not available.");
+            return cars;
         }
 
         public async Task<CarResDTO> CreateCar(CarReqDTO carReqDTO)
         {
+            var modelExists = await _carRepository.ModelExistsAsync(carReqDTO.ModelId);
+            if (!modelExists)
+            {
+                throw new ArgumentException($"Model with ID {carReqDTO.ModelId} does not exist.");
+            }
+
             var car = new Car
             {
                 LicensePlate = carReqDTO.LicensePlate,
@@ -71,21 +84,29 @@ namespace CarRendalAPI.Services
 
         public async Task<CarResDTO> UpdateCar(int id, CarReqDTO carReqDTO)
         {
-            var car = new Car
+            if (id != carReqDTO.CarId)
             {
-                CarId = id,
-                LicensePlate = carReqDTO.LicensePlate,
-                Color = carReqDTO.Color,
-                Status = carReqDTO.Status,
-                PricePerDay = carReqDTO.PricePerDay,
-                CurrentMileage = carReqDTO.CurrentMileage,
-                RegistrationNumber = carReqDTO.RegistrationNumber,
-                YearOfManufacture = carReqDTO.YearOfManufacture,
-                ViewCount = carReqDTO.ViewCount,
-                ModelId = carReqDTO.ModelId
+                throw new ArgumentException("The ID in the URL does not match the ID in the body.");
+            }
 
-            };
-            var data = await _carRepository.UpdateCar(id, car);
+            var existingCar = await _carRepository.GetCarById(id);
+            if (existingCar == null)
+            {
+                throw new KeyNotFoundException("Car not found.");
+            }
+
+            existingCar.CarId = id;
+            existingCar.LicensePlate = carReqDTO.LicensePlate;
+            existingCar.Color = carReqDTO.Color;
+            existingCar.Status = carReqDTO.Status;
+            existingCar.PricePerDay = carReqDTO.PricePerDay;
+            existingCar.CurrentMileage = carReqDTO.CurrentMileage;
+            existingCar.RegistrationNumber = carReqDTO.RegistrationNumber;
+            existingCar.YearOfManufacture = carReqDTO.YearOfManufacture;
+            existingCar.ViewCount = carReqDTO.ViewCount;
+            existingCar.ModelId = carReqDTO.ModelId;
+
+            var data = await _carRepository.UpdateCar(existingCar);
 
             var responce = new CarResDTO
             {
@@ -104,9 +125,11 @@ namespace CarRendalAPI.Services
             return responce;
         }
 
-        public async Task DeleteCar(int id)
+        public async Task<bool> DeleteCar(int id)
         {
-            await _carRepository.DeleteCar(id);
+            var success = await _carRepository.DeleteCar(id);
+            if(!success) throw new KeyNotFoundException("Car not found.");
+            return success;
         }
 
         //public async Task<int> GetCarViewCountAsync(int carId)

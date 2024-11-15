@@ -1,8 +1,18 @@
 [
   {
     "ContainingType": "CarRendalAPI.Controllers.BrandController",
+    "Method": "GetAllBrands",
+    "RelativePath": "api/Brand",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CarRendalAPI.Controllers.BrandController",
     "Method": "CreateBrand",
-    "RelativePath": "api/Brand/brand",
+    "RelativePath": "api/Brand",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -17,8 +27,45 @@
   },
   {
     "ContainingType": "CarRendalAPI.Controllers.BrandController",
+    "Method": "GetBrandById",
+    "RelativePath": "api/Brand/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CarRendalAPI.Controllers.BrandController",
+    "Method": "UpdateCarBrand",
+    "RelativePath": "api/Brand/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "brandReqDTO",
+        "Type": "CarRendalAPI.DTOs.RequestDTOs.BrandReqDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CarRendalAPI.Controllers.BrandController",
     "Method": "DeleteBrand",
-    "RelativePath": "api/Brand/Delete-brand-{id}",
+    "RelativePath": "api/Brand/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -32,18 +79,39 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "CarRendalAPI.Controllers.BrandController",
-    "Method": "UpdateBrand",
-    "RelativePath": "api/Brand/Edit-Brand-{id}",
-    "HttpMethod": "PUT",
+    "ContainingType": "CarRendalAPI.Controllers.CarsController",
+    "Method": "GetAllCars",
+    "RelativePath": "api/Cars",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CarRendalAPI.Controllers.CarsController",
+    "Method": "CreateCar",
+    "RelativePath": "api/Cars",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "brandReqDTO",
-        "Type": "CarRendalAPI.DTOs.RequestDTOs.BrandReqDTO",
+        "Name": "carReqDTO",
+        "Type": "CarRendalAPI.DTOs.RequestDTOs.CarReqDTO",
         "IsRequired": true
-      },
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CarRendalAPI.Controllers.CarsController",
+    "Method": "GetCarById",
+    "RelativePath": "api/Cars/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
       {
         "Name": "id",
         "Type": "System.Int32",
@@ -53,20 +121,31 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "CarRendalAPI.Controllers.BrandController",
-    "Method": "GetAllBrands",
-    "RelativePath": "api/Brand/Get-All-Brands",
-    "HttpMethod": "GET",
+    "ContainingType": "CarRendalAPI.Controllers.CarsController",
+    "Method": "UpdateCar",
+    "RelativePath": "api/Cars/{id}",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "carReqDTO",
+        "Type": "CarRendalAPI.DTOs.RequestDTOs.CarReqDTO",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "CarRendalAPI.Controllers.BrandController",
-    "Method": "GetBrandById",
-    "RelativePath": "api/Brand/Get-Brand-by-Id-{id}",
-    "HttpMethod": "GET",
+    "ContainingType": "CarRendalAPI.Controllers.CarsController",
+    "Method": "DeleteCar",
+    "RelativePath": "api/Cars/{id}",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -96,85 +175,6 @@
   },
   {
     "ContainingType": "CarRendalAPI.Controllers.CarsController",
-    "Method": "CreateCar",
-    "RelativePath": "api/Cars/car",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "carReqDTO",
-        "Type": "CarRendalAPI.DTOs.RequestDTOs.CarReqDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "CarRendalAPI.Controllers.CarsController",
-    "Method": "DeleteCar",
-    "RelativePath": "api/Cars/Delete-Car-{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "CarRendalAPI.Controllers.CarsController",
-    "Method": "UpdateCar",
-    "RelativePath": "api/Cars/Edit-Car-{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "carReqDTO",
-        "Type": "CarRendalAPI.DTOs.RequestDTOs.CarReqDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "CarRendalAPI.Controllers.CarsController",
-    "Method": "GetAllCars",
-    "RelativePath": "api/Cars/Get-All-Cars",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "CarRendalAPI.Controllers.CarsController",
-    "Method": "GetCarById",
-    "RelativePath": "api/Cars/Get-Car-by-Id-{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "CarRendalAPI.Controllers.CarsController",
     "Method": "GetCarsByModel",
     "RelativePath": "api/Cars/Model/{model}",
     "HttpMethod": "GET",
@@ -191,8 +191,18 @@
   },
   {
     "ContainingType": "CarRendalAPI.Controllers.ModelController",
+    "Method": "GetAllModels",
+    "RelativePath": "api/Model",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CarRendalAPI.Controllers.ModelController",
     "Method": "CreateModel",
-    "RelativePath": "api/Model/brand",
+    "RelativePath": "api/Model",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -207,9 +217,9 @@
   },
   {
     "ContainingType": "CarRendalAPI.Controllers.ModelController",
-    "Method": "DeleteModel",
-    "RelativePath": "api/Model/Delete-model-{id}",
-    "HttpMethod": "DELETE",
+    "Method": "GetModelById",
+    "RelativePath": "api/Model/{id}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -224,19 +234,19 @@
   {
     "ContainingType": "CarRendalAPI.Controllers.ModelController",
     "Method": "UpdateModel",
-    "RelativePath": "api/Model/Edit-Model-{id}",
+    "RelativePath": "api/Model/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "modelReqDTO",
-        "Type": "CarRendalAPI.DTOs.RequestDTOs.ModelReqDTO",
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       },
       {
-        "Name": "id",
-        "Type": "System.Int32",
+        "Name": "modelReqDTO",
+        "Type": "CarRendalAPI.DTOs.RequestDTOs.ModelReqDTO",
         "IsRequired": true
       }
     ],
@@ -244,19 +254,9 @@
   },
   {
     "ContainingType": "CarRendalAPI.Controllers.ModelController",
-    "Method": "GetAllModels",
-    "RelativePath": "api/Model/Get-All-Models",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "CarRendalAPI.Controllers.ModelController",
-    "Method": "GetModelById",
-    "RelativePath": "api/Model/Get-model-by-Id-{id}",
-    "HttpMethod": "GET",
+    "Method": "DeleteModel",
+    "RelativePath": "api/Model/{id}",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [

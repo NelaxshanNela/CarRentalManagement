@@ -18,7 +18,7 @@ namespace CarRendalAPI.DTOs.ResponceDTOs
         public bool IsElectric { get; set; }
         public double FuelEfficiency { get; set; }
         public string Category { get; set; } // e.g., SUV, Sedan, Hatchback
-        public int BrandId { get; set; } // Foreign key for Brand
+        public Brand Brand { get; set; } // Foreign key for Brand
         public ICollection<Car> Cars { get; set; }
     }
 }

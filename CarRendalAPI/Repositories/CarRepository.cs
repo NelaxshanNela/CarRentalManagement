@@ -17,53 +17,56 @@ namespace CarRendalAPI.Repositories
 
         public async Task<Car> GetCarById(int id)
         {
-            return await _context.Cars.Include(c => c.Model).Include(c => c.CarImages).Include(c => c.Model.Brand).FirstOrDefaultAsync(c => c.CarId == id);
+            return await _context.Cars.FirstOrDefaultAsync(c => c.CarId == id);
         }
 
         public async Task<IEnumerable<Car>> GetAllCars()
         {
-            return await _context.Cars.Include(c => c.Model).Include(c => c.CarImages).Include(c => c.Model.Brand).ToListAsync();
+            return await _context.Cars.ToListAsync();
         }
 
         public async Task<IEnumerable<Car>> GetCarsByBrand(string brand)
         {
-            return await _context.Cars.Where(c => c.Model.Brand.Name == brand).Include(c => c.Model).Include(c => c.Model.Brand).ToListAsync();
+            return await _context.Cars.Where(c => c.Model.Brand.Name == brand).ToListAsync();
         }
 
         public async Task<IEnumerable<Car>> GetCarsByModel(string model)
         {
-            return await _context.Cars.Where(c => c.Model.Name == model).Include(c => c.Model).Include(c => c.Model.Brand).ToListAsync();
+            return await _context.Cars.Where(c => c.Model.Name == model).ToListAsync();
         }
 
         public async Task<Car> CreateCar(Car car)
         {
-            await _context.Cars.AddAsync(car);
+            _context.Cars.Add(car);
             await _context.SaveChangesAsync();
             return car;
         }
 
-        public async Task<Car> UpdateCar(int id, Car car)
+        public async Task<Car> UpdateCar(Car car)
         {
-            var data = await _context.Cars.FindAsync(id);
-            if (data == null)
-            {
-                return null;
-            }
-
             _context.Cars.Update(car);
             await _context.SaveChangesAsync();
-
             return car;
         }
 
-        public async Task DeleteCar(int id)
+        public async Task<bool> DeleteCar(int id)
         {
             var car = await _context.Cars.FindAsync(id);
-            if (car != null)
-            {
-                _context.Cars.Remove(car);
-                await _context.SaveChangesAsync();
-            }
+            if (car == null) return false;
+
+            _context.Cars.Remove(car);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> BrandExistsAsync(int brandId)
+        {
+            return await _context.Brands.AnyAsync(b => b.BrandId == brandId);
+        }
+
+        public async Task<bool> ModelExistsAsync(int modelId)
+        {
+            return await _context.Models.AnyAsync(m => m.ModelId == modelId);
         }
 
         //public async Task<int> GetCarViewCountAsync(int carId)

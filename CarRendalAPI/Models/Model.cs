@@ -22,7 +22,6 @@ namespace CarRendalAPI.Models
 
         public int BrandId { get; set; } // Foreign key for Brand
         public Brand Brand { get; set; } // Navigation property to Brand
-        // Navigation property: A Model can have multiple Cars.
         public ICollection<Car> Cars { get; set; }
     }
 }

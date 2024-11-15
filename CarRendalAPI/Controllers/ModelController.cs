@@ -1,4 +1,5 @@
 ﻿using CarRendalAPI.DTOs.RequestDTOs;
+using CarRendalAPI.DTOs.ResponceDTOs;
 using CarRendalAPI.IServices;
 using CarRendalAPI.Services;
 using Microsoft.AspNetCore.Http;
@@ -17,7 +18,7 @@ namespace CarRendalAPI.Controllers
             _modelService = modelService;
         }
 
-        [HttpGet("Get-All-Models")]
+        [HttpGet]
         public async Task<IActionResult> GetAllModels()
         {
             try
@@ -31,19 +32,17 @@ namespace CarRendalAPI.Controllers
             }
         }
 
-        [HttpGet("Get-model-by-Id-{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetModelById(int id)
         {
             try
             {
                 var model = await _modelService.GetModelById(id);
-
-                if (model == null)
-                {
-                    return NotFound("Brand Not found.");
-                }
-
                 return Ok(model);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
@@ -51,13 +50,17 @@ namespace CarRendalAPI.Controllers
             }
         }
 
-        [HttpPost("brand")]
+        [HttpPost]
         public async Task<IActionResult> CreateModel(ModelReqDTO modelReqDTO)
         {
             try
             {
-                var model = await _modelService.CreateModel(modelReqDTO);
-                return Ok(model);
+                var addedCarModel = await _modelService.CreateModel(modelReqDTO);
+                return CreatedAtAction(nameof(GetModelById), new { id = addedCarModel.ModelId }, addedCarModel);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
@@ -65,13 +68,21 @@ namespace CarRendalAPI.Controllers
             }
         }
 
-        [HttpPut("Edit-Model-{id}")]
-        public async Task<IActionResult> UpdateModel(ModelReqDTO modelReqDTO, int id)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateModel(int id, ModelReqDTO modelReqDTO)
         {
             try
             {
-                var data = await _modelService.UpdateModel(id, modelReqDTO);
-                return Ok(data);
+                var updatedCar = await _modelService.UpdateModel(id, modelReqDTO);
+                return Ok(updatedCar);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
@@ -79,13 +90,17 @@ namespace CarRendalAPI.Controllers
             }
         }
 
-        [HttpDelete("Delete-model-{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteModel(int id)
         {
             try
             {
                 await _modelService.DeleteModel(id);
-                return NoContent();
+                return Ok("Model Deleted Successfully.");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception ex)
             {

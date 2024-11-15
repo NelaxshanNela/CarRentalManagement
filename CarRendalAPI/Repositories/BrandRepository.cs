@@ -19,23 +19,18 @@ namespace CarRendalAPI.Repositories
 
         public async Task<Brand> GetBrandById(int id)
         {
-            return await _context.Brands.FirstOrDefaultAsync(b => b.BrandId == id);
+            return await _context.Brands.FindAsync(id);
         }
 
         public async Task<Brand> CreateBrand(Brand brand)
         {
-            await _context.AddAsync(brand);
+            await _context.Brands.AddAsync(brand);
             await _context.SaveChangesAsync();
             return brand;
         }
 
-        public async Task<Brand> UpdateBrand(int id, Brand brand)
+        public async Task<Brand> UpdateBrand(Brand brand)
         {
-            var data = await _context.Brands.FindAsync(id);
-            if (data == null)
-            {
-                return null;
-            }
 
             _context.Brands.Update(brand);
             await _context.SaveChangesAsync();
@@ -43,14 +38,16 @@ namespace CarRendalAPI.Repositories
             return brand;
         }
 
-        public async Task DeleteBrand(int id)
+        public async Task<bool> DeleteBrand(int id)
         {
             var brand = await _context.Brands.FindAsync(id);
             if (brand != null)
             {
                 _context.Brands.Remove(brand);
                 await _context.SaveChangesAsync();
+                return true;
             }
+            return false;
         }
     }
 }

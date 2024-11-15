@@ -18,7 +18,7 @@ namespace CarRendalAPI.Controllers
             _brandService = brandService;
         }
 
-        [HttpGet("Get-All-Brands")]
+        [HttpGet]
         public async Task<IActionResult> GetAllBrands()
         {
             try
@@ -32,19 +32,17 @@ namespace CarRendalAPI.Controllers
             }
         }
 
-        [HttpGet("Get-Brand-by-Id-{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetBrandById(int id)
         {
             try
             {
                 var brand = await _brandService.GetBrandById(id);
-
-                if (brand == null)
-                {
-                    return NotFound("Brand Not found.");
-                }
-
                 return Ok(brand);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception ex)
             {
@@ -52,13 +50,13 @@ namespace CarRendalAPI.Controllers
             }
         }
 
-        [HttpPost("brand")]
+        [HttpPost]
         public async Task<IActionResult> CreateBrand(BrandReqDTO brandReqDTO)
         {
             try
             {
-                var brand = await _brandService.CreateBrand(brandReqDTO);
-                return Ok(brand);
+                var createdCarBrand = await _brandService.CreateBrand(brandReqDTO);
+                return CreatedAtAction(nameof(GetBrandById), new { id = createdCarBrand.BrandId }, createdCarBrand);
             }
             catch (Exception ex)
             {
@@ -66,13 +64,22 @@ namespace CarRendalAPI.Controllers
             }
         }
 
-        [HttpPut("Edit-Brand-{id}")]
-        public async Task<IActionResult> UpdateBrand(BrandReqDTO brandReqDTO, int id)
+        // PUT api/carbrand/{id}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCarBrand(int id, BrandReqDTO brandReqDTO)
         {
             try
             {
-                var data = await _brandService.UpdateBrand(id, brandReqDTO);
-                return Ok(data);
+                var updatedCarBrand = await _brandService.UpdateBrand(id, brandReqDTO);
+                return Ok(updatedCarBrand);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
@@ -80,13 +87,17 @@ namespace CarRendalAPI.Controllers
             }
         }
 
-        [HttpDelete("Delete-brand-{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBrand(int id)
         {
             try
             {
                 await _brandService.DeleteBrand(id);
-                return NoContent();
+                return Ok("Brand Deleted Successfully.");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception ex)
             {
