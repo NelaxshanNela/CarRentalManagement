@@ -44,7 +44,7 @@
               "RelativeDocumentMoniker": "CarRendalAPI\\Controllers\\ModelController.cs",
               "ToolTip": "E:\\Milestone_3\\CarRendal\\CarRendalAPI\\Controllers\\ModelController.cs",
               "RelativeToolTip": "CarRendalAPI\\Controllers\\ModelController.cs",
-              "ViewState": "AgIAAGYAAAAAAAAAAAAmwG8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAF0AAAAAAAAAAAA4wG8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-15T11:22:36.668Z",
               "EditorCaption": ""
@@ -59,8 +59,7 @@
               "RelativeToolTip": "CarRendalAPI\\Controllers\\CarController.cs",
               "ViewState": "AgIAAGwAAAAAAAAAAAAmwHYAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-15T11:21:43.74Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-15T11:21:43.74Z"
             },
             {
               "$type": "Document",
@@ -72,8 +71,7 @@
               "RelativeToolTip": "CarRendalAPI\\Services\\CarService.cs",
               "ViewState": "AgIAACgAAAAAAAAAAAAcwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-15T11:20:52.094Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-15T11:20:52.094Z"
             },
             {
               "$type": "Document",
@@ -85,8 +83,7 @@
               "RelativeToolTip": "CarRendalAPI\\Services\\ModelService.cs",
               "ViewState": "AgIAAB0AAAAAAAAAAAAwwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-15T11:20:49.871Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-15T11:20:49.871Z"
             },
             {
               "$type": "Document",
@@ -98,8 +95,7 @@
               "RelativeToolTip": "CarRendalAPI\\Services\\BrandService.cs",
               "ViewState": "AgIAAB0AAAAAAAAAAAAwwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-15T11:20:38.18Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-15T11:20:38.18Z"
             },
             {
               "$type": "Document",
@@ -111,8 +107,7 @@
               "RelativeToolTip": "CarRendalAPI\\Controllers\\BrandController.cs",
               "ViewState": "AgIAAF0AAAAAAAAAAAAmwDsAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-15T11:20:17.482Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-15T11:20:17.482Z"
             }
           ]
         }
