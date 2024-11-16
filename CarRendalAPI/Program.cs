@@ -2,10 +2,14 @@
 using CarRendalAPI.Database;
 using CarRendalAPI.IRepositories;
 using CarRendalAPI.IServices;
+using CarRendalAPI.Models;
 using CarRendalAPI.Repositories;
 using CarRendalAPI.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Text;
 
 namespace CarRendalAPI
 {
@@ -33,14 +37,31 @@ namespace CarRendalAPI
             builder.Services.AddScoped<IModelRepository, ModelRepository>();
             builder.Services.AddScoped<IModelService, ModelService>();
 
-            //builder.Services.AddScoped<IUserRepository, UserRepository>();
-            //builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
             ////builder.Services.AddScoped<IRentalRepository, RentalRepository>();
             //builder.Services.AddScoped<IRentalService, RentalService>();
 
-            //builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
-            //builder.Services.AddScoped<IPaymentService, PaymentService>();
+            builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+            builder.Services.AddScoped<IPaymentService, PaymentService>();
+
+            var jwtSettings = builder.Configuration.GetSection("Jwt");
+            var key = Encoding.ASCII.GetBytes(jwtSettings["Key"]);
+
+            builder.Services.AddAuthentication()
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = jwtSettings["Issuer"],
+                        ValidAudience = jwtSettings["Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(key)
+                    };
+                });
 
             var app = builder.Build();
 

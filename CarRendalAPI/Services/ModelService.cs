@@ -28,7 +28,7 @@ namespace CarRendalAPI.Services
             return model;
         }
 
-        public async Task<ModelResDTO> CreateModel(ModelReqDTO modelReqDTO)
+        public async Task<Model> CreateModel(ModelReqDTO modelReqDTO)
         {
             var brandExists = await _modelRepository.BrandExistsAsync(modelReqDTO.BrandId);
             if (!brandExists)
@@ -56,29 +56,29 @@ namespace CarRendalAPI.Services
 
             var data = await _modelRepository.CreateModel(model);
 
-            var responce = new ModelResDTO
-            {
-                ModelId = data.ModelId,
-                Name = data.Name,
-                Year = data.Year,
-                Color = data.Color,
-                EngineType = data.EngineType,
-                FuelType = data.FuelType,
-                FuelEfficiency = data.FuelEfficiency,
-                TransmissionType = data.TransmissionType,
-                Mileage = data.Mileage,
-                Horsepower = data.Horsepower,
-                Doors = data.Doors,
-                Seats = data.Seats,
-                IsElectric = data.IsElectric,
-                Category = data.Category,
-                Brand = data.Brand,
-                Cars = data.Cars
-            };
-            return responce;
+            //var responce = new ModelResDTO
+            //{
+            //    ModelId = data.ModelId,
+            //    Name = data.Name,
+            //    Year = data.Year,
+            //    Color = data.Color,
+            //    EngineType = data.EngineType,
+            //    FuelType = data.FuelType,
+            //    FuelEfficiency = data.FuelEfficiency,
+            //    TransmissionType = data.TransmissionType,
+            //    Mileage = data.Mileage,
+            //    Horsepower = data.Horsepower,
+            //    Doors = data.Doors,
+            //    Seats = data.Seats,
+            //    IsElectric = data.IsElectric,
+            //    Category = data.Category,
+            //    Brand = data.Brand,
+            //    Cars = data.Cars
+            //};
+            return data;
         }
 
-        public async Task<ModelResDTO> UpdateModel(int id, ModelReqDTO modelReqDTO)
+        public async Task<Model> UpdateModel(int id, ModelReqDTO modelReqDTO)
         {
             if (id != modelReqDTO.ModelId)
             {
@@ -115,26 +115,26 @@ namespace CarRendalAPI.Services
 
             var data = await _modelRepository.UpdateModel(existingModel);
 
-            var responce = new ModelResDTO
-            {
-                ModelId = data.ModelId,
-                Name = data.Name,
-                Year = data.Year,
-                Color = data.Color,
-                EngineType = data.EngineType,
-                FuelType = data.FuelType,
-                FuelEfficiency = data.FuelEfficiency,
-                TransmissionType = data.TransmissionType,
-                Mileage = data.Mileage,
-                Horsepower = data.Horsepower,
-                Doors = data.Doors,
-                Seats = data.Seats,
-                IsElectric = data.IsElectric,
-                Category = data.Category,
-                Brand = data.Brand,
-                Cars = data.Cars
-            };
-            return responce;
+            //var responce = new ModelResDTO
+            //{
+            //    ModelId = data.ModelId,
+            //    Name = data.Name,
+            //    Year = data.Year,
+            //    Color = data.Color,
+            //    EngineType = data.EngineType,
+            //    FuelType = data.FuelType,
+            //    FuelEfficiency = data.FuelEfficiency,
+            //    TransmissionType = data.TransmissionType,
+            //    Mileage = data.Mileage,
+            //    Horsepower = data.Horsepower,
+            //    Doors = data.Doors,
+            //    Seats = data.Seats,
+            //    IsElectric = data.IsElectric,
+            //    Category = data.Category,
+            //    Brand = data.Brand,
+            //    Cars = data.Cars
+            //};
+            return data;
         }
 
         public async Task<bool> DeleteModel(int id)

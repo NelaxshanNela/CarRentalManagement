@@ -8,8 +8,8 @@ namespace CarRendalAPI.IServices
     {
         Task<IEnumerable<Brand>> GetAllBrands();
         Task<Brand> GetBrandById(int id);
-        Task<BrandResDTO> CreateBrand(BrandReqDTO brandReqDTO);
-        Task<BrandResDTO> UpdateBrand(int id, BrandReqDTO brandReqDTO);
+        Task<Brand> CreateBrand(BrandReqDTO brandReqDTO);
+        Task<Brand> UpdateBrand(int id, BrandReqDTO brandReqDTO);
         Task<bool> DeleteBrand(int id);
     }
 }

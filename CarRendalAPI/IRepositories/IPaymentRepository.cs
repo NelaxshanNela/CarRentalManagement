@@ -1,14 +1,14 @@
-﻿//using CarRendalAPI.Models;
+﻿using CarRendalAPI.Models;
 
-//namespace CarRendalAPI.IRepositories
-//{
-//    public interface IPaymentRepository
-//    {
-//        Task<Payment> GetPaymentByIdAsync(int id);
-//        Task<IEnumerable<Payment>> GetPaymentsByRentalIdAsync(int rentalId);
-//        Task AddPaymentAsync(Payment payment);
-//        Task UpdatePaymentAsync(Payment payment);
-//        Task DeletePaymentAsync(int id);
-//        Task<decimal> GetTotalPaymentsForRentalAsync(int rentalId);
-//    }
-//}
+namespace CarRendalAPI.IRepositories
+{
+    public interface IPaymentRepository
+    {
+        Task<Payment> GetPaymentById(int id);
+        Task<IEnumerable<Payment>> GetPaymentsByRentalId(int rentalId);
+        Task<Payment> AddPayment(Payment payment);
+        Task<Payment> UpdatePayment(Payment payment);
+        Task<bool> DeletePayment(int id);
+        Task<decimal> GetTotalPaymentsForRental(int rentalId);
+    }
+}

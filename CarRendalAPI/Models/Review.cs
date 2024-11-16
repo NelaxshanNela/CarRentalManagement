@@ -12,7 +12,5 @@ namespace CarRendalAPI.Models
 
         public int CarId { get; set; } // Foreign key for Car
         public Car Car { get; set; } // Navigation property to Car
-        public int UserId { get; set; } // Foreign key for User
-        public User User { get; set; } // Navigation property to User
     }
 }

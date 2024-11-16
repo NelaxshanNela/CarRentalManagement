@@ -1,93 +1,149 @@
-﻿//using CarRendalAPI.IServices;
-//using CarRendalAPI.Models;
-//using Microsoft.AspNetCore.Http;
-//using Microsoft.AspNetCore.Mvc;
+﻿using CarRendalAPI.DTOs.RequestDTOs;
+using CarRendalAPI.DTOs.ResponceDTOs;
+using CarRendalAPI.IServices;
+using CarRendalAPI.Models;
+using CarRendalAPI.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
-//namespace CarRendalAPI.Controllers
-//{
-//    [Route("api/[controller]")]
-//    [ApiController]
-//    public class UsersController : ControllerBase
-//    {
-//        private readonly IUserService _userService;
+namespace CarRendalAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UsersController : ControllerBase
+    {
+        private readonly IUserService _userService;
 
-//        public UsersController(IUserService userService)
-//        {
-//            _userService = userService;
-//        }
+        public UsersController(IUserService userService)
+        {
+            _userService = userService;
+        }
 
-//        // GET: api/Users
-//        [HttpGet]
-//        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
-//        {
-//            var users = await _userService.GetAllUsersAsync();
-//            return Ok(users);
-//        }
+        // GET: api/Users
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            try
+            {
+                var users = await _userService.GetAllUsers();
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
-//        // GET: api/Users/5
-//        [HttpGet("{id}")]
-//        public async Task<ActionResult<User>> GetUser(int id)
-//        {
-//            var user = await _userService.GetUserByIdAsync(id);
+        // GET: api/Users/5
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUserById(int id)
+        {
+            try
+            {
+                var user = await _userService.GetUserById(id);
 
-//            if (user == null)
-//            {
-//                return NotFound();
-//            }
+                if (user == null)
+                {
+                    return NotFound();
+                }
+                return Ok(user);
 
-//            // Optionally, fetch the user profile image URL
-//            //var profileImageUrl = await _userService.GetUserProfileImageUrlAsync(id);
+                //var profileImageUrl = await _userService.GetUserProfileImageUrl(id);
 
-//            return Ok(new
-//            {
-//                User = user,
-//                //ProfileImageUrl = profileImageUrl
-//            });
-//        }
+                //return Ok(new
+                //{
+                //    User = user,
+                //    ProfileImageUrl = profileImageUrl
+                //});
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
-//        // POST: api/Users
-//        [HttpPost]
-//        public async Task<ActionResult<User>> CreateUser(User user)
-//        {
-//            // You can include validation here (e.g., check if the email is unique)
-//            await _userService.CreateUserAsync(user);
-//            return CreatedAtAction(nameof(GetUser), new { id = user.UserId }, user);
-//        }
+        // POST: api/Users
+        [HttpPost("Register")]
+        public async Task<IActionResult> RegisterUser(UserReqDTO userReqDTO)
+        {
+            try
+            {
+                var result = await _userService.RegisterUser(userReqDTO);
+                return CreatedAtAction(nameof(GetUserById), new { id = userReqDTO.UserId }, userReqDTO);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
-//        // PUT: api/Users/5
-//        [HttpPut("{id}")]
-//        public async Task<IActionResult> UpdateUser(int id, User user)
-//        {
-//            if (id != user.UserId)
-//            {
-//                return BadRequest();
-//            }
+        // PUT: api/Users/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, UserUpdateDTO userUpdateDTO)
+        {
+            try
+            {
+                var updatedUser = await _userService.UpdateUser(id, userUpdateDTO);
+                return Ok(updatedUser);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
-//            await _userService.UpdateUserAsync(user);
-//            return NoContent();
-//        }
+        // DELETE: api/Users/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            try
+            {
+                await _userService.DeleteUser(id);
+                return Ok("Brand Deleted Successfully.");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
-//        // DELETE: api/Users/5
-//        [HttpDelete("{id}")]
-//        public async Task<IActionResult> DeleteUser(int id)
-//        {
-//            await _userService.DeleteUserAsync(id);
-//            return NoContent();
-//        }
+        // POST: api/Users/authenticate
+        [HttpPost("authenticate")]
+        public async Task<IActionResult> Authenticate([FromBody] UserLoginModel loginModel)
+        {
+            var user = await _userService.AuthenticateUser(loginModel.Email, loginModel.Password);
 
-//        // POST: api/Users/authenticate
-//        [HttpPost("authenticate")]
-//        public async Task<ActionResult<User>> Authenticate([FromBody] UserLoginModel loginModel)
-//        {
-//            var user = await _userService.AuthenticateUserAsync(loginModel.Email, loginModel.Password);
+            if (user == null)
+            {
+                return Unauthorized("Invalid credentials");
+            }
 
-//            if (user == null)
-//            {
-//                return Unauthorized("Invalid credentials");
-//            }
-
-//            return Ok(user);
-//        }
-//    }
-
-//}
+            return Ok(user);
+        }
+    }
+}

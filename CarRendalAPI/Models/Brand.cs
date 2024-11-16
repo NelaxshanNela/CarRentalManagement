@@ -6,6 +6,7 @@ namespace CarRendalAPI.Models
     {
         [Key]
         public int BrandId { get; set; } // Unique identifier for the brand
+        [Required]
         public string Name { get; set; } // Name of the brand (e.g., Toyota, Ford)
         public string Country { get; set; } // Country of origin
         public int FoundedYear { get; set; } // Year the brand was founded

@@ -141,3 +141,5 @@ E:\Milestone_3\CarRendal\CarRendalAPI\obj\Debug\net8.0\refint\CarRendalAPI.dll
 E:\Milestone_3\CarRendal\CarRendalAPI\obj\Debug\net8.0\CarRendalAPI.pdb
 E:\Milestone_3\CarRendal\CarRendalAPI\obj\Debug\net8.0\CarRendalAPI.genruntimeconfig.cache
 E:\Milestone_3\CarRendal\CarRendalAPI\obj\Debug\net8.0\ref\CarRendalAPI.dll
+E:\Milestone_3\CarRendal\CarRendalAPI\bin\Debug\net8.0\BCrypt.Net.dll
+E:\Milestone_3\CarRendal\CarRendalAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

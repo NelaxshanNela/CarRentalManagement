@@ -1,16 +1,15 @@
-﻿//using CarRendalAPI.Models;
+﻿using CarRendalAPI.Models;
 
-//namespace CarRendalAPI.IRepositories
-//{
-//    public interface IUserRepository
-//    {
-//        Task<User> GetUserByIdAsync(int id);
-//        Task<User> GetUserByEmailAsync(string email);
-//        Task<IEnumerable<User>> GetAllUsersAsync();
-//        Task AddUserAsync(User user);
-//        Task UpdateUserAsync(User user);
-//        Task DeleteUserAsync(int id);
-//        Task<User> AuthenticateUserAsync(string email, string password);
-//        //Task<string> GetUserProfileImageUrlAsync(int userId);
-//    }
-//}
+namespace CarRendalAPI.IRepositories
+{
+    public interface IUserRepository
+    {
+        Task<User> GetUserById(int id);
+        Task<User> GetUserByEmail(string email);
+        Task<IEnumerable<User>> GetAllUsers();
+        Task<User> AddUser(User user);
+        Task<User> UpdateUser(User user);
+        Task<bool> DeleteUser(int id);
+        //Task<string> GetUserProfileImageUrl(int userId);
+    }
+}

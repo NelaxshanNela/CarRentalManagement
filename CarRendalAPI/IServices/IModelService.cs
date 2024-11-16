@@ -6,10 +6,10 @@ namespace CarRendalAPI.IServices
 {
     public interface IModelService
     {
-        Task<ModelResDTO> CreateModel(ModelReqDTO modelReqDTO);
+        Task<Model> CreateModel(ModelReqDTO modelReqDTO);
         Task<IEnumerable<Model>> GetAllModels();
         Task<Model> GetModelById(int id);
-        Task<ModelResDTO> UpdateModel(int id, ModelReqDTO modelReqDTO);
+        Task<Model> UpdateModel(int id, ModelReqDTO modelReqDTO);
         Task<bool> DeleteModel(int id);
     }
 }

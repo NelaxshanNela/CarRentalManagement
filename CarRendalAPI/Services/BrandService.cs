@@ -29,7 +29,7 @@ namespace CarRendalAPI.Services
             return brand;
         }
 
-        public async Task<BrandResDTO> CreateBrand(BrandReqDTO brandReqDTO)
+        public async Task<Brand> CreateBrand(BrandReqDTO brandReqDTO)
         {
             var brand = new Brand
             {
@@ -42,21 +42,21 @@ namespace CarRendalAPI.Services
             };
             var data = await _brandRepository.CreateBrand(brand);
 
-            var responce = new BrandResDTO
-            {
-                BrandId = data.BrandId,
-                Name = data.Name,
-                Country = data.Country,
-                FoundedYear = data.FoundedYear,
-                LogoUrl = data.LogoUrl,
-                Website = data.Website,
-                Description = data.Description,
-                Models = data.Models
-            };
-            return responce;
+            //var responce = new BrandResDTO
+            //{
+            //    BrandId = data.BrandId,
+            //    Name = data.Name,
+            //    Country = data.Country,
+            //    FoundedYear = data.FoundedYear,
+            //    LogoUrl = data.LogoUrl,
+            //    Website = data.Website,
+            //    Description = data.Description,
+            //    Models = data.Models
+            //};
+            return data;
         }
 
-        public async Task<BrandResDTO> UpdateBrand(int id, BrandReqDTO brandReqDTO)
+        public async Task<Brand> UpdateBrand(int id, BrandReqDTO brandReqDTO)
         {
             if (id != brandReqDTO.BrandId)
             {
@@ -78,17 +78,17 @@ namespace CarRendalAPI.Services
 
             var data = await _brandRepository.UpdateBrand(existingCarBrand);
 
-            var responce = new BrandResDTO
-            {
-                BrandId = data.BrandId,
-                Name = data.Name,
-                Country = data.Country,
-                FoundedYear = data.FoundedYear,
-                LogoUrl = data.LogoUrl,
-                Website = data.Website,
-                Description = data.Description
-            };
-            return responce;
+            //var responce = new BrandResDTO
+            //{
+            //    BrandId = data.BrandId,
+            //    Name = data.Name,
+            //    Country = data.Country,
+            //    FoundedYear = data.FoundedYear,
+            //    LogoUrl = data.LogoUrl,
+            //    Website = data.Website,
+            //    Description = data.Description
+            //};
+            return data;
         }
 
         public async Task<bool> DeleteBrand(int id)

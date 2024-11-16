@@ -4,6 +4,7 @@ using CarRendalAPI.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRendalAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241116001203_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +45,13 @@ namespace CarRendalAPI.Migrations
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("AddressId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Addresses");
                 });
@@ -441,12 +450,21 @@ namespace CarRendalAPI.Migrations
 
                     b.HasKey("UserId");
 
-                    b.HasIndex("AddressId");
-
                     b.HasIndex("Email")
                         .IsUnique();
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("CarRendalAPI.Models.Address", b =>
+                {
+                    b.HasOne("CarRendalAPI.Models.User", "User")
+                        .WithOne("Address")
+                        .HasForeignKey("CarRendalAPI.Models.Address", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CarRendalAPI.Models.Car", b =>
@@ -572,17 +590,6 @@ namespace CarRendalAPI.Migrations
                     b.Navigation("Car");
                 });
 
-            modelBuilder.Entity("CarRendalAPI.Models.User", b =>
-                {
-                    b.HasOne("CarRendalAPI.Models.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Address");
-                });
-
             modelBuilder.Entity("CarRendalAPI.Models.Brand", b =>
                 {
                     b.Navigation("Models");
@@ -611,6 +618,8 @@ namespace CarRendalAPI.Migrations
 
             modelBuilder.Entity("CarRendalAPI.Models.User", b =>
                 {
+                    b.Navigation("Address");
+
                     b.Navigation("Images");
 
                     b.Navigation("Notifications");

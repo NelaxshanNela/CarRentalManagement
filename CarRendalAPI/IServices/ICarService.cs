@@ -10,8 +10,8 @@ namespace CarRendalAPI.IServices
         Task<IEnumerable<Car>> GetAllCars();
         Task<IEnumerable<Car>> GetCarsByBrand(string brand);
         Task<IEnumerable<Car>> GetCarsByModel(string model);
-        Task<CarResDTO> CreateCar(CarReqDTO carReqDTO);
-        Task<CarResDTO> UpdateCar(int id, CarReqDTO carReqDTO);
+        Task<Car> CreateCar(CarReqDTO carReqDTO);
+        Task<Car> UpdateCar(int id, CarReqDTO carReqDTO);
         Task<bool> DeleteCar(int id);
         //Task<int> GetCarViewCountAsync(int carId);
         //Task IncrementCarViewCountAsync(int carId);

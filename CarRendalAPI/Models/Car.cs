@@ -9,7 +9,9 @@ namespace CarRendalAPI.Models
         [Required]
         public string LicensePlate { get; set; } // License plate number
         public string Color { get; set; } // Car color
+        [Required]
         public CarStatus Status { get; set; } // Enum: Available, Reserved, Rented, etc.
+        [Required]
         public decimal PricePerDay { get; set; } // Rental price per day
         public double CurrentMileage { get; set; }
         public string RegistrationNumber { get; set; }

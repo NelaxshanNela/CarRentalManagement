@@ -25,11 +25,18 @@ namespace CarRendalAPI.Database
         // Configure relationships and model properties
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Car-Brand relationship: One-to-many
+            // Car-Model relationship: One-to-many
             modelBuilder.Entity<Car>()
                 .HasOne(c => c.Model)
                 .WithMany(m => m.Cars)
                 .HasForeignKey(c => c.ModelId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Model-Brand relationship: One-to-many
+            modelBuilder.Entity<Model>()
+                .HasOne(c => c.Brand)
+                .WithMany(m => m.Models)
+                .HasForeignKey(c => c.BrandId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // User-Image relationship: One-to-many
@@ -74,12 +81,12 @@ namespace CarRendalAPI.Database
                 .HasForeignKey(r => r.CarId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Review-User relationship: One-to-many
-            modelBuilder.Entity<Review>()
-                .HasOne(r => r.User)
-                .WithMany(u => u.Reviews)
-                .HasForeignKey(r => r.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+            //// Review-User relationship: One-to-many
+            //modelBuilder.Entity<Review>()
+            //    .HasOne(r => r.User)
+            //    .WithMany(u => u.Reviews)
+            //    .HasForeignKey(r => r.UserId)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
             // ServiceRecord-Car relationship: One-to-many
             modelBuilder.Entity<ServiceRecord>()
@@ -89,11 +96,15 @@ namespace CarRendalAPI.Database
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Address-User relationship: One-to-one
-            modelBuilder.Entity<Address>()
-                .HasOne(a => a.User)
-                .WithOne(u => u.Address)
-                .HasForeignKey<Address>(a => a.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<Address>()
+            //    .HasOne(a => a.User)
+            //    .WithOne(u => u.Address)
+            //    .HasForeignKey<Address>(a => a.UserId)
+            //    .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
 
             // Notification-User relationship: One-to-many
             modelBuilder.Entity<Notification>()

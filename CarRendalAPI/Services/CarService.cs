@@ -42,7 +42,7 @@ namespace CarRendalAPI.Services
             return cars;
         }
 
-        public async Task<CarResDTO> CreateCar(CarReqDTO carReqDTO)
+        public async Task<Car> CreateCar(CarReqDTO carReqDTO)
         {
             var modelExists = await _carRepository.ModelExistsAsync(carReqDTO.ModelId);
             if (!modelExists)
@@ -65,24 +65,24 @@ namespace CarRendalAPI.Services
             };
             var data = await _carRepository.CreateCar(car);
 
-            var responce = new CarResDTO
-            {
-                CarId = data.CarId,
-                LicensePlate = data.LicensePlate,
-                Color = data.Color,
-                Status = data.Status,
-                PricePerDay = data.PricePerDay,
-                CurrentMileage = data.CurrentMileage,
-                RegistrationNumber = data.RegistrationNumber,
-                YearOfManufacture = data.YearOfManufacture,
-                ViewCount = data.ViewCount,
-                Model = data.Model,
-                CarImages = data.CarImages
-            };
-            return responce;
+            //var responce = new CarResDTO
+            //{
+            //    CarId = data.CarId,
+            //    LicensePlate = data.LicensePlate,
+            //    Color = data.Color,
+            //    Status = data.Status,
+            //    PricePerDay = data.PricePerDay,
+            //    CurrentMileage = data.CurrentMileage,
+            //    RegistrationNumber = data.RegistrationNumber,
+            //    YearOfManufacture = data.YearOfManufacture,
+            //    ViewCount = data.ViewCount,
+            //    Model = data.Model,
+            //    CarImages = data.CarImages
+            //};
+            return data;
         }
 
-        public async Task<CarResDTO> UpdateCar(int id, CarReqDTO carReqDTO)
+        public async Task<Car> UpdateCar(int id, CarReqDTO carReqDTO)
         {
             if (id != carReqDTO.CarId)
             {
@@ -108,21 +108,21 @@ namespace CarRendalAPI.Services
 
             var data = await _carRepository.UpdateCar(existingCar);
 
-            var responce = new CarResDTO
-            {
-                CarId = data.CarId,
-                LicensePlate = data.LicensePlate,
-                Color = data.Color,
-                Status = data.Status,
-                PricePerDay = data.PricePerDay,
-                CurrentMileage = data.CurrentMileage,
-                RegistrationNumber = data.RegistrationNumber,
-                YearOfManufacture = data.YearOfManufacture,
-                ViewCount = data.ViewCount,
-                Model = data.Model,
-                CarImages = data.CarImages
-            };
-            return responce;
+            //var responce = new CarResDTO
+            //{
+            //    CarId = data.CarId,
+            //    LicensePlate = data.LicensePlate,
+            //    Color = data.Color,
+            //    Status = data.Status,
+            //    PricePerDay = data.PricePerDay,
+            //    CurrentMileage = data.CurrentMileage,
+            //    RegistrationNumber = data.RegistrationNumber,
+            //    YearOfManufacture = data.YearOfManufacture,
+            //    ViewCount = data.ViewCount,
+            //    Model = data.Model,
+            //    CarImages = data.CarImages
+            //};
+            return data;
         }
 
         public async Task<bool> DeleteCar(int id)

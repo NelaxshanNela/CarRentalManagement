@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CarRendalAPI.Models;
+using System.ComponentModel.DataAnnotations;
 
-namespace CarRendalAPI.Models
+namespace CarRendalAPI.DTOs.ResponceDTOs
 {
-    public class User
+    public class UserResDTO
     {
         [Key]
         public int UserId { get; set; } // Unique identifier for the user
@@ -16,12 +17,9 @@ namespace CarRendalAPI.Models
         [Required]
         public string Email { get; set; } // Email address of the user
         [Required]
-        public string PasswordHash { get; set; }
-        [Required]
         public string Phone { get; set; } // Phone number of the user
         [Required]
         public Role UserRole { get; set; } // Enum: Admin, Customer
-        public DateTime CreatedAt { get; set; }
 
         // Navigation properties:
         public ICollection<Rental> Rentals { get; set; }
@@ -29,7 +27,7 @@ namespace CarRendalAPI.Models
         public ICollection<Notification> Notifications { get; set; }
         // Navigation property: Images associated with the user
         public ICollection<Image> Images { get; set; }
-        public int AddressId { get; set; } // Foreign key for Address
+        [Required]
         public Address Address { get; set; } // Navigation property to Address
     }
 }
