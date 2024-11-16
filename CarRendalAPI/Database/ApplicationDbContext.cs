@@ -121,5 +121,10 @@ namespace CarRendalAPI.Database
 
             base.OnModelCreating(modelBuilder);
         }
+
+        internal async Task<Notification> FirstOrDefaultAsync(Func<object, bool> value)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

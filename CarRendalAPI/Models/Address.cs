@@ -6,9 +6,9 @@ namespace CarRendalAPI.Models
     {
         [Key]
         public int AddressId { get; set; } // Unique identifier for the address
-        public string Street { get; set; } // Street address
+        public string AddressLine1 { get; set; } // AddressLine1 
+        public string AddressLine2 { get; set; } // AddressLine2 
         public string City { get; set; } // City
-        public string State { get; set; } // State or region
-        public string Country { get; set; } // Country
+        public string District { get; set; } // District
     }
 }
