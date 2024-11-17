@@ -1,16 +1,18 @@
-﻿//using CarRendalAPI.Models;
+﻿using CarRendalAPI.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-//namespace CarRendalAPI.IRepositories
-//{
-//    public interface IRentalRepository
-//    {
-//        Task<Rental> GetRentalByIdAsync(int id);
-//        Task<IEnumerable<Rental>> GetAllRentalsAsync();
-//        Task<IEnumerable<Rental>> GetRentalsByUserIdAsync(int userId);
-//        Task<IEnumerable<Rental>> GetRentalsByCarIdAsync(int carId);
-//        Task AddRentalAsync(Rental rental);
-//        Task UpdateRentalAsync(Rental rental);
-//        Task DeleteRentalAsync(int id);
-//        Task<int> GetTotalRentalsForCarAsync(int carId);
-//    }
-//}
+namespace CarRendalAPI.IRepositories
+{
+    public interface IRentalRepository
+    {
+        Task<Rental> CreateRental(Rental rental);
+        Task<IEnumerable<Rental>> GetAllRentals();
+        Task<Rental> GetRentalById(int id);
+        Task UpdateRental(Rental rental);
+        Task DeleteRental(int id);
+        Task<IEnumerable<Rental>> GetRentalsByUserId(int userId);
+        Task<IEnumerable<Rental>> GetRentalsByCarId(int carId);
+        Task<int> GetTotalRentalsForCar(int carId);
+    }
+}

@@ -4223,19 +4223,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Nela\\.nuget\\packages\\": {}
+    "C:\\Users\\Admin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Milestone_3\\CarRendal\\CarRendalAPI\\CarRendalAPI.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\Car_Rental_Clone\\CarRentalManagement\\CarRendalAPI\\CarRendalAPI.csproj",
       "projectName": "CarRendalAPI",
-      "projectPath": "E:\\Milestone_3\\CarRendal\\CarRendalAPI\\CarRendalAPI.csproj",
-      "packagesPath": "C:\\Users\\Nela\\.nuget\\packages\\",
-      "outputPath": "E:\\Milestone_3\\CarRendal\\CarRendalAPI\\obj\\",
+      "projectPath": "C:\\Users\\Admin\\Desktop\\Car_Rental_Clone\\CarRentalManagement\\CarRendalAPI\\CarRendalAPI.csproj",
+      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Admin\\Desktop\\Car_Rental_Clone\\CarRentalManagement\\CarRendalAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Nela\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4313,7 +4313,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
       }
     }
   },

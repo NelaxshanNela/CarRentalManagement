@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CarRendalAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+05d68a0a2fe56c132467c5ff87e67649426d00e4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9d98f345a78043c6db6146bb56e57cdf0f3a7490")]
 [assembly: System.Reflection.AssemblyProductAttribute("CarRendalAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CarRendalAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

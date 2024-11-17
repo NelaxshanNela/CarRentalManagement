@@ -22,6 +22,7 @@ namespace CarRendalAPI.Models
         public Model Model { get; set; } // Navigation property to Model
         public ICollection<Review> Reviews { get; set; }
         public ICollection<Reservation> Reservations { get; set; }
+        public ICollection<Rental> Rentals { get; set; }
         public ICollection<Image> CarImages { get; set; } // One-to-many relationship with CarImage
         public ICollection<ServiceRecord> ServiceRecords { get; set; }  // One-to-many relationship
     }
