@@ -1,96 +1,122 @@
-﻿//using CarRendalAPI.IServices;
-//using CarRendalAPI.Models;
-//using Microsoft.AspNetCore.Http;
-//using Microsoft.AspNetCore.Mvc;
+﻿using CarRendalAPI.DTOs.RequestDTOs;
+using CarRendalAPI.IServices;
+using CarRendalAPI.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
-//namespace CarRendalAPI.Controllers
-//{
-//    [Route("api/[controller]")]
-//    [ApiController]
-//    public class RentalsController : ControllerBase
-//    {
-//        private readonly IRentalService _rentalService;
+namespace CarRendalAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class RentalsController : ControllerBase
+    {
+        private readonly IRentalService _rentalService;
 
-//        public RentalsController(IRentalService rentalService)
-//        {
-//            _rentalService = rentalService;
-//        }
+        public RentalsController(IRentalService rentalService)
+        {
+            _rentalService = rentalService;
+        }
 
-//        // GET: api/Rentals
-//        [HttpGet]
-//        public async Task<ActionResult<IEnumerable<Rental>>> GetRentals()
-//        {
-//            var rentals = await _rentalService.GetAllRentalsAsync();
-//            return Ok(rentals);
-//        }
 
-//        // GET: api/Rentals/5
-//        [HttpGet("{id}")]
-//        public async Task<ActionResult<Rental>> GetRental(int id)
-//        {
-//            var rental = await _rentalService.GetRentalByIdAsync(id);
+        [HttpPost]
+        public async Task<IActionResult> CreateRental([FromBody] RentalReqDTO rentalReqDTO)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-//            if (rental == null)
-//            {
-//                return NotFound();
-//            }
+            var rentalResDTO = await _rentalService.CreateRental(rentalReqDTO);
 
-//            return Ok(rental);
-//        }
+            return CreatedAtAction(nameof(CreateRental), new { id = rentalResDTO.RentalId }, rentalResDTO);
+        }
 
-//        // GET: api/Rentals/User/5
-//        [HttpGet("User/{userId}")]
-//        public async Task<ActionResult<IEnumerable<Rental>>> GetRentalsByUser(int userId)
-//        {
-//            var rentals = await _rentalService.GetRentalsByUserIdAsync(userId);
-//            return Ok(rentals);
-//        }
+        [HttpGet]
+        public async Task<IActionResult> GetAllRentals()
+        {
+             try
+            {
+                var rentals = await _rentalService.GetAllRentals();
+                return Ok(rentals);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
+        }
 
-//        // GET: api/Rentals/Car/5
-//        [HttpGet("Car/{carId}")]
-//        public async Task<ActionResult<IEnumerable<Rental>>> GetRentalsByCar(int carId)
-//        {
-//            var rentals = await _rentalService.GetRentalsByCarIdAsync(carId);
-//            return Ok(rentals);
-//        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetRentalById(int id)
+        {
+            try
+            {
+                var rental = await _rentalService.GetRentalById(id);
+                return Ok(rental);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
 
-//        // POST: api/Rentals
-//        [HttpPost]
-//        public async Task<ActionResult<Rental>> CreateRental(Rental rental)
-//        {
-//            // You can validate the rental data here, such as checking if the car is available
-//            await _rentalService.CreateRentalAsync(rental);
-//            return CreatedAtAction(nameof(GetRental), new { id = rental.RentalId }, rental);
-//        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateRental(int id,RentalReqDTO rentalReqDTO)
+        {
+            try
+            {
+                var updatedRental = await _rentalService.UpdateRental(id, rentalReqDTO);
+                return Ok(updatedRental);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
 
-//        // PUT: api/Rentals/5
-//        [HttpPut("{id}")]
-//        public async Task<IActionResult> UpdateRental(int id, Rental rental)
-//        {
-//            if (id != rental.RentalId)
-//            {
-//                return BadRequest();
-//            }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteRental(int id)
+        {
+            try
+            {
+                await _rentalService.DeleteRental(id);
+                return NoContent(); // Return 204 No Content on successful deletion
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
 
-//            await _rentalService.UpdateRentalAsync(rental);
-//            return NoContent();
-//        }
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> GetRentalsByUserId(int userId)
+        {
+            var rentals = await _rentalService.GetRentalsByUserId(userId);
+            if (rentals == null)
+            {
+                return NotFound(new { message = "No rentals found for this user" });
+            }
 
-//        // DELETE: api/Rentals/5
-//        [HttpDelete("{id}")]
-//        public async Task<IActionResult> DeleteRental(int id)
-//        {
-//            await _rentalService.DeleteRentalAsync(id);
-//            return NoContent();
-//        }
+            return Ok(rentals);
+        }
 
-//        // GET: api/Rentals/TotalRentalsForCar/5
-//        [HttpGet("TotalRentalsForCar/{carId}")]
-//        public async Task<ActionResult<int>> GetTotalRentalsForCar(int carId)
-//        {
-//            var totalRentals = await _rentalService.GetTotalRentalsForCarAsync(carId);
-//            return Ok(totalRentals);
-//        }
-//    }
+        [HttpGet("car/{carId}")]
+        public async Task<IActionResult> GetRentalsByCarId(int carId)
+        {
+            var rentals = await _rentalService.GetRentalsByCarId(carId);
+            if (rentals == null)
+            {
+                return NotFound(new { message = "No rentals found for this car" });
+            }
 
-//}
+            return Ok(rentals);
+        }
+
+
+        [HttpGet("car/{carId}/total")]
+        public async Task<IActionResult> GetTotalRentalsForCar(int carId)
+        {
+            var totalRentals = await _rentalService.GetTotalRentalsForCar(carId);
+            return Ok(totalRentals);
+        }
+    }
+
+}

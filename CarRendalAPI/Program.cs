@@ -43,8 +43,8 @@ namespace CarRendalAPI
             builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
             builder.Services.AddScoped<INotificationService, NotificationService>();
 
-            ////builder.Services.AddScoped<IRentalRepository, RentalRepository>();
-            //builder.Services.AddScoped<IRentalService, RentalService>();
+            builder.Services.AddScoped<IRentalRepository, RentalRepository>();
+            builder.Services.AddScoped<IRentalService, RentalService>();
 
             builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
             builder.Services.AddScoped<IPaymentService, PaymentService>();

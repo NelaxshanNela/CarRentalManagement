@@ -14,6 +14,7 @@ namespace CarRendalAPI.Database
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Model> Models { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<Rental> Rentals { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Review> Reviews { get; set; }
@@ -65,6 +66,18 @@ namespace CarRendalAPI.Database
                 .HasOne(r => r.Car)
                 .WithMany(c => c.Reservations)
                 .HasForeignKey(r => r.CarId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Rental>()
+                .HasOne(r => r.Car)           // Rental has one Car
+                .WithMany(c => c.Rentals)     // Car has many Rentals
+                .HasForeignKey(r => r.CarId) // Foreign key in Rental
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Rental>()
+                .HasOne(r => r.User)          // Rental has one User
+                .WithMany(u => u.Rentals)     // User has many Rentals
+                .HasForeignKey(r => r.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             //// Payment-Reservation relationship: One-to-one (one payment per reservation)
