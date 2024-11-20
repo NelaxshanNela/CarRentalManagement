@@ -101,6 +101,20 @@ namespace CarRendalAPI.Database
             //    .HasForeignKey(r => r.UserId)
             //    .OnDelete(DeleteBehavior.Cascade);
 
+            // Many-to-one relationship with Car
+            modelBuilder.Entity<Reservation>()
+                  .HasOne(r => r.Car)
+                  .WithMany(c => c.Reservations)
+                  .HasForeignKey(r => r.CarId)
+                  .OnDelete(DeleteBehavior.Cascade); 
+
+            // Many-to-one relationship with User
+            modelBuilder.Entity<Reservation>()
+                  .HasOne(r => r.User)
+                  .WithMany(u => u.Reservations) 
+                  .HasForeignKey(r => r.UserId)
+                  .OnDelete(DeleteBehavior.Cascade); 
+
             // ServiceRecord-Car relationship: One-to-many
             modelBuilder.Entity<ServiceRecord>()
                 .HasOne(s => s.Car)
@@ -108,9 +122,9 @@ namespace CarRendalAPI.Database
                 .HasForeignKey(s => s.CarId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Address-User relationship: One-to-one
+            //Address - User relationship: One - to - one
             //modelBuilder.Entity<Address>()
-            //    .HasOne(a => a.User)
+            //    .HasMany(a => a.User)
             //    .WithOne(u => u.Address)
             //    .HasForeignKey<Address>(a => a.UserId)
             //    .OnDelete(DeleteBehavior.Cascade);

@@ -5,7 +5,6 @@ namespace CarRendalAPI.DTOs.RequestDTOs
 {
     public class UserReqDTO
     {
-        [Key]
         public int UserId { get; set; } // Unique identifier for the user
         [Required]
         public string NIC { get; set; }
