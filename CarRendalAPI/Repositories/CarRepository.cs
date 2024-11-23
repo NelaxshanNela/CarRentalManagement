@@ -20,17 +20,22 @@ namespace CarRendalAPI.Repositories
             return await _context.Cars.FirstOrDefaultAsync(c => c.CarId == id);
         }
 
-        public async Task<IEnumerable<Car>> GetAllCars()
+        public async Task<Car> GetModelByLicensePlate(string licensePlate)
         {
-            return await _context.Cars.ToListAsync();
+            return await _context.Cars.FirstOrDefaultAsync(c => c.LicensePlate == licensePlate);
         }
 
-        public async Task<IEnumerable<Car>> GetCarsByBrand(string brand)
+        public async Task<List<Car>> GetAllCars()
+        {
+            return await _context.Cars.Include(c => c.CarImages).Include(c => c.Reviews).ToListAsync();
+        }
+
+        public async Task<List<Car>> GetCarsByBrand(string brand)
         {
             return await _context.Cars.Where(c => c.Model.Brand.Name == brand).ToListAsync();
         }
 
-        public async Task<IEnumerable<Car>> GetCarsByModel(string model)
+        public async Task<List<Car>> GetCarsByModel(string model)
         {
             return await _context.Cars.Where(c => c.Model.Name == model).ToListAsync();
         }
@@ -42,9 +47,28 @@ namespace CarRendalAPI.Repositories
             return car;
         }
 
+        public async Task<List<UserImages>> GetImageByCarId(int id)
+        {
+            return await _context.UserImages.Where(u => u.UserId == id).ToListAsync();
+        }
+
+        public async Task<List<CarImages>> AddImage(List<CarImages> image)
+        {
+            await _context.CarImages.AddRangeAsync(image);
+            await _context.SaveChangesAsync();
+            return image;
+        }
+
+        public async Task<List<CarImages>> UpdateImage(List<CarImages> image)
+        {
+            _context.CarImages.UpdateRange(image);
+            await _context.SaveChangesAsync();
+            return image;
+        }
+
         public async Task<Car> UpdateCar(Car car)
         {
-            _context.Cars.Update(car);
+            _context.Cars.UpdateRange(car);
             await _context.SaveChangesAsync();
             return car;
         }
@@ -59,35 +83,32 @@ namespace CarRendalAPI.Repositories
             return true;
         }
 
-        public async Task<bool> BrandExistsAsync(int brandId)
-        {
-            return await _context.Brands.AnyAsync(b => b.BrandId == brandId);
-        }
-
         public async Task<bool> ModelExistsAsync(int modelId)
         {
             return await _context.Models.AnyAsync(m => m.ModelId == modelId);
         }
 
-        //public async Task<int> GetCarViewCountAsync(int carId)
+        //// Get View Count for a Car
+        //public async Task<int> GetViewCountAsync(int carId)
         //{
-        //    return await _context.CarViews
-        //        .Where(cv => cv.CarId == carId)
-        //        .CountAsync();
+        //    var car = await _context.Cars
+        //        .FirstOrDefaultAsync(c => c.CarId == carId);
+
+        //    return car?.ViewCount ?? 0;
         //}
 
-        //public async Task IncrementCarViewCountAsync(int carId)
-        //{
-        //    var carView = new CarView
-        //    {
-        //        CarId = carId,
-        //        UserId = 0, // Assuming you don't want to track per user
-        //        ViewedAt = DateTime.UtcNow
-        //    };
+        // Increment View Count for the Car
+        public async Task IncrementViewCount(int carId)
+        {
+            var car = await _context.Cars
+                .FirstOrDefaultAsync(c => c.CarId == carId);
 
-        //    await _context.CarViews.AddAsync(carView);
-        //    await _context.SaveChangesAsync();
-        //}
+            if (car != null)
+            {
+                car.ViewCount++;
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 
 }

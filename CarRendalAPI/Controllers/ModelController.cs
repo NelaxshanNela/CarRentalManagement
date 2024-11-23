@@ -56,7 +56,7 @@ namespace CarRendalAPI.Controllers
             try
             {
                 var addedCarModel = await _modelService.CreateModel(modelReqDTO);
-                return CreatedAtAction(nameof(GetModelById), new { id = addedCarModel.ModelId }, addedCarModel);
+                return Ok(addedCarModel);
             }
             catch (ArgumentException ex)
             {

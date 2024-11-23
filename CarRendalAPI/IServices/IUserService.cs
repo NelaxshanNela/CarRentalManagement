@@ -8,13 +8,12 @@ namespace CarRendalAPI.IServices
     public interface IUserService
     {
         Task<UserResDTO> GetUserById(int id);
-        //Task<UserResDTO> GetUserByEmail(string email);
-        Task<IEnumerable<UserResDTO>> GetAllUsers();
+        Task<List<UserResDTO>> GetAllUsers();
         Task<string> RegisterUser(UserReqDTO userReqDTO);
-        Task<UserResDTO> UpdateUser(int id, UserUpdateDTO userUpdateDTO);
+        Task<string> UpdateUser(int id, UserUpdateDTO userUpdateDTO);
         Task<bool> DeleteUser(int id);
+        Task<bool> DeleteImage(int id);
         Task<string> AuthenticateUser(string email, string password);
         Task<IdentityResult> ChangePassword(int userId, PasswordChangeDTO passwordChangeDTO);
-        //Task<string> GetUserProfileImageUrl(int userId);
     }
 }

@@ -41,19 +41,23 @@ namespace CarRendalAPI.Controllers
             try
             {
                 var car = await _carService.GetCarById(id);
+
+                // Increment view count when car details are viewed
+                await _carService.IncrementCarViewCount(id); // Passing 0 as userId for now (could be passed dynamically)
+
                 return Ok(car);
 
-                // Increment view count when the car details are viewed
-                //await _carService.IncrementCarViewCountAsync(id);
+                // //Increment view count when the car details are viewed
+                // await _carService.IncrementCarViewCountAsync(id);
 
-                // Optionally, get the current view count to return with the car details
+                // //Optionally, get the current view count to return with the car details
                 //var viewCount = await _carService.GetCarViewCountAsync(id);
 
-                //    return Ok(new
-                //    {
-                //        Car = car,
-                //        //ViewCount = viewCount
-                //    });
+                // return Ok(new
+                // {
+                //     Car = car,
+                //     ViewCount = viewCount
+                // });
             }
             catch (KeyNotFoundException ex)
             {
@@ -64,6 +68,15 @@ namespace CarRendalAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        // Get View Count of the Car
+        //[HttpGet("{carId}/view-count")]
+        //public async Task<IActionResult> GetCarViewCountAsync(int carId)
+        //{
+        //    var viewCount = await _carService.GetCarViewCountAsync(carId);
+
+        //    return Ok(new { viewCount });
+        //}
 
         // GET: api/Cars/Brand/{brand}
         [HttpGet("Brand/{brand}")]
@@ -110,7 +123,7 @@ namespace CarRendalAPI.Controllers
             try
             {
                 var createdCar = await _carService.CreateCar(carReqDTO);
-                return CreatedAtAction(nameof(GetCarById), new { id = createdCar.CarId }, createdCar);
+                return Ok(createdCar);
             }
             catch (ArgumentException ex)
             {

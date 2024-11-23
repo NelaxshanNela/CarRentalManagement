@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\UT01360\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\CarRendalAPI.csproj": {}
+    "E:\\Milestone_3\\CarRentalManagement\\CarRendalAPI\\CarRendalAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\UT01360\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\CarRendalAPI.csproj": {
+    "E:\\Milestone_3\\CarRentalManagement\\CarRendalAPI\\CarRendalAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\UT01360\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\CarRendalAPI.csproj",
+        "projectUniqueName": "E:\\Milestone_3\\CarRentalManagement\\CarRendalAPI\\CarRendalAPI.csproj",
         "projectName": "CarRendalAPI",
-        "projectPath": "C:\\Users\\UT01360\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\CarRendalAPI.csproj",
-        "packagesPath": "C:\\Users\\UT01360\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\UT01360\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\obj\\",
+        "projectPath": "E:\\Milestone_3\\CarRentalManagement\\CarRendalAPI\\CarRendalAPI.csproj",
+        "packagesPath": "C:\\Users\\Nela\\.nuget\\packages\\",
+        "outputPath": "E:\\Milestone_3\\CarRentalManagement\\CarRendalAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\UT01360\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Nela\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -50,6 +50,10 @@
               "target": "Package",
               "version": "[0.1.0, )"
             },
+            "MailKit": {
+              "target": "Package",
+              "version": "[4.8.0, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[8.0.10, )"
@@ -67,6 +71,14 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.10, )"
+            },
+            "MimeKit": {
+              "target": "Package",
+              "version": "[4.8.0, )"
+            },
+            "SendGrid": {
+              "target": "Package",
+              "version": "[9.29.3, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -92,7 +104,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

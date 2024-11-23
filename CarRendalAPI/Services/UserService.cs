@@ -48,31 +48,7 @@ namespace CarRendalAPI.Services
             return user;
         }
 
-        //public async Task<UserResDTO> GetUserByEmail(string email)
-        //{
-        //    var exitingUser = await _userRepository.GetUserByEmail(email);
-        //    if (exitingUser == null) throw new KeyNotFoundException("User not found.");
-
-        //    var user = new UserResDTO
-        //    {
-        //        UserId = exitingUser.UserId,
-        //        NIC = exitingUser.NIC,
-        //        DrivingLicenceNo = exitingUser.DrivingLicenceNo,
-        //        FirstName = exitingUser.FirstName,
-        //        LastName = exitingUser.LastName,
-        //        Email = exitingUser.Email,
-        //        Phone = exitingUser.Phone,
-        //        UserRole = exitingUser.UserRole,
-        //        Rentals = exitingUser.Rentals,
-        //        Reservations = exitingUser.Reservations,
-        //        Notifications = exitingUser.Notifications,
-        //        Images = exitingUser.Images,
-        //        Address = exitingUser.Address,
-        //    };
-        //    return user;
-        //}
-
-        public async Task<IEnumerable<UserResDTO>> GetAllUsers()
+        public async Task<List<UserResDTO>> GetAllUsers()
         {
             var users = await _userRepository.GetAllUsers();
             if (users == null || !users.Any())
@@ -109,20 +85,24 @@ namespace CarRendalAPI.Services
 
         public async Task<string> RegisterUser(UserReqDTO userReqDTO)
         {
-            if (string.IsNullOrEmpty(userReqDTO.Email) || string.IsNullOrEmpty(userReqDTO.Password))
-            {
-                throw new ArgumentException("Email and Password are required.");
-            }
-            // Check if email already exists
-            var existingUser = await _userRepository.GetUserByEmail(userReqDTO.Email);
-            if (existingUser != null)
+            var existingEmail = await _userRepository.GetUserByEmail(userReqDTO.Email);
+            if (existingEmail != null)
             {
                 throw new ArgumentException("This email address is already registered.");
+            }
+            var existingNIC = await _userRepository.GetUserByNIC(userReqDTO.NIC);
+            if (existingNIC != null)
+            {
+                throw new ArgumentException("This NIC address is already registered.");
+            }
+            var existingDrivingLicenceNo = await _userRepository.GetUserByDrivingLicense(userReqDTO.DrivingLicenceNo);
+            if (existingDrivingLicenceNo != null)
+            {
+                throw new ArgumentException("This DrivingLicenceNo address is already registered.");
             }
 
             var user = new User
             {
-                UserId = userReqDTO.UserId,
                 NIC = userReqDTO.NIC,
                 DrivingLicenceNo = userReqDTO.DrivingLicenceNo,
                 FirstName = userReqDTO.FirstName,
@@ -131,70 +111,106 @@ namespace CarRendalAPI.Services
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(userReqDTO.Password),
                 Phone = userReqDTO.Phone,
                 UserRole = userReqDTO.UserRole,
-                //Images = userReqDTO.Images,
-                Address = userReqDTO.Address,
                 CreatedAt = DateTime.UtcNow
             };
-
             var data = await _userRepository.AddUser(user);
+
+            var address = new Address();
+            address.AddressLine1 = userReqDTO.Address.AddressLine1;
+            address.AddressLine2 = userReqDTO.Address.AddressLine2;
+            address.City = userReqDTO.Address.City;
+            address.District = userReqDTO.Address.District;
+            address.Country = userReqDTO.Address.Country;
+            address.CreatedAt = DateTime.UtcNow;
+            address.UserId = data.UserId;
+
+            await _userRepository.AddAddress(address);
+
+            var imageList = new List<UserImages>();
+
+            foreach (var item in userReqDTO.Images)
+            {
+                var image = new UserImages();
+                image.ImageUrl = item.ImageUrl;
+                image.ImageType = item.ImageType;
+                image.UserId = data.UserId;
+                image.CreatedAt = DateTime.UtcNow;
+                image.UserId = data.UserId;
+                imageList.Add(image);
+            }
+
+            await _userRepository.AddImage(imageList);
 
             var token = CreateToken(data);
             return token;
         }
 
-        public async Task<UserResDTO> UpdateUser(int id, UserUpdateDTO userUpdateDTO)
+        public async Task<string> UpdateUser(int id, UserUpdateDTO userUpdateDTO)
         {
-            if (id != userUpdateDTO.UserId)
-            {
-                throw new ArgumentException("The ID in the URL does not match the ID in the body.");
-            }
-
             var exitingUser = await _userRepository.GetUserById(id);
             if (exitingUser == null)
             {
                 throw new KeyNotFoundException("User not found.");
             }
 
-            var user = new User
+            exitingUser.UserId = id;
+            exitingUser.NIC = userUpdateDTO.NIC;
+            exitingUser.DrivingLicenceNo = userUpdateDTO.DrivingLicenceNo;
+            exitingUser.FirstName = userUpdateDTO.FirstName;
+            exitingUser.LastName = userUpdateDTO.LastName;
+            exitingUser.Email = userUpdateDTO.Email;
+            exitingUser.Phone = userUpdateDTO.Phone;
+            exitingUser.UserRole = userUpdateDTO.UserRole;
+            exitingUser.UpdatedAt = DateTime.UtcNow;
+
+            var data = await _userRepository.UpdateUser(exitingUser);
+
+            var exitingAddress = await _userRepository.GetAddressByUserId(id);
+            if (exitingAddress == null)
             {
-                UserId = userUpdateDTO.UserId,
-                NIC = userUpdateDTO.NIC,
-                DrivingLicenceNo = userUpdateDTO.DrivingLicenceNo,
-                FirstName = userUpdateDTO.FirstName,
-                LastName = userUpdateDTO.LastName,
-                Email = userUpdateDTO.Email,
-                Phone = userUpdateDTO.Phone,
-                UserRole = userUpdateDTO.UserRole,
-                Images = userUpdateDTO.Images,
-                Address = userUpdateDTO.Address
-            };
+                throw new KeyNotFoundException("Address not found.");
+            }
 
-            var data = await _userRepository.UpdateUser(user);
+            exitingAddress.AddressLine1 = userUpdateDTO.Address.AddressLine1;
+            exitingAddress.AddressLine2 = userUpdateDTO.Address.AddressLine2;
+            exitingAddress.City = userUpdateDTO.Address.City;
+            exitingAddress.District = userUpdateDTO.Address.District;
+            exitingAddress.UpdatedAt = DateTime.UtcNow;
 
-            var responce = new UserResDTO
+            await _userRepository.UpdateAddress(exitingAddress);
+
+            var exitingImage = await _userRepository.GetImageByUserId(id);
+            if (exitingImage == null)
             {
-                UserId = data.UserId,
-                NIC = data.NIC,
-                DrivingLicenceNo = data.DrivingLicenceNo,
-                FirstName = data.FirstName,
-                LastName = data.LastName,
-                Email = data.Email,
-                Phone = data.Phone,
-                UserRole = data.UserRole,
-                Images = data.Images,
-                Address = data.Address,
-                Rentals = data.Rentals,
-                Reservations = data.Reservations,
-                Notifications = data.Notifications
-            };
+                throw new KeyNotFoundException("Image not found.");
+            }
+            var imageList = new List<UserImages>();
 
-            return responce;
+            foreach (var item in userUpdateDTO.Images)
+            {
+                var image = new UserImages();
+                image.ImageUrl = item.ImageUrl;
+                image.ImageType = item.ImageType;
+                image.UserId = data.UserId;
+                image.UpdatedAt = DateTime.UtcNow;
+                imageList.Add(image);
+            }
+
+            await _userRepository.UpdateImage(imageList);
+            return "User Updated Successfully";
         }
 
         public async Task<bool> DeleteUser(int id)
         {
             var success = await _userRepository.DeleteUser(id);
             if (!success) throw new KeyNotFoundException("User not found.");
+            return success;
+        }
+
+        public async Task<bool> DeleteImage(int id)
+        {
+            var success = await _userRepository.DeleteImage(id);
+            if (!success) throw new KeyNotFoundException("Image not found.");
             return success;
         }
 
@@ -211,11 +227,6 @@ namespace CarRendalAPI.Services
             }
             return CreateToken(user);
         }
-
-        //public async Task<string> GetUserProfileImageUrl(int userId)
-        //{
-        //    return await _userRepository.GetUserProfileImageUrl(userId);
-        //}
 
         private string CreateToken(User user)
         {
@@ -248,11 +259,7 @@ namespace CarRendalAPI.Services
             var user = await _userRepository.GetUserById(userId);
             if (user == null)
             {
-                return IdentityResult.Failed(new IdentityError
-                {
-                    Code = "UserNotFound",
-                    Description = "User not found."
-                });
+                throw new KeyNotFoundException("User not found.");
             }
 
             // Verify the current password
@@ -270,6 +277,7 @@ namespace CarRendalAPI.Services
 
             // Hash the new password
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(passwordChangeDTO.NewPassword);
+            user.UpdatedAt = DateTime.UtcNow;
 
             // Save changes
             await _userRepository.UpdateUser(user);

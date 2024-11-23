@@ -13,14 +13,19 @@ namespace CarRendalAPI.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Model>> GetAllModels()
+        public async Task<List<Model>> GetAllModels()
         {
-            return await _context.Models.ToListAsync();
+            return await _context.Models.Include(m => m.Cars).ToListAsync();
         }
 
         public async Task<Model> GetModelById(int id)
         {
             return await _context.Models.FirstOrDefaultAsync(cm => cm.ModelId == id);
+        }
+
+        public async Task<Model> GetModelByName(string name)
+        {
+            return await _context.Models.FirstOrDefaultAsync(b => b.Name == name);
         }
 
         public async Task<Model> CreateModel(Model model)

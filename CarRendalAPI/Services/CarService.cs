@@ -23,27 +23,35 @@ namespace CarRendalAPI.Services
             return car;
         }
 
-        public async Task<IEnumerable<Car>> GetAllCars()
+        public async Task<List<Car>> GetAllCars()
         {
-            return await _carRepository.GetAllCars();
+            var cars = await _carRepository.GetAllCars();
+            if (cars == null) throw new KeyNotFoundException("No Cars available.");
+            return cars;
         }
 
-        public async Task<IEnumerable<Car>> GetCarsByBrand(string brand)
+        public async Task<List<Car>> GetCarsByBrand(string brand)
         {
             var cars = await _carRepository.GetCarsByBrand(brand);
-            if (cars == null) throw new KeyNotFoundException("Cars not available.");
+            if (cars == null) throw new KeyNotFoundException("No Cars available.");
             return cars;
         }
 
-        public async Task<IEnumerable<Car>> GetCarsByModel(string model)
+        public async Task<List<Car>> GetCarsByModel(string model)
         {
             var cars = await _carRepository.GetCarsByModel(model);
-            if (cars == null) throw new KeyNotFoundException("Cars not available.");
+            if (cars == null) throw new KeyNotFoundException("No Cars available.");
             return cars;
         }
 
-        public async Task<Car> CreateCar(CarReqDTO carReqDTO)
+        public async Task<string> CreateCar(CarReqDTO carReqDTO)
         {
+            var existingCar = await _carRepository.GetModelByLicensePlate(carReqDTO.LicensePlate);
+            if (existingCar != null)
+            {
+                throw new ArgumentException("This Car is already registered.");
+            }
+
             var modelExists = await _carRepository.ModelExistsAsync(carReqDTO.ModelId);
             if (!modelExists)
             {
@@ -65,28 +73,30 @@ namespace CarRendalAPI.Services
             };
             var data = await _carRepository.CreateCar(car);
 
-            //var responce = new CarResDTO
-            //{
-            //    CarId = data.CarId,
-            //    LicensePlate = data.LicensePlate,
-            //    Color = data.Color,
-            //    Status = data.Status,
-            //    PricePerDay = data.PricePerDay,
-            //    CurrentMileage = data.CurrentMileage,
-            //    RegistrationNumber = data.RegistrationNumber,
-            //    YearOfManufacture = data.YearOfManufacture,
-            //    ViewCount = data.ViewCount,
-            //    Model = data.Model,
-            //    CarImages = data.CarImages
-            //};
-            return data;
+            var imageList = new List<CarImages>();
+
+            foreach (var item in carReqDTO.CarImages)
+            {
+                var image = new CarImages();
+                image.ImageUrl = item.ImageUrl;
+                image.ImageType = item.ImageType;
+                image.CarId = data.CarId;
+                image.CarId = data.CarId;
+                image.CreatedAt = DateTime.UtcNow;
+                imageList.Add(image);
+            }
+
+            await _carRepository.AddImage(imageList);
+
+            return "Car added succesfully";
         }
 
-        public async Task<Car> UpdateCar(int id, CarReqDTO carReqDTO)
+        public async Task<string> UpdateCar(int id, CarReqDTO carReqDTO)
         {
-            if (id != carReqDTO.CarId)
+            var modelExists = await _carRepository.ModelExistsAsync(carReqDTO.ModelId);
+            if (!modelExists)
             {
-                throw new ArgumentException("The ID in the URL does not match the ID in the body.");
+                throw new ArgumentException($"Model with ID {carReqDTO.ModelId} does not exist.");
             }
 
             var existingCar = await _carRepository.GetCarById(id);
@@ -108,38 +118,58 @@ namespace CarRendalAPI.Services
 
             var data = await _carRepository.UpdateCar(existingCar);
 
-            //var responce = new CarResDTO
-            //{
-            //    CarId = data.CarId,
-            //    LicensePlate = data.LicensePlate,
-            //    Color = data.Color,
-            //    Status = data.Status,
-            //    PricePerDay = data.PricePerDay,
-            //    CurrentMileage = data.CurrentMileage,
-            //    RegistrationNumber = data.RegistrationNumber,
-            //    YearOfManufacture = data.YearOfManufacture,
-            //    ViewCount = data.ViewCount,
-            //    Model = data.Model,
-            //    CarImages = data.CarImages
-            //};
-            return data;
+            var exitingImage = await _carRepository.GetImageByCarId(id);
+            if (exitingImage == null)
+            {
+                throw new KeyNotFoundException("Image not found.");
+            }
+
+            var imageList = new List<CarImages>();
+
+            foreach (var item in carReqDTO.CarImages)
+            {
+                var image = new CarImages();
+                image.ImageUrl = item.ImageUrl;
+                image.ImageType = item.ImageType;
+                image.CarId = data.CarId;
+                image.CarId = data.CarId;
+                image.CreatedAt = DateTime.UtcNow;
+                imageList.Add(image);
+            }
+
+            await _carRepository.UpdateImage(imageList);
+
+            return "Car updated succesfully";
         }
 
         public async Task<bool> DeleteCar(int id)
         {
             var success = await _carRepository.DeleteCar(id);
-            if(!success) throw new KeyNotFoundException("Car not found.");
+            if (!success) throw new KeyNotFoundException("Car not found.");
             return success;
         }
 
+        // Increment Car View Count
+        public async Task IncrementCarViewCount(int carId)
+        {
+            await _carRepository.IncrementViewCount(carId);
+
+            // Optionally log the view event
+            //var carView = new CarView
+            //{
+            //    CarId = carId,
+            //    UserId = userId,
+            //    ViewedAt = DateTime.UtcNow
+            //};
+
+            // Assuming you have a repository for CarView to log this information
+            // await _carViewRepository.AddAsync(carView);
+        }
+
+        // Get Car View Count
         //public async Task<int> GetCarViewCountAsync(int carId)
         //{
-        //    return await _carRepository.GetCarViewCountAsync(carId);
-        //}
-
-        //public async Task IncrementCarViewCountAsync(int carId)
-        //{
-        //    await _carRepository.IncrementCarViewCountAsync(carId);
+        //    return await _carRepository.GetViewCountAsync(carId);
         //}
     }
 }

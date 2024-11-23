@@ -14,4 +14,19 @@ namespace CarRendalAPI.Models
         public int RentalId { get; set; } // Foreign key for Rental
         public Rental Rental { get; set; } // Navigation property to Rental
     }
+    public enum PaymentMethod
+    {
+        CreditCard,
+        PayPal,
+        BankTransfer,  // Example: Adding another payment method
+        Cash
+    }
+
+    public enum PaymentStatus
+    {
+        Pending,
+        Completed,
+        Failed,
+        Refunded  // Example: Adding a "Refunded" status for completed payments
+    }
 }

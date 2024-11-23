@@ -6,10 +6,10 @@ namespace CarRendalAPI.IServices
 {
     public interface IBrandService
     {
-        Task<IEnumerable<Brand>> GetAllBrands();
+        Task<List<Brand>> GetAllBrands();
         Task<Brand> GetBrandById(int id);
-        Task<Brand> CreateBrand(BrandReqDTO brandReqDTO);
-        Task<Brand> UpdateBrand(int id, BrandReqDTO brandReqDTO);
+        Task<string> CreateBrand(BrandReqDTO brandReqDTO);
+        Task<string> UpdateBrand(int id, BrandReqDTO brandReqDTO);
         Task<bool> DeleteBrand(int id);
     }
 }

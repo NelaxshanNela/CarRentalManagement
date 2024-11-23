@@ -13,7 +13,8 @@ namespace CarRendalAPI.Database
         public DbSet<Car> Cars { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Model> Models { get; set; }
-        public DbSet<Image> Images { get; set; }
+        public DbSet<UserImages> UserImages { get; set; }
+        public DbSet<CarImages> CarImages { get; set; }
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Payment> Payments { get; set; }
@@ -41,17 +42,17 @@ namespace CarRendalAPI.Database
                 .OnDelete(DeleteBehavior.Cascade);
 
             // User-Image relationship: One-to-many
-            modelBuilder.Entity<Image>()
+            modelBuilder.Entity<UserImages>()
                 .HasOne(i => i.User)
                 .WithMany(u => u.Images)
-                .HasForeignKey(i => i.EntityId)
+                .HasForeignKey(i => i.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Car-Image relationship: One-to-many
-            modelBuilder.Entity<Image>()
+            modelBuilder.Entity<CarImages>()
                 .HasOne(i => i.Car)
                 .WithMany(c => c.CarImages)
-                .HasForeignKey(i => i.EntityId)
+                .HasForeignKey(i => i.CarId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Reservations-User relationship: Many-to-one (reservation made by a user)
@@ -94,27 +95,6 @@ namespace CarRendalAPI.Database
                 .HasForeignKey(r => r.CarId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            //// Review-User relationship: One-to-many
-            //modelBuilder.Entity<Review>()
-            //    .HasOne(r => r.User)
-            //    .WithMany(u => u.Reviews)
-            //    .HasForeignKey(r => r.UserId)
-            //    .OnDelete(DeleteBehavior.Cascade);
-
-            // Many-to-one relationship with Car
-            modelBuilder.Entity<Reservation>()
-                  .HasOne(r => r.Car)
-                  .WithMany(c => c.Reservations)
-                  .HasForeignKey(r => r.CarId)
-                  .OnDelete(DeleteBehavior.Cascade); 
-
-            // Many-to-one relationship with User
-            modelBuilder.Entity<Reservation>()
-                  .HasOne(r => r.User)
-                  .WithMany(u => u.Reservations) 
-                  .HasForeignKey(r => r.UserId)
-                  .OnDelete(DeleteBehavior.Cascade); 
-
             // ServiceRecord-Car relationship: One-to-many
             modelBuilder.Entity<ServiceRecord>()
                 .HasOne(s => s.Car)
@@ -123,11 +103,11 @@ namespace CarRendalAPI.Database
                 .OnDelete(DeleteBehavior.Cascade);
 
             //Address - User relationship: One - to - one
-            //modelBuilder.Entity<Address>()
-            //    .HasMany(a => a.User)
-            //    .WithOne(u => u.Address)
-            //    .HasForeignKey<Address>(a => a.UserId)
-            //    .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Address>()
+                .HasOne(a => a.User)
+                .WithOne(u => u.Address)
+                .HasForeignKey<Address>(a => a.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
@@ -140,18 +120,7 @@ namespace CarRendalAPI.Database
                 .HasForeignKey(n => n.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Optionally: configure the Image class for the correct discriminator behavior.
-            modelBuilder.Entity<Image>()
-                .HasDiscriminator(e => e.EntityType)
-                .HasValue<Image>(EntityType.Car) // Default EntityType
-                .HasValue<Image>(EntityType.User);
-
             base.OnModelCreating(modelBuilder);
-        }
-
-        internal async Task<Notification> FirstOrDefaultAsync(Func<object, bool> value)
-        {
-            throw new NotImplementedException();
         }
     }
 }

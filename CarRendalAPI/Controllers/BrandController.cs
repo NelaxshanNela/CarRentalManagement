@@ -56,7 +56,7 @@ namespace CarRendalAPI.Controllers
             try
             {
                 var createdCarBrand = await _brandService.CreateBrand(brandReqDTO);
-                return CreatedAtAction(nameof(GetBrandById), new { id = createdCarBrand.BrandId }, createdCarBrand);
+                return Ok(createdCarBrand);
             }
             catch (Exception ex)
             {

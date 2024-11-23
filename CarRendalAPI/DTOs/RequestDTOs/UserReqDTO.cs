@@ -5,23 +5,35 @@ namespace CarRendalAPI.DTOs.RequestDTOs
 {
     public class UserReqDTO
     {
-        public int UserId { get; set; } // Unique identifier for the user
+        [Required]
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
         [Required]
         public string NIC { get; set; }
+
         [Required]
         public string DrivingLicenceNo { get; set; }
+
         [Required]
-        public string FirstName { get; set; } // First name of the user
-        public string LastName { get; set; } // Last name of the user
+        [EmailAddress]
+        public string Email { get; set; }
+
         [Required]
-        public string Email { get; set; } // Email address of the user
-        [Required]
+        [MinLength(6)]
         public string Password { get; set; }
+
         [Required]
-        public string Phone { get; set; } // Phone number of the user
+        [Phone]
+        public string Phone { get; set; }
+
         [Required]
-        public Role UserRole { get; set; } // Enum: Admin, Customer
-        //public ICollection<Image> Images { get; set; }
-        public Address Address { get; set; } // Navigation property to Address
+        public Role UserRole { get; set; }
+
+        public ICollection<UserImageReqDTO>? Images { get; set; }
+
+        [Required]
+        public AddressReqDTO Address { get; set; }
     }
 }

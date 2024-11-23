@@ -16,9 +16,11 @@ namespace CarRendalAPI.Services
             _brandRepository = brandRepository;
         }
 
-        public async Task<IEnumerable<Brand>> GetAllBrands()
+        public async Task<List<Brand>> GetAllBrands()
         {
-            return await _brandRepository.GetAllBrands();
+            var brands = await _brandRepository.GetAllBrands();
+            if (brands == null) throw new KeyNotFoundException("No Brands available.");
+            return brands;
         }
 
         public async Task<Brand> GetBrandById(int id)
@@ -29,8 +31,14 @@ namespace CarRendalAPI.Services
             return brand;
         }
 
-        public async Task<Brand> CreateBrand(BrandReqDTO brandReqDTO)
+        public async Task<string> CreateBrand(BrandReqDTO brandReqDTO)
         {
+            var existingBrand = await _brandRepository.GetBrandByName(brandReqDTO.Name);
+            if (existingBrand != null)
+            {
+                throw new ArgumentException("This Brand is already registered.");
+            }
+
             var brand = new Brand
             {
                 Name = brandReqDTO.Name,
@@ -40,28 +48,12 @@ namespace CarRendalAPI.Services
                 Website = brandReqDTO.Website,
                 Description = brandReqDTO.Description
             };
-            var data = await _brandRepository.CreateBrand(brand);
-
-            //var responce = new BrandResDTO
-            //{
-            //    BrandId = data.BrandId,
-            //    Name = data.Name,
-            //    Country = data.Country,
-            //    FoundedYear = data.FoundedYear,
-            //    LogoUrl = data.LogoUrl,
-            //    Website = data.Website,
-            //    Description = data.Description,
-            //    Models = data.Models
-            //};
-            return data;
+            await _brandRepository.CreateBrand(brand);
+            return "Brand Created Succesfully";
         }
 
-        public async Task<Brand> UpdateBrand(int id, BrandReqDTO brandReqDTO)
+        public async Task<string> UpdateBrand(int id, BrandReqDTO brandReqDTO)
         {
-            if (id != brandReqDTO.BrandId)
-            {
-                throw new ArgumentException("The ID in the URL does not match the ID in the body.");
-            }
             var existingCarBrand = await _brandRepository.GetBrandById(id);
             if (existingCarBrand == null)
             {
@@ -76,24 +68,13 @@ namespace CarRendalAPI.Services
             existingCarBrand.Website = brandReqDTO.Website;
             existingCarBrand.Description = brandReqDTO.Description;
 
-            var data = await _brandRepository.UpdateBrand(existingCarBrand);
-
-            //var responce = new BrandResDTO
-            //{
-            //    BrandId = data.BrandId,
-            //    Name = data.Name,
-            //    Country = data.Country,
-            //    FoundedYear = data.FoundedYear,
-            //    LogoUrl = data.LogoUrl,
-            //    Website = data.Website,
-            //    Description = data.Description
-            //};
-            return data;
+            await _brandRepository.UpdateBrand(existingCarBrand);
+            return "Brand Updated Successfully";
         }
 
         public async Task<bool> DeleteBrand(int id)
         {
-            var success =  await _brandRepository.DeleteBrand(id);
+            var success = await _brandRepository.DeleteBrand(id);
             if (!success) throw new KeyNotFoundException("Brand not found.");
             return success;
         }

@@ -12,14 +12,19 @@ namespace CarRendalAPI.Repositories
         {
             _context = context;
         }
-        public async Task<IEnumerable<Brand>> GetAllBrands()
+        public async Task<List<Brand>> GetAllBrands()
         {
-            return await _context.Brands.ToListAsync();
+            return await _context.Brands.Include(b => b.Models).ToListAsync();
         }
 
         public async Task<Brand> GetBrandById(int id)
         {
             return await _context.Brands.FindAsync(id);
+        }
+
+        public async Task<Brand> GetBrandByName(string name)
+        {
+            return await _context.Brands.FirstOrDefaultAsync(b => b.Name == name);
         }
 
         public async Task<Brand> CreateBrand(Brand brand)

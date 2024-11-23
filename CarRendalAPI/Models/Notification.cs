@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace CarRendalAPI.Models
 {
@@ -12,6 +13,7 @@ namespace CarRendalAPI.Models
         public DateTime? DateRead { get; set; }  // When the notification was read (nullable)
 
         public int UserId { get; set; }  // The ID of the user receiving the notification
+        [JsonIgnore]
         public User User { get; set; }  // Navigation property to the User entity
     }
 }

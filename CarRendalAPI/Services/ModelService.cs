@@ -16,9 +16,11 @@ namespace CarRendalAPI.Services
             _modelRepository = modelRepository;
         }
 
-        public async Task<IEnumerable<Model>> GetAllModels()
+        public async Task<List<Model>> GetAllModels()
         {
-            return await _modelRepository.GetAllModels();
+            var models = await _modelRepository.GetAllModels();
+            if (models == null) throw new KeyNotFoundException("No Models available.");
+            return models;
         }
 
         public async Task<Model> GetModelById(int id)
@@ -28,8 +30,14 @@ namespace CarRendalAPI.Services
             return model;
         }
 
-        public async Task<Model> CreateModel(ModelReqDTO modelReqDTO)
+        public async Task<string> CreateModel(ModelReqDTO modelReqDTO)
         {
+            var existingModel = await _modelRepository.GetModelByName(modelReqDTO.Name);
+            if (existingModel != null)
+            {
+                throw new ArgumentException("This Model is already registered.");
+            }
+
             var brandExists = await _modelRepository.BrandExistsAsync(modelReqDTO.BrandId);
             if (!brandExists)
             {
@@ -43,48 +51,23 @@ namespace CarRendalAPI.Services
                 Color = modelReqDTO.Color,
                 EngineType = modelReqDTO.EngineType,
                 FuelType = modelReqDTO.FuelType,
-                FuelEfficiency = modelReqDTO.FuelEfficiency,
                 TransmissionType = modelReqDTO.TransmissionType,
                 Mileage = modelReqDTO.Mileage,
                 Horsepower = modelReqDTO.Horsepower,
                 Doors = modelReqDTO.Doors,
                 Seats = modelReqDTO.Seats,
-                IsElectric = modelReqDTO.IsElectric,
+                FuelEfficiency = modelReqDTO.FuelEfficiency,
                 Category = modelReqDTO.Category,
+                CreatedAt = DateTime.UtcNow,
                 BrandId = modelReqDTO.BrandId,
             };
 
             var data = await _modelRepository.CreateModel(model);
-
-            //var responce = new ModelResDTO
-            //{
-            //    ModelId = data.ModelId,
-            //    Name = data.Name,
-            //    Year = data.Year,
-            //    Color = data.Color,
-            //    EngineType = data.EngineType,
-            //    FuelType = data.FuelType,
-            //    FuelEfficiency = data.FuelEfficiency,
-            //    TransmissionType = data.TransmissionType,
-            //    Mileage = data.Mileage,
-            //    Horsepower = data.Horsepower,
-            //    Doors = data.Doors,
-            //    Seats = data.Seats,
-            //    IsElectric = data.IsElectric,
-            //    Category = data.Category,
-            //    Brand = data.Brand,
-            //    Cars = data.Cars
-            //};
-            return data;
+            return "Model added successfully";
         }
 
-        public async Task<Model> UpdateModel(int id, ModelReqDTO modelReqDTO)
+        public async Task<string> UpdateModel(int id, ModelReqDTO modelReqDTO)
         {
-            if (id != modelReqDTO.ModelId)
-            {
-                throw new ArgumentException("The ID in the URL does not match the ID in the body.");
-            }
-
             var existingModel = await _modelRepository.GetModelById(id);
             if (existingModel == null)
             {
@@ -103,38 +86,18 @@ namespace CarRendalAPI.Services
             existingModel.Color = modelReqDTO.Color;
             existingModel.EngineType = modelReqDTO.EngineType;
             existingModel.FuelType = modelReqDTO.FuelType;
-            existingModel.FuelEfficiency = modelReqDTO.FuelEfficiency;
             existingModel.TransmissionType = modelReqDTO.TransmissionType;
             existingModel.Mileage = modelReqDTO.Mileage;
             existingModel.Horsepower = modelReqDTO.Horsepower;
             existingModel.Doors = modelReqDTO.Doors;
             existingModel.Seats = modelReqDTO.Seats;
-            existingModel.IsElectric = modelReqDTO.IsElectric;
+            existingModel.FuelEfficiency = modelReqDTO.FuelEfficiency;
             existingModel.Category = modelReqDTO.Category;
+            existingModel.UpdatedAt = DateTime.UtcNow;
             existingModel.BrandId = modelReqDTO.BrandId;
 
             var data = await _modelRepository.UpdateModel(existingModel);
-
-            //var responce = new ModelResDTO
-            //{
-            //    ModelId = data.ModelId,
-            //    Name = data.Name,
-            //    Year = data.Year,
-            //    Color = data.Color,
-            //    EngineType = data.EngineType,
-            //    FuelType = data.FuelType,
-            //    FuelEfficiency = data.FuelEfficiency,
-            //    TransmissionType = data.TransmissionType,
-            //    Mileage = data.Mileage,
-            //    Horsepower = data.Horsepower,
-            //    Doors = data.Doors,
-            //    Seats = data.Seats,
-            //    IsElectric = data.IsElectric,
-            //    Category = data.Category,
-            //    Brand = data.Brand,
-            //    Cars = data.Cars
-            //};
-            return data;
+            return "Model updated sucessfully";
         }
 
         public async Task<bool> DeleteModel(int id)

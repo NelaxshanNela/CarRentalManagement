@@ -14,6 +14,6 @@ namespace CarRendalAPI.DTOs.ResponceDTOs
         public int YearOfManufacture { get; set; }
         public int ViewCount { get; set; }
         public Model Model { get; set; }
-        public ICollection<Image>? CarImages { get; set; } // One-to-many relationship with CarImage
+        public ICollection<CarImages>? CarImages { get; set; } // One-to-many relationship with CarImage
     }
 }

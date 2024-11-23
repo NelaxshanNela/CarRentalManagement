@@ -16,7 +16,7 @@ namespace CarRendalAPI.Repositories
 
         public async Task<User> GetUserById(int id)
         {
-            return await _context.Users.Include(u => u.Address).Include(u => u.Images).FirstOrDefaultAsync(u => u.UserId == id);
+            return await _context.Users.Include(u => u.Address).FirstOrDefaultAsync(u => u.UserId == id);
         }
 
         public async Task<User> GetUserByEmail(string email)
@@ -24,9 +24,19 @@ namespace CarRendalAPI.Repositories
             return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public async Task<IEnumerable<User>> GetAllUsers()
+        public async Task<User> GetUserByNIC(string nic)
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users.FirstOrDefaultAsync(u => u.NIC == nic);
+        }
+
+        public async Task<User> GetUserByDrivingLicense(string drivingLicenseNo)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.DrivingLicenceNo == drivingLicenseNo);
+        }
+
+        public async Task<List<User>> GetAllUsers()
+        {
+            return await _context.Users.Include(u => u.Address).Include(u => u.Images).ToListAsync();
         }
 
         public async Task<User> AddUser(User user)
@@ -43,6 +53,7 @@ namespace CarRendalAPI.Repositories
             return user;
         }
 
+
         public async Task<bool> DeleteUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
@@ -55,14 +66,55 @@ namespace CarRendalAPI.Repositories
             return false;
         }
 
-        //public async Task<string> GetUserProfileImageUrlAsync(int userId)
-        //{
-        //    var user = await _context.Users
-        //        .Include(u => u.Images)
-        //        .FirstOrDefaultAsync(u => u.UserId == userId);
+        public async Task<Address> AddAddress(Address address)
+        {
+            await _context.Addresses.AddAsync(address);
+            await _context.SaveChangesAsync();
+            return address;
+        }
 
-        //    return user?.Images?.Url; // Assuming you have a ProfileImage related entity
-        //}
+        public async Task<Address> UpdateAddress(Address address)
+        {
+            _context.Addresses.Update(address);
+            await _context.SaveChangesAsync();
+            return address;
+        }
+
+        public async Task<Address> GetAddressByUserId(int id)
+        {
+            return await _context.Addresses.FirstOrDefaultAsync(u => u.UserId == id);
+        }
+
+        public async Task<List<UserImages>> GetImageByUserId(int id)
+        {
+            return await _context.UserImages.Where(u => u.UserId == id).ToListAsync();
+        }
+
+
+        public async Task<List<UserImages>> AddImage(List<UserImages> image)
+        {
+            await _context.UserImages.AddRangeAsync(image);
+            await _context.SaveChangesAsync();
+            return image;
+        }
+
+        public async Task<List<UserImages>> UpdateImage(List<UserImages> image)
+        {
+            _context.UserImages.UpdateRange(image);
+            await _context.SaveChangesAsync();
+            return image;
+        }
+
+        public async Task<bool> DeleteImage(int id)
+        {
+            var image = await _context.UserImages.FindAsync(id);
+            if (image != null)
+            {
+                _context.UserImages.Remove(image);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
     }
-
 }
