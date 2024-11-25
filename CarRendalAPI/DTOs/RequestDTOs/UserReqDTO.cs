@@ -29,7 +29,7 @@ namespace CarRendalAPI.DTOs.RequestDTOs
         public string Phone { get; set; }
 
         [Required]
-        public Role UserRole { get; set; }
+        public string UserRole { get; set; }
 
         public ICollection<UserImageReqDTO>? Images { get; set; }
 

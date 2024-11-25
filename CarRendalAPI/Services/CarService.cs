@@ -153,23 +153,6 @@ namespace CarRendalAPI.Services
         public async Task IncrementCarViewCount(int carId)
         {
             await _carRepository.IncrementViewCount(carId);
-
-            // Optionally log the view event
-            //var carView = new CarView
-            //{
-            //    CarId = carId,
-            //    UserId = userId,
-            //    ViewedAt = DateTime.UtcNow
-            //};
-
-            // Assuming you have a repository for CarView to log this information
-            // await _carViewRepository.AddAsync(carView);
         }
-
-        // Get Car View Count
-        //public async Task<int> GetCarViewCountAsync(int carId)
-        //{
-        //    return await _carRepository.GetViewCountAsync(carId);
-        //}
     }
 }

@@ -10,7 +10,7 @@ namespace CarRendalAPI.Models
 
         public string ImageUrl { get; set; }
 
-        public UserImageType ImageType { get; set; }
+        public string ImageType { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 

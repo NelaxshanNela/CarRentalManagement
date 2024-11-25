@@ -35,7 +35,7 @@ namespace CarRendalAPI.Models
         public string Phone { get; set; }
 
         [Required]
-        public Role UserRole { get; set; }
+        public string UserRole { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }
 

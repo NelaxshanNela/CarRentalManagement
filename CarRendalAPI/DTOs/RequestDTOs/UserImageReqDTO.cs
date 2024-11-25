@@ -10,6 +10,6 @@ namespace CarRendalAPI.DTOs.RequestDTOs
         public string ImageUrl { get; set; }
 
         [Required(ErrorMessage = "Image type is required.")]
-        public UserImageType ImageType { get; set; }
+        public string ImageType { get; set; }
     }
 }

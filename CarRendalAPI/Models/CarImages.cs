@@ -13,7 +13,7 @@ namespace CarRendalAPI.Models
         public string ImageUrl { get; set; }
 
         [Required]
-        public CarImageType ImageType { get; set; }
+        public string ImageType { get; set; }
 
         // Foreign key: CarId to link image to a specific car
         public int CarId { get; set; }

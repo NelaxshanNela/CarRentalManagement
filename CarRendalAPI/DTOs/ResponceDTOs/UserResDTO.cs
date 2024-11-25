@@ -26,7 +26,7 @@ namespace CarRendalAPI.DTOs.ResponceDTOs
         [Phone]
         public string Phone { get; set; }
 
-        public Role UserRole { get; set; }
+        public string UserRole { get; set; }
 
         public ICollection<Rental>? Rentals { get; set; }
         public ICollection<Reservation>? Reservations { get; set; }

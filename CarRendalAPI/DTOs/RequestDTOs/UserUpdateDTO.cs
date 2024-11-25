@@ -13,7 +13,7 @@ namespace CarRendalAPI.DTOs.RequestDTOs
         public string Email { get; set; }
         [Phone]
         public string Phone { get; set; }
-        public Role UserRole { get; set; }
+        public string UserRole { get; set; }
         public ICollection<UserImageReqDTO> Images { get; set; }
         public AddressReqDTO Address { get; set; }
     }

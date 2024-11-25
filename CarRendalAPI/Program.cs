@@ -78,17 +78,20 @@ namespace CarRendalAPI
 
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("CORSOpenPolicy", policyBuilder =>
-                {
-                    policyBuilder.AllowAnyOrigin()
-                                 .AllowAnyHeader()
-                                 .AllowAnyMethod();
-                });
+                options.AddPolicy(name: "CORSOpenPolicy",
+                                  policy =>
+                                  {
+                                      policy.WithOrigins("*")
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod();
+
+                                  });
             });
 
-
-
             var app = builder.Build();
+
+            // Use CORS
+            app.UseCors("CORSOpenPolicy");
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
