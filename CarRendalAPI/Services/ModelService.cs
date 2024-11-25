@@ -48,7 +48,6 @@ namespace CarRendalAPI.Services
             {
                 Name = modelReqDTO.Name,
                 Year = modelReqDTO.Year,
-                Color = modelReqDTO.Color,
                 EngineType = modelReqDTO.EngineType,
                 FuelType = modelReqDTO.FuelType,
                 TransmissionType = modelReqDTO.TransmissionType,
@@ -83,7 +82,6 @@ namespace CarRendalAPI.Services
             existingModel.ModelId = id;
             existingModel.Name = modelReqDTO.Name;
             existingModel.Year = modelReqDTO.Year;
-            existingModel.Color = modelReqDTO.Color;
             existingModel.EngineType = modelReqDTO.EngineType;
             existingModel.FuelType = modelReqDTO.FuelType;
             existingModel.TransmissionType = modelReqDTO.TransmissionType;

@@ -76,6 +76,18 @@ namespace CarRendalAPI
                     };
                 });
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("CORSOpenPolicy", policyBuilder =>
+                {
+                    policyBuilder.AllowAnyOrigin()
+                                 .AllowAnyHeader()
+                                 .AllowAnyMethod();
+                });
+            });
+
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
