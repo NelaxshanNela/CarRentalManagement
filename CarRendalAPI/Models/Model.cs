@@ -15,9 +15,6 @@ namespace CarRendalAPI.Models
         [Range(1886, 2024)]
         public int Year { get; set; }
 
-        [StringLength(10)]
-        public string Color { get; set; }
-
         [StringLength(50)]
         public EngineType EngineType { get; set; }
 

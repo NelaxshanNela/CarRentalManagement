@@ -7,7 +7,6 @@ namespace CarRendalAPI.DTOs.RequestDTOs
     {
         public string Name { get; set; } // Name of the model (e.g., Corolla, Mustang)
         public int Year { get; set; } // Model year
-        public string Color { get; set; }
         public EngineType EngineType { get; set; }
         public FuelType FuelType { get; set; }
         public TransmissionType TransmissionType { get; set; }

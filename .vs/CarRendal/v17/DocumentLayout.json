@@ -1,12 +1,217 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\Milestone_3\\CarRentalManagement\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\Migrations\\20241125085116_test2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:CarRendalAPI\\Migrations\\20241125085116_test2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A28BB576-77AA-4526-8165-3EEC35CE2F05}|CarRendalAPI\\CarRendalAPI.csproj|c:\\users\\admin\\desktop\\car_rental_backend\\carrentalmanagement\\carrendalapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A28BB576-77AA-4526-8165-3EEC35CE2F05}|CarRendalAPI\\CarRendalAPI.csproj|solutionrelative:carrendalapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A28BB576-77AA-4526-8165-3EEC35CE2F05}|CarRendalAPI\\CarRendalAPI.csproj|c:\\users\\admin\\desktop\\car_rental_backend\\carrentalmanagement\\carrendalapi\\database\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A28BB576-77AA-4526-8165-3EEC35CE2F05}|CarRendalAPI\\CarRendalAPI.csproj|solutionrelative:carrendalapi\\database\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\Migrations\\20241125024512_test.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:CarRendalAPI\\Migrations\\20241125024512_test.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A28BB576-77AA-4526-8165-3EEC35CE2F05}|CarRendalAPI\\CarRendalAPI.csproj|c:\\users\\admin\\desktop\\car_rental_backend\\carrentalmanagement\\carrendalapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A28BB576-77AA-4526-8165-3EEC35CE2F05}|CarRendalAPI\\CarRendalAPI.csproj|solutionrelative:carrendalapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A28BB576-77AA-4526-8165-3EEC35CE2F05}|CarRendalAPI\\CarRendalAPI.csproj|c:\\users\\admin\\desktop\\car_rental_backend\\carrentalmanagement\\carrendalapi\\repositories\\modelrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A28BB576-77AA-4526-8165-3EEC35CE2F05}|CarRendalAPI\\CarRendalAPI.csproj|solutionrelative:carrendalapi\\repositories\\modelrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A28BB576-77AA-4526-8165-3EEC35CE2F05}|CarRendalAPI\\CarRendalAPI.csproj|c:\\users\\admin\\desktop\\car_rental_backend\\carrentalmanagement\\carrendalapi\\irepositories\\imodelrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A28BB576-77AA-4526-8165-3EEC35CE2F05}|CarRendalAPI\\CarRendalAPI.csproj|solutionrelative:carrendalapi\\irepositories\\imodelrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A28BB576-77AA-4526-8165-3EEC35CE2F05}|CarRendalAPI\\CarRendalAPI.csproj|c:\\users\\admin\\desktop\\car_rental_backend\\carrentalmanagement\\carrendalapi\\services\\modelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A28BB576-77AA-4526-8165-3EEC35CE2F05}|CarRendalAPI\\CarRendalAPI.csproj|solutionrelative:carrendalapi\\services\\modelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A28BB576-77AA-4526-8165-3EEC35CE2F05}|CarRendalAPI\\CarRendalAPI.csproj|c:\\users\\admin\\desktop\\car_rental_backend\\carrentalmanagement\\carrendalapi\\iservices\\imodelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A28BB576-77AA-4526-8165-3EEC35CE2F05}|CarRendalAPI\\CarRendalAPI.csproj|solutionrelative:carrendalapi\\iservices\\imodelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A28BB576-77AA-4526-8165-3EEC35CE2F05}|CarRendalAPI\\CarRendalAPI.csproj|c:\\users\\admin\\desktop\\car_rental_backend\\carrentalmanagement\\carrendalapi\\controllers\\modelcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A28BB576-77AA-4526-8165-3EEC35CE2F05}|CarRendalAPI\\CarRendalAPI.csproj|solutionrelative:carrendalapi\\controllers\\modelcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A28BB576-77AA-4526-8165-3EEC35CE2F05}|CarRendalAPI\\CarRendalAPI.csproj|c:\\users\\admin\\desktop\\car_rental_backend\\carrentalmanagement\\carrendalapi\\dtos\\responcedtos\\modelresdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A28BB576-77AA-4526-8165-3EEC35CE2F05}|CarRendalAPI\\CarRendalAPI.csproj|solutionrelative:carrendalapi\\dtos\\responcedtos\\modelresdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A28BB576-77AA-4526-8165-3EEC35CE2F05}|CarRendalAPI\\CarRendalAPI.csproj|c:\\users\\admin\\desktop\\car_rental_backend\\carrentalmanagement\\carrendalapi\\dtos\\requestdtos\\modelreqdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A28BB576-77AA-4526-8165-3EEC35CE2F05}|CarRendalAPI\\CarRendalAPI.csproj|solutionrelative:carrendalapi\\dtos\\requestdtos\\modelreqdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "20241125085116_test2.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\Migrations\\20241125085116_test2.cs",
+              "RelativeDocumentMoniker": "CarRendalAPI\\Migrations\\20241125085116_test2.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\Migrations\\20241125085116_test2.cs",
+              "RelativeToolTip": "CarRendalAPI\\Migrations\\20241125085116_test2.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T08:51:17.101Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\Database\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "CarRendalAPI\\Database\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\Database\\ApplicationDbContext.cs",
+              "RelativeToolTip": "CarRendalAPI\\Database\\ApplicationDbContext.cs",
+              "ViewState": "AQIAAHMAAAAAAAAAAAAAAFsAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T03:27:22.272Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "CarRendalAPI\\appsettings.json",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\appsettings.json",
+              "RelativeToolTip": "CarRendalAPI\\appsettings.json",
+              "ViewState": "AQIAAAsAAAAAAAAAAIAwwBcAAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-11-25T02:48:27.132Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "20241125024512_test.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\Migrations\\20241125024512_test.cs",
+              "RelativeDocumentMoniker": "CarRendalAPI\\Migrations\\20241125024512_test.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\Migrations\\20241125024512_test.cs",
+              "RelativeToolTip": "CarRendalAPI\\Migrations\\20241125024512_test.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T02:45:13.485Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\Program.cs",
+              "RelativeDocumentMoniker": "CarRendalAPI\\Program.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\Program.cs",
+              "RelativeToolTip": "CarRendalAPI\\Program.cs",
+              "ViewState": "AQIAAEgAAAAAAAAAAAAAAFcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-24T17:55:59.472Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ModelRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\Repositories\\ModelRepository.cs",
+              "RelativeDocumentMoniker": "CarRendalAPI\\Repositories\\ModelRepository.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\Repositories\\ModelRepository.cs",
+              "RelativeToolTip": "CarRendalAPI\\Repositories\\ModelRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-24T17:53:44.221Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IModelRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\IRepositories\\IModelRepository.cs",
+              "RelativeDocumentMoniker": "CarRendalAPI\\IRepositories\\IModelRepository.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\IRepositories\\IModelRepository.cs",
+              "RelativeToolTip": "CarRendalAPI\\IRepositories\\IModelRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-24T17:53:34.298Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ModelService.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\Services\\ModelService.cs",
+              "RelativeDocumentMoniker": "CarRendalAPI\\Services\\ModelService.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\Services\\ModelService.cs",
+              "RelativeToolTip": "CarRendalAPI\\Services\\ModelService.cs",
+              "ViewState": "AQIAAF4AAAAAAAAAAAAcwFMAAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-24T17:53:27.118Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "IModelService.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\IServices\\IModelService.cs",
+              "RelativeDocumentMoniker": "CarRendalAPI\\IServices\\IModelService.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\IServices\\IModelService.cs",
+              "RelativeToolTip": "CarRendalAPI\\IServices\\IModelService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-24T17:53:21.983Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ModelController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\Controllers\\ModelController.cs",
+              "RelativeDocumentMoniker": "CarRendalAPI\\Controllers\\ModelController.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\Controllers\\ModelController.cs",
+              "RelativeToolTip": "CarRendalAPI\\Controllers\\ModelController.cs",
+              "ViewState": "AQIAAF0AAAAAAAAAAAA4wAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-24T17:53:14.106Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ModelResDTO.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\DTOs\\ResponceDTOs\\ModelResDTO.cs",
+              "RelativeDocumentMoniker": "CarRendalAPI\\DTOs\\ResponceDTOs\\ModelResDTO.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\DTOs\\ResponceDTOs\\ModelResDTO.cs",
+              "RelativeToolTip": "CarRendalAPI\\DTOs\\ResponceDTOs\\ModelResDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-24T17:53:03.871Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ModelReqDTO.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\DTOs\\RequestDTOs\\ModelReqDTO.cs",
+              "RelativeDocumentMoniker": "CarRendalAPI\\DTOs\\RequestDTOs\\ModelReqDTO.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\Car_Rental_Backend\\CarRentalManagement\\CarRendalAPI\\DTOs\\RequestDTOs\\ModelReqDTO.cs",
+              "RelativeToolTip": "CarRendalAPI\\DTOs\\RequestDTOs\\ModelReqDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-24T17:52:53.926Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
