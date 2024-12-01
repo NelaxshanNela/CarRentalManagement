@@ -6,6 +6,9 @@ namespace CarRendalAPI.DTOs.RequestDTOs
     public class CarReqDTO
     {
         [Required]
+        public string Name { get; set; }
+
+        [Required]
         [StringLength(10, ErrorMessage = "License Plate must be less than 10 characters.")]
         public string LicensePlate { get; set; }
 
@@ -14,7 +17,7 @@ namespace CarRendalAPI.DTOs.RequestDTOs
         public string Color { get; set; }
 
         [Required]
-        public CarStatus Status { get; set; }
+        public string Status { get; set; }
 
         [Required]
         [Range(0.01, double.MaxValue, ErrorMessage = "Price per day must be a positive value.")]
@@ -37,6 +40,6 @@ namespace CarRendalAPI.DTOs.RequestDTOs
         [Required]
         public int ModelId { get; set; }
 
-        public ICollection<CarImageReqDTO> CarImages { get; set; } = new List<CarImageReqDTO>();
+        public ICollection<CarImageReqDTO>? CarImages { get; set; } = new List<CarImageReqDTO>();
     }
 }

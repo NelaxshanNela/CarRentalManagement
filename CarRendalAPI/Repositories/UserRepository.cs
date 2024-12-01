@@ -16,7 +16,7 @@ namespace CarRendalAPI.Repositories
 
         public async Task<User> GetUserById(int id)
         {
-            return await _context.Users.Include(u => u.Address).FirstOrDefaultAsync(u => u.UserId == id);
+            return await _context.Users.Include(u => u.Address).Include(u => u.Rentals).Include(u => u.Reservations).Include(u => u.Notifications).FirstOrDefaultAsync(u => u.UserId == id);
         }
 
         public async Task<User> GetUserByEmail(string email)
@@ -36,7 +36,7 @@ namespace CarRendalAPI.Repositories
 
         public async Task<List<User>> GetAllUsers()
         {
-            return await _context.Users.Include(u => u.Address).Include(u => u.Images).ToListAsync();
+            return await _context.Users.Include(u => u.Address).Include(u => u.Rentals).Include(u => u.Reservations).Include(u => u.Notifications).ToListAsync();
         }
 
         public async Task<User> AddUser(User user)
@@ -83,38 +83,6 @@ namespace CarRendalAPI.Repositories
         public async Task<Address> GetAddressByUserId(int id)
         {
             return await _context.Addresses.FirstOrDefaultAsync(u => u.UserId == id);
-        }
-
-        public async Task<List<UserImages>> GetImageByUserId(int id)
-        {
-            return await _context.UserImages.Where(u => u.UserId == id).ToListAsync();
-        }
-
-
-        public async Task<List<UserImages>> AddImage(List<UserImages> image)
-        {
-            await _context.UserImages.AddRangeAsync(image);
-            await _context.SaveChangesAsync();
-            return image;
-        }
-
-        public async Task<List<UserImages>> UpdateImage(List<UserImages> image)
-        {
-            _context.UserImages.UpdateRange(image);
-            await _context.SaveChangesAsync();
-            return image;
-        }
-
-        public async Task<bool> DeleteImage(int id)
-        {
-            var image = await _context.UserImages.FindAsync(id);
-            if (image != null)
-            {
-                _context.UserImages.Remove(image);
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            return false;
         }
     }
 }

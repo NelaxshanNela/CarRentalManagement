@@ -6,6 +6,6 @@ namespace CarRendalAPI.DTOs.RequestDTOs
     public class UpdateReservationStatusDTO
     {
         [Required]
-        public RentalStatus Status { get; set; }
+        public string Status { get; set; }
     }
 }

@@ -42,41 +42,15 @@ namespace CarRendalAPI.Controllers
             {
                 var car = await _carService.GetCarById(id);
 
-                // Increment view count when car details are viewed
-                await _carService.IncrementCarViewCount(id); // Passing 0 as userId for now (could be passed dynamically)
+                await _carService.IncrementCarViewCount(id);
 
                 return Ok(car);
-
-                // //Increment view count when the car details are viewed
-                // await _carService.IncrementCarViewCountAsync(id);
-
-                // //Optionally, get the current view count to return with the car details
-                //var viewCount = await _carService.GetCarViewCountAsync(id);
-
-                // return Ok(new
-                // {
-                //     Car = car,
-                //     ViewCount = viewCount
-                // });
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-
-        // Get View Count of the Car
-        //[HttpGet("{carId}/view-count")]
-        //public async Task<IActionResult> GetCarViewCountAsync(int carId)
-        //{
-        //    var viewCount = await _carService.GetCarViewCountAsync(carId);
-
-        //    return Ok(new { viewCount });
-        //}
 
         // GET: api/Cars/Brand/{brand}
         [HttpGet("Brand/{brand}")]
@@ -86,10 +60,6 @@ namespace CarRendalAPI.Controllers
             {
                 var cars = await _carService.GetCarsByBrand(brand);
                 return Ok(cars);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
@@ -106,10 +76,6 @@ namespace CarRendalAPI.Controllers
                 var cars = await _carService.GetCarsByBrand(model);
                 return Ok(cars);
             }
-            catch (KeyNotFoundException ex)
-            {
-                return BadRequest(ex.Message);
-            }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -123,15 +89,11 @@ namespace CarRendalAPI.Controllers
             try
             {
                 var createdCar = await _carService.CreateCar(carReqDTO);
-                return Ok(createdCar);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
+                return Ok(new { success = true, message = "Car added successfully" });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { success = false, message = "Error adding Car", error = ex.Message });
             }
         }
 
@@ -142,19 +104,11 @@ namespace CarRendalAPI.Controllers
             try
             {
                 var updatedCarBrand = await _carService.UpdateCar(id, carReqDTO);
-                return Ok(updatedCarBrand);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
+                return Ok(new { success = true, message = "Car updated successfully" });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { success = false, message = "Error updating Car", error = ex.Message });
             }
         }
 
@@ -165,15 +119,11 @@ namespace CarRendalAPI.Controllers
             try
             {
                 await _carService.DeleteCar(id);
-                return Ok("Car Deleted Successfully.");
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
+                return Ok(new { success = true, message = "Car deleted successfully" });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { success = false, message = "Error deleting Car", error = ex.Message });
             }
         }
     }

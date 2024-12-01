@@ -17,7 +17,7 @@ namespace CarRendalAPI.Repositories
 
         public async Task<Car> GetCarById(int id)
         {
-            return await _context.Cars.FirstOrDefaultAsync(c => c.CarId == id);
+            return await _context.Cars.Include(c => c.CarImages).FirstOrDefaultAsync(c => c.CarId == id);
         }
 
         public async Task<Car> GetModelByLicensePlate(string licensePlate)
@@ -47,9 +47,9 @@ namespace CarRendalAPI.Repositories
             return car;
         }
 
-        public async Task<List<UserImages>> GetImageByCarId(int id)
+        public async Task<List<CarImages>> GetImageByCarId(int id)
         {
-            return await _context.UserImages.Where(u => u.UserId == id).ToListAsync();
+            return await _context.CarImages.Where(u => u.CarId == id).ToListAsync();
         }
 
         public async Task<List<CarImages>> AddImage(List<CarImages> image)
@@ -59,12 +59,13 @@ namespace CarRendalAPI.Repositories
             return image;
         }
 
-        public async Task<List<CarImages>> UpdateImage(List<CarImages> image)
+        public async Task<CarImages> UpdateImage(CarImages image)
         {
-            _context.CarImages.UpdateRange(image);
+            _context.CarImages.Update(image);
             await _context.SaveChangesAsync();
             return image;
         }
+
 
         public async Task<Car> UpdateCar(Car car)
         {
@@ -88,16 +89,6 @@ namespace CarRendalAPI.Repositories
             return await _context.Models.AnyAsync(m => m.ModelId == modelId);
         }
 
-        //// Get View Count for a Car
-        //public async Task<int> GetViewCountAsync(int carId)
-        //{
-        //    var car = await _context.Cars
-        //        .FirstOrDefaultAsync(c => c.CarId == carId);
-
-        //    return car?.ViewCount ?? 0;
-        //}
-
-        // Increment View Count for the Car
         public async Task IncrementViewCount(int carId)
         {
             var car = await _context.Cars
@@ -110,5 +101,4 @@ namespace CarRendalAPI.Repositories
             }
         }
     }
-
 }

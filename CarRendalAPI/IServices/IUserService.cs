@@ -12,8 +12,7 @@ namespace CarRendalAPI.IServices
         Task<string> RegisterUser(UserReqDTO userReqDTO);
         Task<string> UpdateUser(int id, UserUpdateDTO userUpdateDTO);
         Task<bool> DeleteUser(int id);
-        Task<bool> DeleteImage(int id);
-        Task<string> AuthenticateUser(string email, string password);
+        Task<string> AuthenticateUser(LoginReqDTO loginReqDTO);
         Task<IdentityResult> ChangePassword(int userId, PasswordChangeDTO passwordChangeDTO);
     }
 }

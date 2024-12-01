@@ -6,17 +6,15 @@ namespace CarRendalAPI.Models
     public class Reservation
     {
         [Key]
-        public int ReservationId { get; set; } // Unique identifier for the reservation
-        [Required]
-        public DateTime ReservationDate { get; set; } // Date of reservation
-        public DateTime EndDate { get; set; } // End date of the reservation
-        public RentalStatus Status { get; set; } // Reservation status (e.g., Pending, Confirmed)
-
-        public int CarId { get; set; } // Foreign key for Car
+        public int ReservationId { get; set; }
+        public DateTime ReservationDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string Status { get; set; }
+        public int CarId { get; set; }
         [JsonIgnore]
-        public Car Car { get; set; } // Navigation property to Car
-        public int UserId { get; set; } // Foreign key for User
+        public Car Car { get; set; }
+        public int UserId { get; set; }
         [JsonIgnore]
-        public User User { get; set; } // Navigation property to User
+        public User User { get; set; }
     }
 }

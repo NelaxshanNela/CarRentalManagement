@@ -40,10 +40,6 @@ namespace CarRendalAPI.Controllers
                 var brand = await _brandService.GetBrandById(id);
                 return Ok(brand);
             }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -56,11 +52,11 @@ namespace CarRendalAPI.Controllers
             try
             {
                 var createdCarBrand = await _brandService.CreateBrand(brandReqDTO);
-                return Ok(createdCarBrand);
+                return Ok(new { success = true, message = "Brand added successfully" });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { success = false, message = "Error adding brand", error = ex.Message });
             }
         }
 
@@ -71,19 +67,11 @@ namespace CarRendalAPI.Controllers
             try
             {
                 var updatedCarBrand = await _brandService.UpdateBrand(id, brandReqDTO);
-                return Ok(updatedCarBrand);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
+                return Ok(new { success = true, message = "Brand updated successfully" });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { success = false, message = "Error updating brand", error = ex.Message });
             }
         }
 
@@ -93,15 +81,11 @@ namespace CarRendalAPI.Controllers
             try
             {
                 await _brandService.DeleteBrand(id);
-                return Ok("Brand Deleted Successfully.");
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
+                return Ok(new { success = true, message = "Brand deleted successfully" });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { success = false, message = "Error deleting brand", error = ex.Message });
             }
         }
     }

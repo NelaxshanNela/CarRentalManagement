@@ -13,7 +13,7 @@ namespace CarRendalAPI.DTOs.RequestDTOs
             public DateTime EndDate { get; set; }
 
             // Status of the reservation (e.g., Pending, Confirmed).
-            public RentalStatus Status { get; set; }
+            public string Status { get; set; }
 
             // ID of the car being reserved.
             [Required]

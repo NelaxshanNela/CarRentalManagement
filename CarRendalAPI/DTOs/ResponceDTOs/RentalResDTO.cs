@@ -9,7 +9,7 @@ namespace CarRendalAPI.DTOs.ResponceDTOs
         public DateTime RentalStartDate { get; set; } // Start date of the rental
         public DateTime RentalEndDate { get; set; } // End date of the rental
         public decimal TotalAmount { get; set; } // Total amount for the rental
-        public RentalStatus RentalStatus { get; set; } // Enum: Pending, Active, Completed, Canceled
+        public string RentalStatus { get; set; } // Enum: Pending, Active, Completed, Canceled
 
         // Foreign key references
         public int CarId { get; set; } // Car identifier

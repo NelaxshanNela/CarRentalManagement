@@ -42,7 +42,11 @@ namespace CarRendalAPI.Services
                 Rentals = exitingUser.Rentals,
                 Reservations = exitingUser.Reservations,
                 Notifications = exitingUser.Notifications,
-                Images = exitingUser.Images,
+                ProfileImage = exitingUser.ProfileImage,
+                DrivingLicenseFront = exitingUser.DrivingLicenseFront,
+                DrivingLicenseBack = exitingUser.DrivingLicenseBack,
+                CreatedAt = exitingUser.CreatedAt,
+                UpdatedAt = exitingUser.UpdatedAt,
                 Address = exitingUser.Address,
             };
             return user;
@@ -73,7 +77,11 @@ namespace CarRendalAPI.Services
                     Rentals = user.Rentals,
                     Reservations = user.Reservations,
                     Notifications = user.Notifications,
-                    Images = user.Images,
+                    ProfileImage = user.ProfileImage,
+                    DrivingLicenseFront = user.DrivingLicenseFront,
+                    DrivingLicenseBack = user.DrivingLicenseBack,
+                    CreatedAt = user.CreatedAt,
+                    UpdatedAt = user.UpdatedAt,
                     Address = user.Address
                 };
 
@@ -110,6 +118,8 @@ namespace CarRendalAPI.Services
                 Email = userReqDTO.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(userReqDTO.Password),
                 Phone = userReqDTO.Phone,
+                DrivingLicenseFront = userReqDTO.DrivingLicenseFront,
+                DrivingLicenseBack = userReqDTO.DrivingLicenseBack,
                 UserRole = userReqDTO.UserRole,
                 CreatedAt = DateTime.UtcNow
             };
@@ -125,21 +135,6 @@ namespace CarRendalAPI.Services
             address.UserId = data.UserId;
 
             await _userRepository.AddAddress(address);
-
-            var imageList = new List<UserImages>();
-
-            foreach (var item in userReqDTO.Images)
-            {
-                var image = new UserImages();
-                image.ImageUrl = item.ImageUrl;
-                image.ImageType = item.ImageType;
-                image.UserId = data.UserId;
-                image.CreatedAt = DateTime.UtcNow;
-                image.UserId = data.UserId;
-                imageList.Add(image);
-            }
-
-            await _userRepository.AddImage(imageList);
 
             var token = CreateToken(data);
             return token;
@@ -160,6 +155,8 @@ namespace CarRendalAPI.Services
             exitingUser.LastName = userUpdateDTO.LastName;
             exitingUser.Email = userUpdateDTO.Email;
             exitingUser.Phone = userUpdateDTO.Phone;
+            exitingUser.DrivingLicenseFront = userUpdateDTO.DrivingLicenseFront;
+            exitingUser.DrivingLicenseBack = userUpdateDTO.DrivingLicenseBack;
             exitingUser.UserRole = userUpdateDTO.UserRole;
             exitingUser.UpdatedAt = DateTime.UtcNow;
 
@@ -179,24 +176,6 @@ namespace CarRendalAPI.Services
 
             await _userRepository.UpdateAddress(exitingAddress);
 
-            var exitingImage = await _userRepository.GetImageByUserId(id);
-            if (exitingImage == null)
-            {
-                throw new KeyNotFoundException("Image not found.");
-            }
-            var imageList = new List<UserImages>();
-
-            foreach (var item in userUpdateDTO.Images)
-            {
-                var image = new UserImages();
-                image.ImageUrl = item.ImageUrl;
-                image.ImageType = item.ImageType;
-                image.UserId = data.UserId;
-                image.UpdatedAt = DateTime.UtcNow;
-                imageList.Add(image);
-            }
-
-            await _userRepository.UpdateImage(imageList);
             return "User Updated Successfully";
         }
 
@@ -207,21 +186,14 @@ namespace CarRendalAPI.Services
             return success;
         }
 
-        public async Task<bool> DeleteImage(int id)
+        public async Task<string> AuthenticateUser(LoginReqDTO loginReqDTO)
         {
-            var success = await _userRepository.DeleteImage(id);
-            if (!success) throw new KeyNotFoundException("Image not found.");
-            return success;
-        }
-
-        public async Task<string> AuthenticateUser(string email, string password)
-        {
-            var user = await _userRepository.GetUserByEmail(email);
+            var user = await _userRepository.GetUserByEmail(loginReqDTO.Email);
             if (user == null)
             {
-                throw new Exception("User not found.");
+                throw new KeyNotFoundException("User not found.");
             }
-            if (!BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
+            if (!BCrypt.Net.BCrypt.Verify(loginReqDTO.Password, user.PasswordHash))
             {
                 throw new Exception("Wrong password.");
             }
@@ -251,35 +223,25 @@ namespace CarRendalAPI.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-
-        // Handle password change
         public async Task<IdentityResult> ChangePassword(int userId, PasswordChangeDTO passwordChangeDTO)
         {
-            // Retrieve user by Id
             var user = await _userRepository.GetUserById(userId);
             if (user == null)
             {
                 throw new KeyNotFoundException("User not found.");
             }
-
-            // Verify the current password
             var result = BCrypt.Net.BCrypt.Verify(passwordChangeDTO.CurrentPassword, user.PasswordHash);
             if (!result)
             {
                 throw new Exception("Wrong password.");
             }
-
-            // Ensure the new password matches the confirmation password
             if (passwordChangeDTO.NewPassword != passwordChangeDTO.ConfirmNewPassword)
             {
                 throw new Exception("Password does not match.");
             }
-
-            // Hash the new password
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(passwordChangeDTO.NewPassword);
             user.UpdatedAt = DateTime.UtcNow;
 
-            // Save changes
             await _userRepository.UpdateUser(user);
 
             return IdentityResult.Success;

@@ -13,7 +13,6 @@ namespace CarRendalAPI.Database
         public DbSet<Car> Cars { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Model> Models { get; set; }
-        public DbSet<UserImages> UserImages { get; set; }
         public DbSet<CarImages> CarImages { get; set; }
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
@@ -42,11 +41,11 @@ namespace CarRendalAPI.Database
                 .OnDelete(DeleteBehavior.Cascade);
 
             // User-Image relationship: One-to-many
-            modelBuilder.Entity<UserImages>()
-                .HasOne(i => i.User)
-                .WithMany(u => u.Images)
-                .HasForeignKey(i => i.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<UserImages>()
+            //    .HasOne(i => i.User)
+            //    .WithMany(u => u.Images)
+            //    .HasForeignKey(i => i.UserId)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
             // Car-Image relationship: One-to-many
             modelBuilder.Entity<CarImages>()

@@ -40,10 +40,6 @@ namespace CarRendalAPI.Controllers
                 var model = await _modelService.GetModelById(id);
                 return Ok(model);
             }
-            catch (KeyNotFoundException ex)
-            {
-                return BadRequest(ex.Message);
-            }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -56,15 +52,11 @@ namespace CarRendalAPI.Controllers
             try
             {
                 var addedCarModel = await _modelService.CreateModel(modelReqDTO);
-                return Ok(addedCarModel);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
+                return Ok(new { success = true, message = "Model added successfully" });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { success = false, message = "Error adding model", error = ex.Message });
             }
         }
 
@@ -74,19 +66,11 @@ namespace CarRendalAPI.Controllers
             try
             {
                 var updatedCar = await _modelService.UpdateModel(id, modelReqDTO);
-                return Ok(updatedCar);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
+                return Ok(new { success = true, message = "Model updated successfully" });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { success = false, message = "Error updating model", error = ex.Message });
             }
         }
 
@@ -96,15 +80,11 @@ namespace CarRendalAPI.Controllers
             try
             {
                 await _modelService.DeleteModel(id);
-                return Ok("Model Deleted Successfully.");
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
+                return Ok(new { success = true, message = "Model deleted successfully" });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { success = false, message = "Error deleting model", error = ex.Message });
             }
         }
     }

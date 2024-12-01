@@ -28,10 +28,18 @@ namespace CarRendalAPI.DTOs.RequestDTOs
         [Phone]
         public string Phone { get; set; }
 
+        [Required(ErrorMessage = "Image URL is required.")]
+        [Url(ErrorMessage = "Please provide a valid URL for the image.")]
+        public string DrivingLicenseFront { get; set; }
+
+        [Required(ErrorMessage = "Image URL is required.")]
+        [Url(ErrorMessage = "Please provide a valid URL for the image.")]
+        public string DrivingLicenseBack { get; set; }
+
         [Required]
         public string UserRole { get; set; }
 
-        public ICollection<UserImageReqDTO>? Images { get; set; }
+        //public ICollection<UserImageReqDTO>? Images { get; set; }
 
         [Required]
         public AddressReqDTO Address { get; set; }

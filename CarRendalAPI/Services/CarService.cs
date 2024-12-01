@@ -105,7 +105,6 @@ namespace CarRendalAPI.Services
                 throw new KeyNotFoundException("Car not found.");
             }
 
-            existingCar.CarId = id;
             existingCar.LicensePlate = carReqDTO.LicensePlate;
             existingCar.Color = carReqDTO.Color;
             existingCar.Status = carReqDTO.Status;
@@ -118,28 +117,44 @@ namespace CarRendalAPI.Services
 
             var data = await _carRepository.UpdateCar(existingCar);
 
-            var exitingImage = await _carRepository.GetImageByCarId(id);
-            if (exitingImage == null)
-            {
-                throw new KeyNotFoundException("Image not found.");
-            }
+            var existingImages = await _carRepository.GetImageByCarId(id);
+
+            //var imagesToDelete = existingImages.Where(image => !carReqDTO.CarImages.Any(newImage => newImage.ImageUrl == image.ImageUrl)).ToList();
+            //if (imagesToDelete.Any())
+            //{
+            //    await _carRepository.DeleteImages(imagesToDelete);
+            //}
 
             var imageList = new List<CarImages>();
 
             foreach (var item in carReqDTO.CarImages)
             {
-                var image = new CarImages();
-                image.ImageUrl = item.ImageUrl;
-                image.ImageType = item.ImageType;
-                image.CarId = data.CarId;
-                image.CarId = data.CarId;
-                image.CreatedAt = DateTime.UtcNow;
-                imageList.Add(image);
+                var existingImage = existingImages.FirstOrDefault(image => image.ImageType == item.ImageType);
+                if (existingImage != null)
+                {
+                    existingImage.ImageUrl = item.ImageUrl;
+                    existingImage.UpdatedAt = DateTime.UtcNow;
+                    await _carRepository.UpdateImage(existingImage);
+                }
+                else
+                {
+                    var image = new CarImages
+                    {
+                        ImageUrl = item.ImageUrl,
+                        ImageType = item.ImageType,
+                        CarId = data.CarId,
+                        CreatedAt = DateTime.UtcNow
+                    };
+                    imageList.Add(image);
+                }
             }
 
-            await _carRepository.UpdateImage(imageList);
+            if (imageList.Any())
+            {
+                await _carRepository.AddImage(imageList);
+            }
 
-            return "Car updated succesfully";
+            return "Car updated successfully";
         }
 
         public async Task<bool> DeleteCar(int id)
@@ -149,7 +164,6 @@ namespace CarRendalAPI.Services
             return success;
         }
 
-        // Increment Car View Count
         public async Task IncrementCarViewCount(int carId)
         {
             await _carRepository.IncrementViewCount(carId);

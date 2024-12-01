@@ -51,7 +51,6 @@ namespace CarRendalAPI.Services
                 EngineType = modelReqDTO.EngineType,
                 FuelType = modelReqDTO.FuelType,
                 TransmissionType = modelReqDTO.TransmissionType,
-                Mileage = modelReqDTO.Mileage,
                 Horsepower = modelReqDTO.Horsepower,
                 Doors = modelReqDTO.Doors,
                 Seats = modelReqDTO.Seats,
@@ -85,7 +84,6 @@ namespace CarRendalAPI.Services
             existingModel.EngineType = modelReqDTO.EngineType;
             existingModel.FuelType = modelReqDTO.FuelType;
             existingModel.TransmissionType = modelReqDTO.TransmissionType;
-            existingModel.Mileage = modelReqDTO.Mileage;
             existingModel.Horsepower = modelReqDTO.Horsepower;
             existingModel.Doors = modelReqDTO.Doors;
             existingModel.Seats = modelReqDTO.Seats;
