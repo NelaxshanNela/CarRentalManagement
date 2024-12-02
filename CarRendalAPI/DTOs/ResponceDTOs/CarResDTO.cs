@@ -4,7 +4,6 @@ namespace CarRendalAPI.DTOs.ResponceDTOs
 {
     public class CarResDTO
     {
-        public string Name { get; set; }
         public int CarId { get; set; }
         public string LicensePlate { get; set; }
         public string Color { get; set; }

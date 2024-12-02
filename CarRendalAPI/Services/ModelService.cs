@@ -56,7 +56,6 @@ namespace CarRendalAPI.Services
                 Seats = modelReqDTO.Seats,
                 FuelEfficiency = modelReqDTO.FuelEfficiency,
                 Category = modelReqDTO.Category,
-                CreatedAt = DateTime.UtcNow,
                 BrandId = modelReqDTO.BrandId,
             };
 
@@ -89,7 +88,6 @@ namespace CarRendalAPI.Services
             existingModel.Seats = modelReqDTO.Seats;
             existingModel.FuelEfficiency = modelReqDTO.FuelEfficiency;
             existingModel.Category = modelReqDTO.Category;
-            existingModel.UpdatedAt = DateTime.UtcNow;
             existingModel.BrandId = modelReqDTO.BrandId;
 
             var data = await _modelRepository.UpdateModel(existingModel);

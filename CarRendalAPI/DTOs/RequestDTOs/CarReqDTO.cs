@@ -5,15 +5,13 @@ namespace CarRendalAPI.DTOs.RequestDTOs
 {
     public class CarReqDTO
     {
-        [Required]
-        public string Name { get; set; }
 
         [Required]
         [StringLength(10, ErrorMessage = "License Plate must be less than 10 characters.")]
         public string LicensePlate { get; set; }
 
         [Required]
-        [StringLength(10, ErrorMessage = "Car color must be less than 10 characters.")]
+        [StringLength(15, ErrorMessage = "Car color must be less than 15 characters.")]
         public string Color { get; set; }
 
         [Required]

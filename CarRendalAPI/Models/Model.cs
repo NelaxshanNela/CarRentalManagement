@@ -17,8 +17,6 @@ namespace CarRendalAPI.Models
         public int Seats { get; set; }
         public double FuelEfficiency { get; set; }
         public string Category { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime UpdatedAt { get; set; }
 
         public int BrandId { get; set; }
         [JsonIgnore]

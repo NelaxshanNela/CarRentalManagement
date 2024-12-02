@@ -7,7 +7,6 @@ namespace CarRendalAPI.Models
     {
         [Key]
         public int CarId { get; set; }
-        public string Name { get; set; }
         public string LicensePlate { get; set; }
         public string Color { get; set; }
         public string Status { get; set; }
@@ -15,7 +14,6 @@ namespace CarRendalAPI.Models
         public double CurrentMileage { get; set; }
         public string RegistrationNumber { get; set; }
         public int YearOfManufacture { get; set; }
-        public int TankCapacity { get; set; }
         public int ViewCount { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
