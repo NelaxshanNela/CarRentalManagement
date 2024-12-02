@@ -10,7 +10,6 @@ namespace CarRendalAPI.DTOs.RequestDTOs
         public string EngineType { get; set; }
         public string FuelType { get; set; }
         public string TransmissionType { get; set; }
-        public double Mileage { get; set; }
         public int Horsepower { get; set; }
         public int Doors { get; set; }
         public int Seats { get; set; }
