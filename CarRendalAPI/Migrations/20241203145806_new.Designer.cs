@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRendalAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241201213326_initial")]
-    partial class initial
+    [Migration("20241203145806_new")]
+    partial class @new
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -120,6 +120,9 @@ namespace CarRendalAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarId"));
 
+                    b.Property<string>("BackView")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Color")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -130,16 +133,19 @@ namespace CarRendalAPI.Migrations
                     b.Property<double>("CurrentMileage")
                         .HasColumnType("float");
 
+                    b.Property<string>("FrotView")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Interior")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LicensePlate")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ModelId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("PricePerDay")
                         .HasColumnType("decimal(18,2)");
@@ -148,12 +154,16 @@ namespace CarRendalAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SideView")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TankCapacity")
-                        .HasColumnType("int");
+                    b.Property<string>("TankCapacity")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -171,38 +181,6 @@ namespace CarRendalAPI.Migrations
                     b.ToTable("Cars");
                 });
 
-            modelBuilder.Entity("CarRendalAPI.Models.CarImages", b =>
-                {
-                    b.Property<int>("ImageId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImageId"));
-
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ImageType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ImageId");
-
-                    b.HasIndex("CarId");
-
-                    b.ToTable("CarImages");
-                });
-
             modelBuilder.Entity("CarRendalAPI.Models.Model", b =>
                 {
                     b.Property<int>("ModelId")
@@ -217,9 +195,6 @@ namespace CarRendalAPI.Migrations
                     b.Property<string>("Category")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("Doors")
                         .HasColumnType("int");
@@ -248,9 +223,6 @@ namespace CarRendalAPI.Migrations
                     b.Property<string>("TransmissionType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
@@ -557,17 +529,6 @@ namespace CarRendalAPI.Migrations
                     b.Navigation("Model");
                 });
 
-            modelBuilder.Entity("CarRendalAPI.Models.CarImages", b =>
-                {
-                    b.HasOne("CarRendalAPI.Models.Car", "Car")
-                        .WithMany("CarImages")
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Car");
-                });
-
             modelBuilder.Entity("CarRendalAPI.Models.Model", b =>
                 {
                     b.HasOne("CarRendalAPI.Models.Brand", "Brand")
@@ -668,8 +629,6 @@ namespace CarRendalAPI.Migrations
 
             modelBuilder.Entity("CarRendalAPI.Models.Car", b =>
                 {
-                    b.Navigation("CarImages");
-
                     b.Navigation("Rentals");
 
                     b.Navigation("Reservations");

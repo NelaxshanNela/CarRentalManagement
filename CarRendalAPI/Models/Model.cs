@@ -12,13 +12,11 @@ namespace CarRendalAPI.Models
         public string EngineType { get; set; }
         public string FuelType { get; set; }
         public string TransmissionType { get; set; }
-        public int Horsepower { get; set; }
+        public string Horsepower { get; set; }
         public int Doors { get; set; }
         public int Seats { get; set; }
-        public double FuelEfficiency { get; set; }
+        public string FuelEfficiency { get; set; }
         public string Category { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime UpdatedAt { get; set; }
 
         public int BrandId { get; set; }
         [JsonIgnore]

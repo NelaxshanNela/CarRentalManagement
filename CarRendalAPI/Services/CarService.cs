@@ -60,7 +60,6 @@ namespace CarRendalAPI.Services
 
             var car = new Car
             {
-                Name = carReqDTO.Name,
                 LicensePlate = carReqDTO.LicensePlate,
                 Color = carReqDTO.Color,
                 Status = carReqDTO.Status,
@@ -95,8 +94,6 @@ namespace CarRendalAPI.Services
                 throw new KeyNotFoundException("Car not found.");
             }
 
-
-            existingCar.Name = carReqDTO.Name;
             existingCar.LicensePlate = carReqDTO.LicensePlate;
             existingCar.Color = carReqDTO.Color;
             existingCar.Status = carReqDTO.Status;
