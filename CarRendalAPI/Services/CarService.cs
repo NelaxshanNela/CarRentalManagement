@@ -60,6 +60,7 @@ namespace CarRendalAPI.Services
 
             var car = new Car
             {
+                Name = carReqDTO.Name,
                 LicensePlate = carReqDTO.LicensePlate,
                 Color = carReqDTO.Color,
                 Status = carReqDTO.Status,
@@ -67,26 +68,15 @@ namespace CarRendalAPI.Services
                 CurrentMileage = carReqDTO.CurrentMileage,
                 RegistrationNumber = carReqDTO.RegistrationNumber,
                 YearOfManufacture = carReqDTO.YearOfManufacture,
-                ViewCount = carReqDTO.ViewCount,
-                ModelId = carReqDTO.ModelId
+                ModelId = carReqDTO.ModelId,
+                TankCapacity = carReqDTO.TankCapacity,
+                FrotView = carReqDTO.FrotView,
+                BackView = carReqDTO.BackView,
+                SideView = carReqDTO.SideView,
+                Interior = carReqDTO.Interior
 
             };
             var data = await _carRepository.CreateCar(car);
-
-            var imageList = new List<CarImages>();
-
-            foreach (var item in carReqDTO.CarImages)
-            {
-                var image = new CarImages();
-                image.ImageUrl = item.ImageUrl;
-                image.ImageType = item.ImageType;
-                image.CarId = data.CarId;
-                image.CarId = data.CarId;
-                image.CreatedAt = DateTime.UtcNow;
-                imageList.Add(image);
-            }
-
-            await _carRepository.AddImage(imageList);
 
             return "Car added succesfully";
         }
@@ -105,6 +95,8 @@ namespace CarRendalAPI.Services
                 throw new KeyNotFoundException("Car not found.");
             }
 
+
+            existingCar.Name = carReqDTO.Name;
             existingCar.LicensePlate = carReqDTO.LicensePlate;
             existingCar.Color = carReqDTO.Color;
             existingCar.Status = carReqDTO.Status;
@@ -112,47 +104,14 @@ namespace CarRendalAPI.Services
             existingCar.CurrentMileage = carReqDTO.CurrentMileage;
             existingCar.RegistrationNumber = carReqDTO.RegistrationNumber;
             existingCar.YearOfManufacture = carReqDTO.YearOfManufacture;
-            existingCar.ViewCount = carReqDTO.ViewCount;
             existingCar.ModelId = carReqDTO.ModelId;
+            existingCar.TankCapacity = carReqDTO.TankCapacity;
+            existingCar.FrotView = carReqDTO.FrotView;
+            existingCar.BackView = carReqDTO.BackView;
+            existingCar.SideView = carReqDTO.SideView;
+            existingCar.Interior = carReqDTO.Interior;
 
             var data = await _carRepository.UpdateCar(existingCar);
-
-            var existingImages = await _carRepository.GetImageByCarId(id);
-
-            //var imagesToDelete = existingImages.Where(image => !carReqDTO.CarImages.Any(newImage => newImage.ImageUrl == image.ImageUrl)).ToList();
-            //if (imagesToDelete.Any())
-            //{
-            //    await _carRepository.DeleteImages(imagesToDelete);
-            //}
-
-            var imageList = new List<CarImages>();
-
-            foreach (var item in carReqDTO.CarImages)
-            {
-                var existingImage = existingImages.FirstOrDefault(image => image.ImageType == item.ImageType);
-                if (existingImage != null)
-                {
-                    existingImage.ImageUrl = item.ImageUrl;
-                    existingImage.UpdatedAt = DateTime.UtcNow;
-                    await _carRepository.UpdateImage(existingImage);
-                }
-                else
-                {
-                    var image = new CarImages
-                    {
-                        ImageUrl = item.ImageUrl,
-                        ImageType = item.ImageType,
-                        CarId = data.CarId,
-                        CreatedAt = DateTime.UtcNow
-                    };
-                    imageList.Add(image);
-                }
-            }
-
-            if (imageList.Any())
-            {
-                await _carRepository.AddImage(imageList);
-            }
 
             return "Car updated successfully";
         }

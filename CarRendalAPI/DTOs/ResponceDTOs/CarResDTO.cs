@@ -14,7 +14,11 @@ namespace CarRendalAPI.DTOs.ResponceDTOs
         public string RegistrationNumber { get; set; }
         public int YearOfManufacture { get; set; }
         public int ViewCount { get; set; }
+        public string TankCapacity { get; set; }
+        public string FrotView { get; set; }
+        public string BackView { get; set; }
+        public string SideView { get; set; }
+        public string Interior { get; set; }
         public Model Model { get; set; }
-        public ICollection<CarImages>? CarImages { get; set; }
     }
 }

@@ -13,10 +13,6 @@ namespace CarRendalAPI.IRepositories
         Task<Car> UpdateCar(Car car);
         Task<bool> DeleteCar(int id);
         Task<bool> ModelExistsAsync(int modelId);
-        Task<List<CarImages>> AddImage(List<CarImages> image);
-        Task<CarImages> UpdateImage(CarImages image);
-        Task<List<CarImages>> GetImageByCarId(int id);
-        //Task<int> GetViewCountAsync(int carId);
         Task IncrementViewCount(int carId);
     }
 }

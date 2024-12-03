@@ -35,11 +35,15 @@ namespace CarRendalAPI.DTOs.RequestDTOs
         [Range(1800, 2024, ErrorMessage = "Year of Manufacture must be a valid year.")]
         public int YearOfManufacture { get; set; }
 
-        public int ViewCount { get; set; }
+        [Required]
+        public string TankCapacity { get; set; }
 
         [Required]
+        public string FrotView { get; set; }
+        public string? BackView { get; set; }
+        public string? SideView { get; set; }
+        public string? Interior { get; set; }
+        [Required]
         public int ModelId { get; set; }
-
-        public ICollection<CarImageReqDTO>? CarImages { get; set; } = new List<CarImageReqDTO>();
     }
 }

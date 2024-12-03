@@ -9,11 +9,9 @@ namespace CarRendalAPI.Database
         {
         }
 
-        // DbSets for each of your entities
         public DbSet<Car> Cars { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Model> Models { get; set; }
-        public DbSet<CarImages> CarImages { get; set; }
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Payment> Payments { get; set; }
@@ -40,20 +38,6 @@ namespace CarRendalAPI.Database
                 .HasForeignKey(c => c.BrandId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // User-Image relationship: One-to-many
-            //modelBuilder.Entity<UserImages>()
-            //    .HasOne(i => i.User)
-            //    .WithMany(u => u.Images)
-            //    .HasForeignKey(i => i.UserId)
-            //    .OnDelete(DeleteBehavior.Cascade);
-
-            // Car-Image relationship: One-to-many
-            modelBuilder.Entity<CarImages>()
-                .HasOne(i => i.Car)
-                .WithMany(c => c.CarImages)
-                .HasForeignKey(i => i.CarId)
-                .OnDelete(DeleteBehavior.Cascade);
-
             // Reservations-User relationship: Many-to-one (reservation made by a user)
             modelBuilder.Entity<Reservation>()
                 .HasOne(r => r.User)
@@ -69,23 +53,16 @@ namespace CarRendalAPI.Database
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Rental>()
-                .HasOne(r => r.Car)           // Rental has one Car
-                .WithMany(c => c.Rentals)     // Car has many Rentals
-                .HasForeignKey(r => r.CarId) // Foreign key in Rental
+                .HasOne(r => r.Car)
+                .WithMany(c => c.Rentals)
+                .HasForeignKey(r => r.CarId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Rental>()
-                .HasOne(r => r.User)          // Rental has one User
-                .WithMany(u => u.Rentals)     // User has many Rentals
+                .HasOne(r => r.User)
+                .WithMany(u => u.Rentals)
                 .HasForeignKey(r => r.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            //// Payment-Reservation relationship: One-to-one (one payment per reservation)
-            //modelBuilder.Entity<Payment>()
-            //    .HasOne(p => p.Reservation)
-            //    .WithOne(r => r.Payment)
-            //    .HasForeignKey<Payment>(p => p.ReservationId)
-            //    .OnDelete(DeleteBehavior.Cascade);
 
             // Review-Car relationship: One-to-many
             modelBuilder.Entity<Review>()

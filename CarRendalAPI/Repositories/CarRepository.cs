@@ -17,7 +17,7 @@ namespace CarRendalAPI.Repositories
 
         public async Task<Car> GetCarById(int id)
         {
-            return await _context.Cars.Include(c => c.CarImages).FirstOrDefaultAsync(c => c.CarId == id);
+            return await _context.Cars.FirstOrDefaultAsync(c => c.CarId == id);
         }
 
         public async Task<Car> GetModelByLicensePlate(string licensePlate)
@@ -27,7 +27,7 @@ namespace CarRendalAPI.Repositories
 
         public async Task<List<Car>> GetAllCars()
         {
-            return await _context.Cars.Include(c => c.CarImages).Include(c => c.Reviews).ToListAsync();
+            return await _context.Cars.Include(c => c.Reviews).ToListAsync();
         }
 
         public async Task<List<Car>> GetCarsByBrand(string brand)
@@ -46,26 +46,6 @@ namespace CarRendalAPI.Repositories
             await _context.SaveChangesAsync();
             return car;
         }
-
-        public async Task<List<CarImages>> GetImageByCarId(int id)
-        {
-            return await _context.CarImages.Where(u => u.CarId == id).ToListAsync();
-        }
-
-        public async Task<List<CarImages>> AddImage(List<CarImages> image)
-        {
-            await _context.CarImages.AddRangeAsync(image);
-            await _context.SaveChangesAsync();
-            return image;
-        }
-
-        public async Task<CarImages> UpdateImage(CarImages image)
-        {
-            _context.CarImages.Update(image);
-            await _context.SaveChangesAsync();
-            return image;
-        }
-
 
         public async Task<Car> UpdateCar(Car car)
         {
