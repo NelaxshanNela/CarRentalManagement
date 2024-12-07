@@ -13,7 +13,7 @@ namespace CarRendalAPI.Models
         public string Email { get; set; }
         public string PasswordHash { get; set; }
         public string Phone { get; set; }
-        public string? ProfileImage { get; set; }
+        public string ProfileImage { get; set; }
         public string DrivingLicenseFront { get; set; }
         public string DrivingLicenseBack { get; set; }
         public string UserRole { get; set; }

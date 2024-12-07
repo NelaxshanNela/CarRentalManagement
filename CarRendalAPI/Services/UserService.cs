@@ -118,6 +118,7 @@ namespace CarRendalAPI.Services
                 Email = userReqDTO.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(userReqDTO.Password),
                 Phone = userReqDTO.Phone,
+                ProfileImage = userReqDTO.ProfileImage,
                 DrivingLicenseFront = userReqDTO.DrivingLicenseFront,
                 DrivingLicenseBack = userReqDTO.DrivingLicenseBack,
                 UserRole = userReqDTO.UserRole,
@@ -157,6 +158,7 @@ namespace CarRendalAPI.Services
             exitingUser.Phone = userUpdateDTO.Phone;
             exitingUser.DrivingLicenseFront = userUpdateDTO.DrivingLicenseFront;
             exitingUser.DrivingLicenseBack = userUpdateDTO.DrivingLicenseBack;
+            exitingUser.ProfileImage = userUpdateDTO.ProfileImage;
             exitingUser.UserRole = userUpdateDTO.UserRole;
             exitingUser.UpdatedAt = DateTime.UtcNow;
 
@@ -247,5 +249,4 @@ namespace CarRendalAPI.Services
             return IdentityResult.Success;
         }
     }
-
 }

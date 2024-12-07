@@ -35,6 +35,9 @@ namespace CarRendalAPI.DTOs.RequestDTOs
         [Required(ErrorMessage = "Image URL is required.")]
         [Url(ErrorMessage = "Please provide a valid URL for the image.")]
         public string DrivingLicenseBack { get; set; }
+        
+        [Url(ErrorMessage = "Please provide a valid URL for the image.")]
+        public string ProfileImage { get; set; }
 
         [Required]
         public string UserRole { get; set; }
