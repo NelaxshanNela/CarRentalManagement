@@ -382,8 +382,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "payment",
-        "Type": "CarRendalAPI.Models.Payment",
+        "Name": "paymentReqDTO",
+        "Type": "CarRendalAPI.DTOs.RequestDTOs.PaymentReqDTO",
         "IsRequired": true
       }
     ],
@@ -558,6 +558,27 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CarRendalAPI.Controllers.RentalsController",
+    "Method": "UpdateRentalStatus",
+    "RelativePath": "api/Rentals/{id}/status",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updateRentalReqDTO",
+        "Type": "CarRendalAPI.DTOs.RequestDTOs.UpdateRentalReqDTO",
         "IsRequired": true
       }
     ],

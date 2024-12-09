@@ -117,6 +117,35 @@ namespace CarRendalAPI.Controllers
             var totalRentals = await _rentalService.GetTotalRentalsForCar(carId);
             return Ok(totalRentals);
         }
+
+
+        [HttpPut("{id}/status")]
+        public async Task<IActionResult> UpdateRentalStatus(int id, UpdateRentalReqDTO updateRentalReqDTO)
+        {
+            var updatedRental = await _rentalService.UpdateRentalStatus(id, updateRentalReqDTO);
+
+            if (updatedRental == null)
+            {
+                return NotFound($"Rental with ID {id} not found.");
+            }
+
+            return Ok(new { message = "Rental status updated successfully" });
+        }
+
+        //[HttpPut("{rentalId}/status")]
+        //public IActionResult UpdateRentalStatus(int rentalId, [FromBody] UpdateRentalReqDTO updateRentalReqDTO)
+        //{
+        //    var rental = _rentalService.GetRentalById(rentalId);
+        //    if (rental == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    rental.RentalStatus = updateRentalReqDTO.RentalStatus;
+        //    _rentalService.Save(rental);
+
+        //    return Ok(new { message = "Rental status updated successfully" });
+        //}
     }
 
 }

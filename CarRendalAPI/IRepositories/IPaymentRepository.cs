@@ -4,6 +4,7 @@ namespace CarRendalAPI.IRepositories
 {
     public interface IPaymentRepository
     {
+        Task<IEnumerable<Payment>> GetAllPayment();
         Task<Payment> GetPaymentById(int id);
         Task<IEnumerable<Payment>> GetPaymentsByRentalId(int rentalId);
         Task<Payment> AddPayment(Payment payment);

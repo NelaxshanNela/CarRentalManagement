@@ -1,4 +1,5 @@
-﻿using CarRendalAPI.IRepositories;
+﻿using CarRendalAPI.DTOs.RequestDTOs;
+using CarRendalAPI.IRepositories;
 using CarRendalAPI.IServices;
 using CarRendalAPI.Models;
 
@@ -13,6 +14,12 @@ namespace CarRendalAPI.Services
             _paymentRepository = paymentRepository;
         }
 
+        public async Task<IEnumerable<Payment>> GetAllPayments()
+        {
+            return await _paymentRepository.GetAllPayment();
+        }
+
+
         public async Task<Payment> GetPaymentById(int id)
         {
             return await _paymentRepository.GetPaymentById(id);
@@ -23,13 +30,22 @@ namespace CarRendalAPI.Services
             return await _paymentRepository.GetPaymentsByRentalId(rentalId);
         }
 
-        public async Task CreatePayment(Payment payment)
+        public async Task CreatePayment(PaymentReqDTO paymentReqDTO)
         {
-            // Add business logic, e.g., ensure payment amount is correct
-            if (payment.Amount <= 0)
+            if (paymentReqDTO.Amount <= 0)
             {
                 throw new ArgumentException("Payment amount must be greater than zero.");
             }
+
+            var payment = new Payment
+            {
+                Amount = paymentReqDTO.Amount,
+                PaymentDate = DateTime.UtcNow,
+                PaymentMethod = paymentReqDTO.PaymentMethod,
+                PaymentStatus = paymentReqDTO.PaymentStatus,
+                RentalId = paymentReqDTO.RentalId,
+
+            };
 
             await _paymentRepository.AddPayment(payment);
         }

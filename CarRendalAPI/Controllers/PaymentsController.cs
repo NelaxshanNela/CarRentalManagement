@@ -1,4 +1,5 @@
-﻿using CarRendalAPI.IServices;
+﻿using CarRendalAPI.DTOs.RequestDTOs;
+using CarRendalAPI.IServices;
 using CarRendalAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ namespace CarRendalAPI.Controllers
         {
             try
             {
-                var payments = await _paymentService.GetPaymentsByRentalId(0);
+                var payments = await _paymentService.GetAllPayments();
                 return Ok(payments);
             }
             catch (Exception ex)
@@ -69,12 +70,12 @@ namespace CarRendalAPI.Controllers
 
         // POST: api/Payments
         [HttpPost]
-        public async Task<IActionResult> CreatePayment(Payment payment)
+        public async Task<IActionResult> CreatePayment(PaymentReqDTO paymentReqDTO)
         {
             try
             {
-                await _paymentService.CreatePayment(payment);
-                return CreatedAtAction(nameof(GetPaymentById), new { id = payment.PaymentId }, payment);
+                await _paymentService.CreatePayment(paymentReqDTO);
+                return Ok(new { success = true, message = "Payment added successfully" });
             }
             catch (ArgumentException ex)
             {

@@ -4,6 +4,7 @@ using CarRendalAPI.DTOs.ResponseDTOs;
 using CarRendalAPI.IRepositories;
 using CarRendalAPI.IServices;
 using CarRendalAPI.Models;
+using CarRendalAPI.Repositories;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -67,7 +68,9 @@ namespace CarRendalAPI.Services
                 {
                     PaymentId = payment.PaymentId,
                     Amount = payment.Amount,
-                    PaymentDate = payment.PaymentDate
+                    PaymentDate = payment.PaymentDate,
+                    PaymentStatus = payment.PaymentStatus,
+                    PaymentMethod = payment.PaymentMethod
                 }).ToList()
             });
         }
@@ -95,7 +98,9 @@ namespace CarRendalAPI.Services
                 {
                     PaymentId = payment.PaymentId,
                     Amount = payment.Amount,
-                    PaymentDate = payment.PaymentDate
+                    PaymentDate = payment.PaymentDate,
+                    PaymentStatus = payment.PaymentStatus,
+                    PaymentMethod = payment.PaymentMethod
                 }).ToList()
             };
         }
@@ -159,6 +164,23 @@ namespace CarRendalAPI.Services
         public async Task<int> GetTotalRentalsForCar(int carId)
         {
             return await _rentalRepository.GetTotalRentalsForCar(carId);
+        }
+
+        public async Task<string> UpdateRentalStatus(int id, UpdateRentalReqDTO updateRentalReqDTO)
+        {
+            var rental = await _rentalRepository.GetRentalById(id);
+
+            if (rental == null)
+            {
+                return null;
+            }
+
+            rental.RentalStatus = updateRentalReqDTO.RentalStatus;
+            rental.UpdatedAt = DateTime.Now;
+
+            await _rentalRepository.UpdateRentalStatus(rental);
+
+            return "Status Update Successfully";
         }
     }
 }

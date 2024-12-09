@@ -14,5 +14,6 @@ namespace CarRendalAPI.IRepositories
         Task<IEnumerable<Rental>> GetRentalsByUserId(int userId);
         Task<IEnumerable<Rental>> GetRentalsByCarId(int carId);
         Task<int> GetTotalRentalsForCar(int carId);
+        Task UpdateRentalStatus(Rental rental);
     }
 }

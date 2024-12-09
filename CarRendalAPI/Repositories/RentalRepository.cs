@@ -90,6 +90,12 @@ namespace CarRendalAPI.Repositories
                 .Where(r => r.CarId == carId)  // Filter by CarId
                 .CountAsync();                 // Count the number of rentals for this car
         }
+
+        public async Task UpdateRentalStatus(Rental rental)
+        {
+            _context.Rentals.Update(rental);
+            await _context.SaveChangesAsync();
+        }
     }
 }
 

@@ -15,6 +15,7 @@ namespace CarRendalAPI.IServices
         Task DeleteRental(int id);
         Task<IEnumerable<Rental>> GetRentalsByUserId(int userId);
         Task<IEnumerable<Rental>> GetRentalsByCarId(int carId);
-        Task<int> GetTotalRentalsForCar(int carId); // Ensure this method exists
+        Task<int> GetTotalRentalsForCar(int carId);
+        Task<string> UpdateRentalStatus(int id, UpdateRentalReqDTO updateRentalReqDTO);
     }
 }
