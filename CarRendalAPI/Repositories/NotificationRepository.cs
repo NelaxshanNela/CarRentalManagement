@@ -13,38 +13,27 @@ namespace CarRendalAPI.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Notification>> GetAllNotification()
+        public async Task AddNotification(Notification notification)
         {
-            return await _context.Notifications.ToListAsync();
-        }
-
-        public async Task<Notification> GetNotificationById(int id)
-        {
-            return await _context.Notifications.FirstOrDefaultAsync(n => n.NotificationId == id);
-        }
-
-
-
-        public async Task<Notification> CreateNotification(Notification notification)
-        {
-            await _context.AddAsync(notification);
+            _context.Notifications.Add(notification);
             await _context.SaveChangesAsync();
-            return notification;
         }
 
-        public async Task<Notification> UpdateNotification(Notification notification)
+        public async Task<IEnumerable<Notification>> GetNotificationsByUserId(int userId)
         {
-            _context.Notifications.Update(notification);
-            await _context.SaveChangesAsync();
-            return notification;
+            return await _context.Notifications
+                .Where(n => n.UserId == userId)
+                .OrderByDescending(n => n.DateCreated)
+                .ToListAsync();
         }
 
-        public async Task DeleteNotification(int id)
+        public async Task MarkAsRead(int notificationId)
         {
-            var notification = await GetNotificationById(id);
+            var notification = await _context.Notifications.FindAsync(notificationId);
             if (notification != null)
             {
-                _context.Remove(notification);
+                notification.IsRead = true;
+                notification.DateRead = DateTime.UtcNow;
                 await _context.SaveChangesAsync();
             }
         }

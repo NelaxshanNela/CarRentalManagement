@@ -28,10 +28,10 @@ namespace CarRendalAPI
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("appDbConnection")));
-            builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
-            builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
+            builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
             builder.Services.AddScoped<IEmailService, EmailService>();
+
 
             builder.Services.AddScoped<IEmailService, SendGridEmailService>();
 
