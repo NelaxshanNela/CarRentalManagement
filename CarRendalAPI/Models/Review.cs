@@ -11,6 +11,9 @@ namespace CarRendalAPI.Models
         public string Comments { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }
+        public int UserId { get; set; }
+        [JsonIgnore]
+        public User User { get; set; }
         public int CarId { get; set; }
         [JsonIgnore]
         public Car Car { get; set; }

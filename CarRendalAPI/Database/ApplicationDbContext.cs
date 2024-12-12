@@ -66,10 +66,16 @@ namespace CarRendalAPI.Database
 
             // Review-Car relationship: One-to-many
             modelBuilder.Entity<Review>()
-                .HasOne(r => r.Car)
-                .WithMany(c => c.Reviews)
-                .HasForeignKey(r => r.CarId)
-                .OnDelete(DeleteBehavior.Cascade);
+                    .HasOne(r => r.User)
+                    .WithMany(u => u.Reviews)
+                    .HasForeignKey(r => r.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Review>()
+                    .HasOne(r => r.Car)
+                    .WithMany(c => c.Reviews)
+                    .HasForeignKey(r => r.CarId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
             // ServiceRecord-Car relationship: One-to-many
             modelBuilder.Entity<ServiceRecord>()

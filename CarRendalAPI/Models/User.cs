@@ -23,6 +23,7 @@ namespace CarRendalAPI.Models
         public ICollection<Rental>? Rentals { get; set; }
         public ICollection<Reservation>? Reservations { get; set; }
         public ICollection<Notification>? Notifications { get; set; }
+        public ICollection<Review>? Reviews { get; set; }
         public Address Address { get; set; }
     }
 }
