@@ -21,22 +21,23 @@ namespace CarRendalAPI.Repositories
 
         public async Task<IEnumerable<Notification>> GetNotificationsByUserId(int userId)
         {
-            return await _context.Notifications
-                .Where(n => n.UserId == userId)
-                .OrderByDescending(n => n.DateCreated)
-                .ToListAsync();
+            return await _context.Notifications.Where(n => n.UserId == userId).OrderByDescending(n => n.DateCreated).ToListAsync();
         }
 
-        public async Task MarkAsRead(int notificationId)
+        public async Task<Notification> GetNotificationByIdAsync(int notificationId)
         {
-            var notification = await _context.Notifications.FindAsync(notificationId);
-            if (notification != null)
-            {
-                notification.IsRead = true;
-                notification.DateRead = DateTime.UtcNow;
-                await _context.SaveChangesAsync();
-            }
+            return await _context.Notifications.FindAsync(notificationId);
         }
 
+        public async Task<IEnumerable<Notification>> GetAlNotifications()
+        {
+            return await _context.Notifications.ToListAsync();
+        }
+
+        public async Task UpdateNotificationAsync(Notification notification)
+        {
+            _context.Notifications.Update(notification);
+            await _context.SaveChangesAsync();
+        }
     }
 }

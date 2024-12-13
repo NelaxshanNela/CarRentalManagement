@@ -9,8 +9,10 @@ namespace CarRendalAPI.IServices
 {
     public interface INotificationService
     {
-        Task AddNotification(string message, int userId, string email = null);
+        Task AddNotification(NotificationReqDTO notificationReqDTO);
         Task<IEnumerable<Notification>> GetNotificationsByUserId(int userId);
-        Task MarkAsRead(int notificationId);
+        Task<Notification> GetNotificationByIdAsync(int notificationId);
+        Task<IEnumerable<Notification>> GetAlNotifications();
+        Task UpdateNotificationAsync(Notification notification);
     }
 }

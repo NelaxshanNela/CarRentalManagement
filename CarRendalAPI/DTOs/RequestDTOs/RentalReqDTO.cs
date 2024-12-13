@@ -10,6 +10,6 @@ namespace CarRendalAPI.DTOs.RequestDTOs
         public string RentalStatus { get; set; } // Enum: Pending, Active, Completed, Canceled
         public int CarId { get; set; } // Foreign key for Car
         public int UserId { get; set; } // Foreign key for User
-
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

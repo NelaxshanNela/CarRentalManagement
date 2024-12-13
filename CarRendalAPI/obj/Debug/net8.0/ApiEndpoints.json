@@ -270,17 +270,7 @@
   },
   {
     "ContainingType": "CarRendalAPI.Controllers.NotificationController",
-    "Method": "GetAllNotifications",
-    "RelativePath": "api/Notification",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "CarRendalAPI.Controllers.NotificationController",
-    "Method": "CreateNotification",
+    "Method": "AddNotification",
     "RelativePath": "api/Notification",
     "HttpMethod": "POST",
     "IsController": true,
@@ -296,36 +286,40 @@
   },
   {
     "ContainingType": "CarRendalAPI.Controllers.NotificationController",
-    "Method": "GetNotificationById",
-    "RelativePath": "api/Notification/{id}",
+    "Method": "GetAllNotifications",
+    "RelativePath": "api/Notification",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [
+    "Parameters": [],
+    "ReturnTypes": [
       {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[CarRendalAPI.Models.Notification, CarRendalAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
       }
-    ],
-    "ReturnTypes": []
+    ]
   },
   {
     "ContainingType": "CarRendalAPI.Controllers.NotificationController",
-    "Method": "UpdateNotification",
-    "RelativePath": "api/Notification/{id}",
+    "Method": "MarkAsRead",
+    "RelativePath": "api/Notification/{notificationId}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "notificationId",
         "Type": "System.Int32",
         "IsRequired": true
       },
       {
-        "Name": "notificationReqDTO",
-        "Type": "CarRentalAPI.Models.NotificationReqDTO",
+        "Name": "request",
+        "Type": "CarRendalAPI.DTOs.RequestDTOs.NotificationUpdateRequest",
         "IsRequired": true
       }
     ],
@@ -333,19 +327,29 @@
   },
   {
     "ContainingType": "CarRendalAPI.Controllers.NotificationController",
-    "Method": "DeleteNotification",
-    "RelativePath": "api/Notification/{id}",
-    "HttpMethod": "DELETE",
+    "Method": "GetNotificationsByUserId",
+    "RelativePath": "api/Notification/{userId}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "userId",
         "Type": "System.Int32",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[CarRendalAPI.Models.Notification, CarRendalAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "CarRendalAPI.Controllers.PasswordResetController",
@@ -737,6 +741,85 @@
       {
         "Name": "updateReservationStatusDTO",
         "Type": "CarRendalAPI.DTOs.RequestDTOs.UpdateReservationStatusDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CarRendalAPI.Controllers.ReviewController",
+    "Method": "AddReview",
+    "RelativePath": "api/Review",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reviewReqDTO",
+        "Type": "CarRendalAPI.DTOs.RequestDTOs.ReviewReqDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CarRendalAPI.Controllers.ReviewController",
+    "Method": "GetAllReviews",
+    "RelativePath": "api/Review",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CarRendalAPI.Controllers.ReviewController",
+    "Method": "GetReviewById",
+    "RelativePath": "api/Review/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CarRendalAPI.Controllers.ReviewController",
+    "Method": "DeleteReview",
+    "RelativePath": "api/Review/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CarRendalAPI.Controllers.ReviewController",
+    "Method": "UpdateReview",
+    "RelativePath": "api/Review/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "reviewReqDTO",
+        "Type": "CarRendalAPI.DTOs.RequestDTOs.ReviewReqDTO",
         "IsRequired": true
       }
     ],

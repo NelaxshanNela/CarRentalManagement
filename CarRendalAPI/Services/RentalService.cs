@@ -64,6 +64,7 @@ namespace CarRendalAPI.Services
                 CarName = rental.Car.Model?.Name, // Assuming Car has a Name property
                 UserId = rental.UserId,
                 UserName = rental.User?.FirstName, // Assuming User has a Name property
+                CreatedAt = rental.CreatedAt,
                 Payments = rental.Payments?.Select(payment => new PaymentResDTO
                 {
                     PaymentId = payment.PaymentId,
@@ -94,6 +95,7 @@ namespace CarRendalAPI.Services
                 CarName = rental.Car.Model?.Name, // Assuming Car has a Name property
                 UserId = rental.UserId,
                 UserName = rental.User?.FirstName, // Assuming User has a Name property
+                CreatedAt = rental.CreatedAt,
                 Payments = rental.Payments?.Select(payment => new PaymentResDTO
                 {
                     PaymentId = payment.PaymentId,

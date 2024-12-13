@@ -16,6 +16,8 @@ namespace CarRendalAPI.DTOs.ResponceDTOs
         public string CarName { get; set; } // Name of the car (from Car entity)
         public int UserId { get; set; } // User identifier
         public string UserName { get; set; } // Name of the user (from User entity)
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
 
         // Payments made for this rental
         public ICollection<PaymentResDTO> Payments { get; set; }

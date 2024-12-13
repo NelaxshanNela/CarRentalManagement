@@ -4,6 +4,7 @@ namespace CarRentalAPI.Models
     {
         public string Message { get; set; }  // The content of the notification
         public int UserId { get; set; }  // The ID of the user receiving the notification
-        public string Email { get; set; }
+        public string Type { get; set; }
+        public string? Email { get; set; }
     }
 }

@@ -59,6 +59,7 @@ namespace CarRendalAPI.Controllers
             }
         }
 
+
         // POST: api/Users
         [HttpPost("Register")]
         public async Task<IActionResult> RegisterUser(UserReqDTO userReqDTO)

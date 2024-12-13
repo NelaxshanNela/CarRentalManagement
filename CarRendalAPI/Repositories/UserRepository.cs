@@ -16,7 +16,7 @@ namespace CarRendalAPI.Repositories
 
         public async Task<User> GetUserById(int id)
         {
-            return await _context.Users.Include(u => u.Address).Include(u => u.Rentals).Include(u => u.Reservations).Include(u => u.Notifications).FirstOrDefaultAsync(u => u.UserId == id);
+            return await _context.Users.Include(u => u.Address).Include(u => u.Rentals).Include(u => u.Notifications).FirstOrDefaultAsync(u => u.UserId == id);
         }
 
         public async Task<User> GetUserByEmail(string email)
@@ -36,7 +36,7 @@ namespace CarRendalAPI.Repositories
 
         public async Task<List<User>> GetAllUsers()
         {
-            return await _context.Users.Include(u => u.Address).Include(u => u.Rentals).Include(u => u.Reservations).Include(u => u.Notifications).ToListAsync();
+            return await _context.Users.Include(u => u.Address).Include(u => u.Rentals).Include(u => u.Notifications).ToListAsync();
         }
 
         public async Task<User> AddUser(User user)

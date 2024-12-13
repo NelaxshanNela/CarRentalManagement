@@ -21,9 +21,9 @@ namespace CarRendalAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddNotification([FromBody] NotificationReqDTO request)
+        public async Task<IActionResult> AddNotification(NotificationReqDTO notificationReqDTO)
         {
-            await _notificationService.AddNotification(request.Message, request.UserId, request.Email);
+            await _notificationService.AddNotification(notificationReqDTO);
             return Ok(new { Success = true });
         }
 
@@ -33,11 +33,33 @@ namespace CarRendalAPI.Controllers
             return await _notificationService.GetNotificationsByUserId(userId);
         }
 
-        [HttpPut("{notificationId}/mark-as-read")]
-        public async Task<IActionResult> MarkAsRead(int notificationId)
+        [HttpGet]
+        public async Task<IEnumerable<Notification>> GetAllNotifications()
         {
-            await _notificationService.MarkAsRead(notificationId);
-            return Ok(new { Success = true });
+            return await _notificationService.GetAlNotifications();
+        }
+
+        // PUT api/Notification/{notificationId}
+        [HttpPut("{notificationId}")]
+        public async Task<IActionResult> MarkAsRead(int notificationId, [FromBody] NotificationUpdateRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid data.");
+            }
+
+            var notification = await _notificationService.GetNotificationByIdAsync(notificationId);
+            if (notification == null)
+            {
+                return NotFound($"Notification with ID {notificationId} not found.");
+            }
+
+            // Mark the notification as read
+            notification.IsRead = request.IsRead;
+            await _notificationService.UpdateNotificationAsync(notification);
+
+            return NoContent(); // HTTP 204 No Content, meaning the update was successful
         }
     }
 }
+

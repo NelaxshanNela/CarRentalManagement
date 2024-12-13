@@ -6,6 +6,8 @@ namespace CarRendalAPI.IRepositories
     {
         public Task AddNotification(Notification notification);
         public Task<IEnumerable<Notification>> GetNotificationsByUserId(int userId);
-        Task MarkAsRead(int notificationId);
+        Task<Notification> GetNotificationByIdAsync(int notificationId);
+        Task<IEnumerable<Notification>> GetAlNotifications();
+        Task UpdateNotificationAsync(Notification notification);
     }
 }
