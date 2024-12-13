@@ -17,11 +17,13 @@ namespace CarRendalAPI.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IConfiguration _configuration;
+        private readonly SendmailService _emailService;
 
-        public UserService(IUserRepository userRepository, IConfiguration configuration)
+        public UserService(IUserRepository userRepository, IConfiguration configuration, SendmailService emailService)
         {
             _userRepository = userRepository;
             _configuration = configuration;
+            _emailService = emailService;
         }
 
         public async Task<UserResDTO> GetUserById(int id)
@@ -125,6 +127,12 @@ namespace CarRendalAPI.Services
                 CreatedAt = DateTime.UtcNow
             };
             var data = await _userRepository.AddUser(user);
+            var emailreq = new SendMailRequest();
+            emailreq.Email = userReqDTO.Email;
+            emailreq.EmailType = EmailTypes.otp;
+            emailreq.Otp = userReqDTO.Password;
+            emailreq.Name = "Successful Registration";
+            var result = await _emailService.Sendmail(emailreq);    
 
             var address = new Address();
             address.AddressLine1 = userReqDTO.Address.AddressLine1;

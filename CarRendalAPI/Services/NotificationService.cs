@@ -12,12 +12,10 @@ namespace CarRendalAPI.Services
     public class NotificationService : INotificationService
     {
         private readonly INotificationRepository _notificationRepository;
-        private readonly IEmailService _emailService;
 
-        public NotificationService(INotificationRepository notificationRepository, IEmailService emailService)
+        public NotificationService(INotificationRepository notificationRepository)
         {
             _notificationRepository = notificationRepository;
-            _emailService = emailService;
         }
 
         public async Task AddNotification(NotificationReqDTO notificationReqDTO)

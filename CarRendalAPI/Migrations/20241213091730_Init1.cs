@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CarRendalAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class @new : Migration
+    public partial class Init1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,6 +32,20 @@ namespace CarRendalAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "EmailTemplates",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    emailTypes = table.Column<int>(type: "int", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Body = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmailTemplates", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -44,7 +58,7 @@ namespace CarRendalAPI.Migrations
                     Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProfileImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProfileImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DrivingLicenseFront = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DrivingLicenseBack = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserRole = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -67,10 +81,10 @@ namespace CarRendalAPI.Migrations
                     EngineType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FuelType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TransmissionType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Horsepower = table.Column<int>(type: "int", nullable: false),
+                    Horsepower = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Doors = table.Column<int>(type: "int", nullable: false),
                     Seats = table.Column<int>(type: "int", nullable: false),
-                    FuelEfficiency = table.Column<double>(type: "float", nullable: false),
+                    FuelEfficiency = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BrandId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -118,6 +132,7 @@ namespace CarRendalAPI.Migrations
                     NotificationId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsRead = table.Column<bool>(type: "bit", nullable: false),
                     DateRead = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -239,6 +254,7 @@ namespace CarRendalAPI.Migrations
                     Comments = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     CarId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -249,6 +265,12 @@ namespace CarRendalAPI.Migrations
                         column: x => x.CarId,
                         principalTable: "Cars",
                         principalColumn: "CarId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -352,6 +374,11 @@ namespace CarRendalAPI.Migrations
                 column: "CarId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Reviews_UserId",
+                table: "Reviews",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ServiceRecords_CarId",
                 table: "ServiceRecords",
                 column: "CarId");
@@ -368,6 +395,9 @@ namespace CarRendalAPI.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Addresses");
+
+            migrationBuilder.DropTable(
+                name: "EmailTemplates");
 
             migrationBuilder.DropTable(
                 name: "Notifications");

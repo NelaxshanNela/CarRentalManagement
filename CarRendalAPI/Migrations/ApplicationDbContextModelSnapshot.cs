@@ -178,6 +178,28 @@ namespace CarRendalAPI.Migrations
                     b.ToTable("Cars");
                 });
 
+            modelBuilder.Entity("CarRendalAPI.Models.EmailTemplate", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("emailTypes")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmailTemplates");
+                });
+
             modelBuilder.Entity("CarRendalAPI.Models.Model", b =>
                 {
                     b.Property<int>("ModelId")

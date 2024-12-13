@@ -8,6 +8,7 @@ using CarRendalAPI.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
@@ -29,11 +30,23 @@ namespace CarRendalAPI
 
             builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("appDbConnection")));
 
-            builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
-            builder.Services.AddScoped<IEmailService, EmailService>();
+            // Register EmailConfig
+            builder.Services.Configure<EmailConfig>(builder.Configuration.GetSection("EmailConfig"));
+
+            // Register services
+            builder.Services.AddScoped<SendmailService>();
+            builder.Services.AddScoped<SendMailRepository>();
+            builder.Services.AddScoped<EmailServiceProvider>();
+
+            // Ensure EmailConfig is available as a singleton if needed
+            builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<EmailConfig>>().Value);
 
 
-            builder.Services.AddScoped<IEmailService, SendGridEmailService>();
+            //builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+            //builder.Services.AddScoped<IEmailService, EmailService>();
+
+
+            //builder.Services.AddScoped<IEmailService, SendGridEmailService>();
 
             builder.Services.AddScoped<ICarRepository, CarRepository>();
             builder.Services.AddScoped<ICarService, CarService>();

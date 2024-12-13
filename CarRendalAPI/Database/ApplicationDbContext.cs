@@ -8,7 +8,7 @@ namespace CarRendalAPI.Database
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
-
+        public DbSet<EmailTemplate> EmailTemplates { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Model> Models { get; set; }
